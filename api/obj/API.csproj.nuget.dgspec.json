@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj": {}
+    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj": {
+    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj",
         "packagesPath": "C:\\Users\\Grzegorz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\obj\\",
+        "outputPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Grzegorz\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,12 +43,6 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[9.0.4, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
