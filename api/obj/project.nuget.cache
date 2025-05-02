@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "7LquuvqkLZg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Grzegorz\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "C:\\Users\\Grzegorz\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
