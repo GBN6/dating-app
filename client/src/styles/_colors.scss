@@ -39,6 +39,10 @@ $white: #ffffff;
   @each $name, $palette in $palettes {
     @each $key, $value in $palette {
       #{"--" + $name + "-color-" + $key}: #{$value};
+
+      .#{$name}-color-#{$key} {
+        color: $value;
+      }
     }
   }
 }

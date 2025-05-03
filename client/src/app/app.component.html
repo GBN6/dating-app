@@ -1,6 +1,8 @@
 <h1>DatingApp</h1>
 <ul>
   @for (user of users | async; track user.id) {
-  <li>{{ user.userName }}</li>
+  <li class="margin-5 secondary-color-100">
+    {{ user.id }}. {{ user.userName }}
+  </li>
   }
 </ul>
