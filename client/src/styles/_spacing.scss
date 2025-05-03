@@ -1,0 +1,24 @@
+@use "./utils";
+
+$levels: 1 !default;
+$multiplier: 1 !default;
+
+@mixin initialize-spacing() {
+  @for $i from 1 through $levels {
+    #{"--space-" + $i}: #{($multiplier * $i) + "px"};
+  }
+}
+
+$multiplies: utils.get-multiplies($levels, $multiplier);
+
+@include utils.generate-property(margin, $multiplies, px);
+@include utils.generate-property(margin-top, $multiplies, px);
+@include utils.generate-property(margin-right, $multiplies, px);
+@include utils.generate-property(margin-bottom, $multiplies, px);
+@include utils.generate-property(margin-left, $multiplies, px);
+
+@include utils.generate-property(padding, $multiplies, px);
+@include utils.generate-property(padding-top, $multiplies, px);
+@include utils.generate-property(padding-right, $multiplies, px);
+@include utils.generate-property(padding-bottom, $multiplies, px);
+@include utils.generate-property(padding-left, $multiplies, px);

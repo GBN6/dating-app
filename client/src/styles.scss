@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+@use "styles/colors";
+@use "styles/typography";
+@use "styles/utils";
+@use "styles/spacing" with (
+  $levels: 7,
+  $multiplier: 4
+);
+
+:root {
+  @include colors.initialize-palettes();
+  @include spacing.initialize-spacing();
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  background-color: var(--primary-color-600);
+}
+
+.main {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-3);
+  padding-bottom: 50px;
+
+  @media screen and (max-width: 600px) {
+    justify-content: stretch;
+  }
+}
+
+.grid {
+  display: grid;
+  row-gap: var(--space-3);
+}

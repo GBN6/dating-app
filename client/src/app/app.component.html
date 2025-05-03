@@ -1,1 +1,6 @@
-<h1>CLIENT TEST</h1>
+<h1>DatingApp</h1>
+<ul>
+  @for (user of users | async; track user.id) {
+  <li>{{ user.userName }}</li>
+  }
+</ul>

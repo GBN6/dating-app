@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Teko:wght@300..700&display=swap");
+
+$teko: "Teko", sans-serif;
+$dosis: "Dosis", sans-serif;
+
+* {
+  font-family: $dosis;
+  color: var(--white-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $teko;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+@mixin generate-typography($font, $size, $weight) {
+  .#{to-lower-case(nth($font, 1))}-#{$size}-#{$weight} {
+    font-family: $font, sans-serif;
+    font-size: $size + rem;
+    font-weight: $weight;
+  }
+}
+
+@include generate-typography($dosis, 1, 400);

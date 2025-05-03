@@ -1,0 +1,21 @@
+@mixin generate-property($property, $value, $unit) {
+  @for $index from 1 through length($value) {
+    @if $index <= length($value) {
+      $current-value: nth($value, $index);
+
+      .#{$property}-#{$index} {
+        #{$property}: $current-value + $unit;
+      }
+    }
+  }
+}
+
+@function get-multiplies($levels, $multiplier) {
+  $multiplies: ();
+
+  @for $index from 1 through $levels {
+    $multiplies: append($multiplies, $index * $multiplier);
+  }
+
+  @return $multiplies;
+}
