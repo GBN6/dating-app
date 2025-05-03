@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj": {}
+    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj": {
+    "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\API.csproj",
+        "projectPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Grzegorz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\api\\obj\\",
+        "outputPath": "C:\\Users\\Grzegorz\\Desktop\\ang\\daiting-app\\dating-app\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Grzegorz\\AppData\\Roaming\\NuGet\\NuGet.Config"
