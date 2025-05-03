@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 3rem;
+
+  &__headline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__icon {
+    color: var(--secondary-color-600);
+  }
+
+  &__nav {
+    display: flex;
+    gap: 1rem;
+  }
+}

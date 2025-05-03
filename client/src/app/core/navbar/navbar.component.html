@@ -1,0 +1,11 @@
+<header class="navbar margin-3">
+  <div class="navbar__headline">
+    <app-icon [size]="3" class="navbar__icon margin-1" icon="bolt" />
+    <h1>DatingApp</h1>
+  </div>
+  <nav class="navbar__nav">
+    @for (config of navbarConfig; track config) {
+      <app-link [route]="config.route" [label]="config.label" />
+    }
+  </nav>
+</header>

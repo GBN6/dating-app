@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NavbarComponent } from "./core/navbar/navbar.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AsyncPipe],
+  imports: [RouterOutlet, AsyncPipe, NavbarComponent],
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

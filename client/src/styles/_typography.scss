@@ -5,7 +5,6 @@ $dosis: "Dosis", sans-serif;
 
 * {
   font-family: $dosis;
-  color: var(--white-color);
 }
 
 h1,
@@ -15,6 +14,7 @@ h4,
 h5,
 h6 {
   font-family: $teko;
+  color: var(--white-color);
 }
 
 .bold {
