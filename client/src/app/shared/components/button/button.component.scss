@@ -1,0 +1,15 @@
+.button {
+  padding: var(--space-2) var(--space-3);
+  border-radius: 5px;
+  color: var(--black-color);
+  background-color: var(--secondary-color-400);
+  border: 2px solid var(--secondary-color-400);
+
+  &--secondary {
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--black-color);
+    color: var(--secondary-color-400);
+    border: 2px solid var(--secondary-color-400);
+    border-radius: 5px;
+  }
+}

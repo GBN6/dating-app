@@ -1,8 +1,7 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  gap: 3rem;
+  justify-content: space-around;
 
   &__headline {
     display: flex;
@@ -17,5 +16,14 @@
   &__nav {
     display: flex;
     gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0;
   }
 }

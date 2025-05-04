@@ -1,6 +1,8 @@
 @use "styles/colors";
 @use "styles/typography";
 @use "styles/utils";
+@use "styles/flex";
+@use "styles/grid";
 @use "styles/spacing" with (
   $levels: 7,
   $multiplier: 4
@@ -36,7 +38,10 @@ html {
   }
 }
 
-.grid {
-  display: grid;
-  row-gap: var(--space-3);
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
 }
