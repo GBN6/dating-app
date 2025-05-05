@@ -1,18 +1,24 @@
 <header class="navbar margin-3">
-  <div class="navbar__headline margin-right-7">
-    <app-icon [size]="3" class="navbar__icon margin-1" icon="bolt" />
-    <h1>DatingApp</h1>
-  </div>
-  <nav class="navbar__nav">
-    @for (config of navbarConfig; track config) {
-      <app-link [route]="config.route" [label]="config.label" />
-    }
-  </nav>
-  <div class="flex gap-1 navbar__buttons">
-    <app-button class="navbar__buttons--login" design="secondary">
-      <app-icon icon="login" />
-      <p class="bold">LOGIN</p>
-    </app-button>
-    <app-button><p class="bold">REGISTER</p></app-button>
-  </div>
+	<div class="navbar__headline margin-right-7">
+		<app-icon [size]="3" class="navbar__icon margin-1" icon="bolt" />
+		<h1>DatingApp</h1>
+	</div>
+	<nav class="navbar__nav">
+		@for (config of navbarConfig; track config) {
+			<app-link [route]="config.route" [label]="config.label" />
+		}
+	</nav>
+	<div class="flex gap-1 navbar__buttons">
+		<app-button class="navbar__buttons--login" design="secondary" (buttonClick)="openDialog()">
+			<app-icon icon="login" />
+			<p class="bold">LOGIN</p>
+		</app-button>
+		<app-button><p class="bold">REGISTER</p></app-button>
+	</div>
 </header>
+
+@if (isDialogVisible()) {
+	<app-dialog (closeEvent)="openDialog()">
+		<h3>TESTING</h3>
+	</app-dialog>
+}
