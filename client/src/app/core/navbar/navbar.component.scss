@@ -1,7 +1,6 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-around;
 
   &__headline {
     display: flex;
@@ -16,14 +15,30 @@
   &__nav {
     display: flex;
     gap: 1rem;
+    justify-content: flex-start;
+  }
+
+  &__buttons {
+    margin-left: auto;
   }
 }
 
 @media (max-width: 768px) {
   .navbar {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 0;
+    justify-content: center;
+
+    &__nav {
+      order: 2;
+      gap: 1rem;
+    }
+
+    &__buttons {
+      &--login p {
+        display: none;
+      }
+    }
   }
 }

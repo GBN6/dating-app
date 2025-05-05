@@ -1,17 +1,15 @@
 <header class="navbar margin-3">
-  <div class="flex flex--center gap-2">
-    <div class="navbar__headline">
-      <app-icon [size]="3" class="navbar__icon margin-1" icon="bolt" />
-      <h1>DatingApp</h1>
-    </div>
-    <nav class="navbar__nav">
-      @for (config of navbarConfig; track config) {
-        <app-link [route]="config.route" [label]="config.label" />
-      }
-    </nav>
+  <div class="navbar__headline margin-right-7">
+    <app-icon [size]="3" class="navbar__icon margin-1" icon="bolt" />
+    <h1>DatingApp</h1>
   </div>
-  <div class="flex gap-1">
-    <app-button class="navbar__login-button" design="secondary">
+  <nav class="navbar__nav">
+    @for (config of navbarConfig; track config) {
+      <app-link [route]="config.route" [label]="config.label" />
+    }
+  </nav>
+  <div class="flex gap-1 navbar__buttons">
+    <app-button class="navbar__buttons--login" design="secondary">
       <app-icon icon="login" />
       <p class="bold">LOGIN</p>
     </app-button>
