@@ -1,6 +1,0 @@
-<app-navbar />
-<ul class="margin-5">
-  @for (user of users | async; track user.id) {
-  <li class="secondary-color-600">{{ user.id }}. {{ user.userName }}</li>
-  }
-</ul>
