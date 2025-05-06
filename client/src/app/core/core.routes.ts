@@ -7,10 +7,14 @@ export const routes: Routes = [
 		path: '',
 		component: ShellComponent,
 		children: [
-            {
-                path: '',
-                component: HomeComponent
-            }
-        ],
+			{
+				path: '',
+				component: HomeComponent,
+			},
+			{
+				path: 'login',
+				loadComponent: () => import('./auth/login/login.component').then((m) => m.LoginComponent),
+			},
+		],
 	},
 ];

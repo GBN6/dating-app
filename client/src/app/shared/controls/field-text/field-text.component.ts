@@ -11,4 +11,5 @@ import { FormControlAbstract } from '../form-control.abstract';
 })
 export class FieldTextComponent extends FormControlAbstract<string> {
 	public placeholder = input<string>('');
+	public type = input<string>('text');
 }

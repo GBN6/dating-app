@@ -9,16 +9,10 @@
 		}
 	</nav>
 	<div class="flex gap-1 navbar__buttons">
-		<app-button class="navbar__buttons--login" design="secondary" (buttonClick)="openDialog()">
+		<app-button class="navbar__buttons--login" design="secondary" (buttonClick)="goToLogin()">
 			<app-icon icon="login" />
 			<p class="bold">LOGIN</p>
 		</app-button>
 		<app-button><p class="bold">REGISTER</p></app-button>
 	</div>
 </header>
-
-@if (isDialogVisible()) {
-	<app-dialog (closeEvent)="openDialog()">
-		<h3>TESTING</h3>
-	</app-dialog>
-}

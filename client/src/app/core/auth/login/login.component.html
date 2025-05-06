@@ -1,0 +1,5 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+	<app-field-text formControlName="username" type="text" label="User Name" placeholder="Enter user name" />
+	<app-field-text formControlName="password" type="password" label="Password" placeholder="Enter password" />
+	<app-button type="submit" [disabled]="form.invalid"><p>Login</p></app-button>
+</form>
