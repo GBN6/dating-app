@@ -1,8 +1,12 @@
 .shell {
-  min-height: 100vh;
+	min-height: 100vh;
+}
+
+main {
+	margin: 16px;
 }
 
 .progress-bar {
-  position: fixed;
-  z-index: 999;
+	position: fixed;
+	z-index: 999;
 }

@@ -1,30 +1,34 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { LoginForm } from './login.model';
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { AuthApiService } from '../auth-api.service';
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
 import { Location } from '@angular/common';
+import { RegisterForm } from './register.model';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	selector: 'app-login',
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss'],
+	selector: 'app-register',
+	templateUrl: 'register.component.html',
+	styleUrls: ['./register.component.scss'],
 	imports: [ReactiveFormsModule, FieldTextComponent, ButtonComponent, FormSubmitDirective],
 })
-export class LoginComponent {
+export class RegisterComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 	private readonly authService = inject(AuthApiService);
 	private readonly location = inject(Location);
 
-	public form: FormGroup<LoginForm> = this.buildForm();
+	public form: FormGroup<RegisterForm> = this.buildForm();
 
-	private buildForm(): FormGroup<LoginForm> {
-		return this.fb.group<LoginForm>({
+	private buildForm(): FormGroup<RegisterForm> {
+		return this.fb.group<RegisterForm>({
 			username: this.fb.control<string>(''),
+			email: this.fb.control<string>(''),
+			firstName: this.fb.control<string>(''),
+			lastName: this.fb.control<string>(''),
 			password: this.fb.control<string>(''),
+			confirmPassword: this.fb.control<string>(''),
 		});
 	}
 

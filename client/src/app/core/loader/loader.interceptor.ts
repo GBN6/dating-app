@@ -8,7 +8,7 @@ export function loaderInterceptor(request: HttpRequest<unknown>, next: HttpHandl
 	const loaderService = inject(LoaderService);
 	const snackBar = inject(MatSnackBar);
 
-	const messageDuration = 4000;
+	const messageDuration = 100000;
 	loaderService.setIsLoading(true);
 
 	return next(request).pipe(
@@ -19,7 +19,7 @@ export function loaderInterceptor(request: HttpRequest<unknown>, next: HttpHandl
 			snackBar.open(Array.isArray(errorMessage) ? errorMessage.join(` `) : errorMessage, 'X', {
 				verticalPosition: 'top',
 				duration: messageDuration,
-				panelClass: ['error', 'snack-bar--error'],
+				panelClass: ['snack-bar--error'],
 			});
 			return EMPTY;
 		}),

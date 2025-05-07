@@ -16,7 +16,6 @@ import { Observable } from 'rxjs';
 			@if (isLoading()) {
 				<mat-progress-bar class="progress-bar" mode="indeterminate" value="40"></mat-progress-bar>
 			}
-			<h1>SHELL COMPONENT</h1>
 			<main>
 				<router-outlet />
 				<ul class="margin-5">

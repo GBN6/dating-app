@@ -3,7 +3,6 @@ import { IconComponent } from '../../shared/components/icons/icon.component';
 import { NAVBAR_CONFIG } from './navbar.const';
 import { LinkComponent } from '../../shared/components/link/link.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { ModalComponent } from '../../shared/components/dialog/dialog.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 	selector: 'app-navbar',
 	templateUrl: 'navbar.component.html',
 	styleUrls: ['navbar.component.scss'],
-	imports: [IconComponent, LinkComponent, ButtonComponent, ModalComponent],
+	imports: [IconComponent, LinkComponent, ButtonComponent],
 })
 export class NavbarComponent {
 	private router = inject(Router);
@@ -19,7 +18,11 @@ export class NavbarComponent {
 	public isDialogVisible = signal<boolean>(false);
 	public readonly navbarConfig = NAVBAR_CONFIG;
 
-	goToLogin() {
+	public goToLogin(): void {
 		this.router.navigate(['/login']);
+	}
+
+	public goToRegister(): void {
+		this.router.navigate(['/register']);
 	}
 }

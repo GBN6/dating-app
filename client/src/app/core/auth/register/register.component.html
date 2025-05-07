@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="register-form flex flex--column gap-1">
+	<h1 class="flex--justify-center-self">LOGIN</h1>
+	<app-field-text formControlName="username" type="text" label="User Name" placeholder="Enter user name" />
+	<app-field-text formControlName="email" type="email" label="Email" placeholder="Enter email" />
+	<app-field-text formControlName="firstName" type="text" label="First name" placeholder="Enter first name" />
+	<app-field-text formControlName="lastName" type="text" label="Last name" placeholder="Last first name" />
+	<app-field-text formControlName="password" type="password" label="Password" placeholder="Enter password" />
+	<app-field-text
+		formControlName="confirmPassword"
+		type="password"
+		label="Confirm Password"
+		placeholder="Re-enter password" />
+	<div class="flex gap-2 flex--justify-center">
+		<app-button design="secondary" type="button" (buttonClick)="goBack()"><p>Go back</p></app-button>
+		<app-button type="submit" [disabled]="form.invalid"><p class="bold">Login</p></app-button>
+	</div>
+</form>

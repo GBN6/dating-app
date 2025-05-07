@@ -1,5 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="login-form flex flex--column gap-1">
+	<h1 class="flex--justify-center-self">LOGIN</h1>
 	<app-field-text formControlName="username" type="text" label="User Name" placeholder="Enter user name" />
 	<app-field-text formControlName="password" type="password" label="Password" placeholder="Enter password" />
-	<app-button type="submit" [disabled]="form.invalid"><p>Login</p></app-button>
+	<div class="flex gap-2 flex--justify-center">
+		<app-button design="secondary" type="button" (buttonClick)="goBack()"><p>Go back</p></app-button>
+		<app-button type="submit" [disabled]="form.invalid"><p class="bold">Login</p></app-button>
+	</div>
 </form>
