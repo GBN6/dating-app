@@ -14,7 +14,7 @@ export class HttpWithSnackbarService {
 		return this.http.get<T>(url).pipe(this.getSnackBarPipe<T>(message));
 	}
 
-	public post<T>(url: string, message: string, payload: object): Observable<T> {
+	public post<T>(url: string, message: string, payload: object | null): Observable<T> {
 		return this.http.post<T>(url, payload).pipe(this.getSnackBarPipe<T>(message));
 	}
 

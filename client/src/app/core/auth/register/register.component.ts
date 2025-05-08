@@ -4,8 +4,8 @@ import { FieldTextComponent } from '../../../shared/controls/field-text/field-te
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { AuthApiService } from '../auth-api.service';
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
-import { Location } from '@angular/common';
 import { RegisterForm } from './register.model';
+import { Router } from '@angular/router';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +17,7 @@ import { RegisterForm } from './register.model';
 export class RegisterComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 	private readonly authService = inject(AuthApiService);
-	private readonly location = inject(Location);
+	private readonly router = inject(Router);
 
 	public form: FormGroup<RegisterForm> = this.buildForm();
 
@@ -41,6 +41,6 @@ export class RegisterComponent {
 	}
 
 	public goBack(): void {
-		this.location.back();
+		this.router.navigate(['/']);
 	}
 }

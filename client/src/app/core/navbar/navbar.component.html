@@ -8,11 +8,23 @@
 			<app-link [route]="config.route" [label]="config.label" />
 		}
 	</nav>
-	<div class="flex gap-1 navbar__buttons">
-		<app-button class="navbar__buttons--login" design="secondary" (buttonClick)="goToLogin()">
-			<app-icon icon="login" />
-			<p class="bold">LOGIN</p>
-		</app-button>
-		<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
-	</div>
+
+	@if (isAuthorized$ | async) {
+		<div class="flex gap-1 navbar__buttons">
+			<app-button routerLink="user-profile" design="secondary">
+				<app-icon icon="person" />
+			</app-button>
+			<app-button (buttonClick)="logout()" [isDisabledOnRequest]="true">
+				<p>Logout</p>
+			</app-button>
+		</div>
+	} @else {
+		<div class="flex gap-1 navbar__buttons">
+			<app-button class="navbar__buttons--login" design="secondary" (buttonClick)="goToLogin()">
+				<app-icon icon="login" />
+				<p class="bold">LOGIN</p>
+			</app-button>
+			<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
+		</div>
+	}
 </header>

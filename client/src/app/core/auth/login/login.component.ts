@@ -5,7 +5,9 @@ import { FieldTextComponent } from '../../../shared/controls/field-text/field-te
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { AuthApiService } from '../auth-api.service';
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthStateService } from '../auth-state.service';
+import { tap } from 'rxjs';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,8 +18,8 @@ import { Location } from '@angular/common';
 })
 export class LoginComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
-	private readonly authService = inject(AuthApiService);
-	private readonly location = inject(Location);
+	private readonly authStateService = inject(AuthStateService);
+	private readonly router = inject(Router);
 
 	public form: FormGroup<LoginForm> = this.buildForm();
 
@@ -33,10 +35,13 @@ export class LoginComponent {
 		const loginPayload = this.form.getRawValue();
 
 		if (this.form.invalid) return;
-		this.authService.login(loginPayload).subscribe();
+		this.authStateService
+			.login(loginPayload)
+			.pipe(tap(() => this.goBack()))
+			.subscribe();
 	}
 
 	public goBack(): void {
-		this.location.back();
+		this.router.navigate(['/']);
 	}
 }
