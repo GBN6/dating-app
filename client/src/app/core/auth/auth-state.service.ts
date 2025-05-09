@@ -3,10 +3,12 @@ import { USER_DATA } from './auth.tokens';
 import { BehaviorSubject, distinctUntilKeyChanged, map, Observable, tap } from 'rxjs';
 import { AuthState, LoginPayload, UserData } from './auth.model';
 import { AuthApiService } from './auth-api.service';
+import { JwtService } from './jwt/jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
 	private authApiService = inject(AuthApiService);
+	private jwtService = inject(JwtService);
 
 	private _authState$ = new BehaviorSubject<AuthState>({
 		userData: null,
@@ -35,6 +37,7 @@ export class AuthStateService {
 	}
 
 	private setLoggedData(token: string, userData: UserData) {
+		this.jwtService.saveToken(token);
 		this.setUserData(userData);
 	}
 
