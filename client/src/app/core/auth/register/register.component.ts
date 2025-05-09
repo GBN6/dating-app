@@ -6,6 +6,7 @@ import { AuthApiService } from '../auth-api.service';
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
 import { RegisterForm } from './register.model';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,16 +29,18 @@ export class RegisterComponent {
 			firstName: this.fb.control<string>(''),
 			lastName: this.fb.control<string>(''),
 			password: this.fb.control<string>(''),
-			confirmPassword: this.fb.control<string>(''),
 		});
 	}
 
 	public handleSubmit(): void {
 		this.form.markAllAsTouched();
-		const loginPayload = this.form.getRawValue();
+		const registerPayload = this.form.getRawValue();
 
 		if (this.form.invalid) return;
-		this.authService.login(loginPayload).subscribe();
+		this.authService
+			.register(registerPayload)
+			.pipe(tap(() => this.goBack()))
+			.subscribe();
 	}
 
 	public goBack(): void {

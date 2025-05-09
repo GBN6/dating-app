@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HttpWithSnackbarService } from '../../shared/services/http-with-snackbar.service';
 import { Observable } from 'rxjs';
-import { AuthApi, LoginPayload } from './auth.model';
+import { AuthApi, LoginPayload, RegisterPayload } from './auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
@@ -17,15 +17,8 @@ export class AuthApiService {
 		);
 	}
 
-	public register(registerPayload: {
-		username: string;
-		email: string;
-		firstName: string;
-		lastName: string;
-		password: string;
-		confirmPassword: string;
-	}): Observable<any> {
-		return this.httpWithSnackbar.post<any>(
+	public register(registerPayload: RegisterPayload): Observable<AuthApi> {
+		return this.httpWithSnackbar.post<AuthApi>(
 			`${this.API_URL}/register`,
 			'You successfully registered.',
 			registerPayload

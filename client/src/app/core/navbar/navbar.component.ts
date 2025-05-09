@@ -3,7 +3,7 @@ import { IconComponent } from '../../shared/components/icons/icon.component';
 import { NAVBAR_CONFIG } from './navbar.const';
 import { LinkComponent } from '../../shared/components/link/link.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthStateService } from '../auth/auth-state.service';
 import { AsyncPipe } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { AsyncPipe } from '@angular/common';
 	selector: 'app-navbar',
 	templateUrl: 'navbar.component.html',
 	styleUrls: ['navbar.component.scss'],
-	imports: [IconComponent, LinkComponent, ButtonComponent, AsyncPipe],
+	imports: [IconComponent, LinkComponent, ButtonComponent, AsyncPipe, RouterLink],
 })
 export class NavbarComponent {
 	private router = inject(Router);
