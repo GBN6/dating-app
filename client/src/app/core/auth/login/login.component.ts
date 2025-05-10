@@ -3,7 +3,6 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { LoginForm } from './login.model';
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { AuthApiService } from '../auth-api.service';
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
 import { Router } from '@angular/router';
 import { AuthStateService } from '../auth-state.service';
@@ -31,10 +30,10 @@ export class LoginComponent {
 	}
 
 	public handleSubmit(): void {
-		this.form.markAllAsTouched();
+		if (this.form.invalid) return;
+
 		const loginPayload = this.form.getRawValue();
 
-		if (this.form.invalid) return;
 		this.authStateService
 			.login(loginPayload)
 			.pipe(tap(() => this.goBack()))

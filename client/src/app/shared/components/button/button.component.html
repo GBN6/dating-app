@@ -1,20 +1,15 @@
-@if (design() === "primary") {
-  <button class="button" (click)="handleClick()" [disabled]="disabled()" [type]="type()">
-    <ng-container *ngTemplateOutlet="content"></ng-container>
-  </button>
+@if (design() === 'primary') {
+	<button class="button" (click)="buttonClick.emit()" [disabled]="disabled()" [type]="type()">
+		<ng-container *ngTemplateOutlet="content"></ng-container>
+	</button>
 } @else {
-  <button
-    class="button--secondary"
-    (click)="handleClick()"
-    [disabled]="disabled()"
-    [type]="type()"
-  >
-    <ng-container *ngTemplateOutlet="content"></ng-container>
-  </button>
+	<button class="button--secondary" (click)="buttonClick.emit()" [disabled]="disabled()" [type]="type()">
+		<ng-container *ngTemplateOutlet="content"></ng-container>
+	</button>
 }
 
 <ng-template #content>
-  <div class="flex flex--center gap-1 font-text-1">
-    <ng-content></ng-content>
-  </div>
+	<div class="flex flex--center gap-1 font-text-1">
+		<ng-content></ng-content>
+	</div>
 </ng-template>

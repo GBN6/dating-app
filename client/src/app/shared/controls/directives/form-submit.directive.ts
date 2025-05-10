@@ -3,16 +3,16 @@ import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 @Directive({
-  standalone: true,
-  selector: 'form[formGroup]',
+	standalone: true,
+	selector: 'form[formGroup]',
 })
 export class FormSubmitDirective {
-  public formGroup = input<FormGroup>();
+	public formGroup = input<FormGroup>();
 
-  public readonly formSubmit$ = new Subject<void>();
+	public readonly formSubmit$ = new Subject<void>();
 
-  @HostListener('submit') listenOnSubmit() {
-    this.formGroup()?.markAllAsTouched();
-    this.formSubmit$.next();
-  }
+	@HostListener('submit') listenOnSubmit() {
+		this.formGroup()?.markAllAsTouched();
+		this.formSubmit$.next();
+	}
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { AuthApiService } from '../auth-api.service';
@@ -7,6 +7,7 @@ import { FormSubmitDirective } from '../../../shared/controls/directives/form-su
 import { RegisterForm } from './register.model';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { emailValidator, passwordValidator } from '../../../shared/vaidators/common.validator';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,19 +25,19 @@ export class RegisterComponent {
 
 	private buildForm(): FormGroup<RegisterForm> {
 		return this.fb.group<RegisterForm>({
-			username: this.fb.control<string>(''),
-			email: this.fb.control<string>(''),
-			firstName: this.fb.control<string>(''),
-			lastName: this.fb.control<string>(''),
-			password: this.fb.control<string>(''),
+			username: this.fb.control<string>('', { validators: [Validators.required] }),
+			email: this.fb.control<string>('', { validators: [Validators.required, emailValidator] }),
+			firstName: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(20)] }),
+			lastName: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(20)] }),
+			password: this.fb.control<string>('', { validators: [Validators.required, passwordValidator] }),
 		});
 	}
 
 	public handleSubmit(): void {
-		this.form.markAllAsTouched();
+		if (this.form.invalid) return;
+
 		const registerPayload = this.form.getRawValue();
 
-		if (this.form.invalid) return;
 		this.authService
 			.register(registerPayload)
 			.pipe(tap(() => this.goBack()))
