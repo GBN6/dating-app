@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginForm } from './login.model';
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -25,8 +25,8 @@ export class LoginComponent {
 
 	private buildForm(): FormGroup<LoginForm> {
 		return this.fb.group<LoginForm>({
-			username: this.fb.control<string>(''),
-			password: this.fb.control<string>(''),
+			username: this.fb.control<string>('', { validators: [Validators.required] }),
+			password: this.fb.control<string>('', { validators: [Validators.required] }),
 		});
 	}
 

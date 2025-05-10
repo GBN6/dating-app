@@ -70,6 +70,14 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
     }
 
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        // Since JWTs are stateless, you can't "invalidate" a token directly.
+        // However, you can implement token blacklisting or simply return a success response.
+        return Ok(new { message = "Logged out successfully" }); // Return JSON instead of plain text
+    }
+
     private async Task<bool> UserExists(string username)
     {
         return await context.Users.AnyAsync(user => user.UserName.ToLower() == username.ToLower());

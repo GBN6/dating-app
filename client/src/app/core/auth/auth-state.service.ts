@@ -32,6 +32,7 @@ export class AuthStateService {
 		return this.authApiService.logout().pipe(
 			tap(() => {
 				this.setUserData(null);
+				this.jwtService.removeToken();
 			})
 		);
 	}
