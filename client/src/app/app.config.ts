@@ -1,4 +1,10 @@
-import { ApplicationConfig, inject, provideZoneChangeDetection } from '@angular/core';
+import {
+	APP_INITIALIZER,
+	ApplicationConfig,
+	inject,
+	provideAppInitializer,
+	provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -14,6 +20,7 @@ export const appConfig: ApplicationConfig = {
 		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),
 		provideHttpClient(withInterceptors([loaderInterceptor, jwtInterceptor])),
+		provideAppInitializer(() => inject(AuthStateService).initializeAuth()),
 		{ provide: VALIDATION_ERRORS, useValue: validationErrors },
 		{
 			provide: USER_DATA,

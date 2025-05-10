@@ -14,7 +14,7 @@ export function loaderInterceptor(request: HttpRequest<unknown>, next: HttpHandl
 	return next(request).pipe(
 		catchError((error) => {
 			console.log(error);
-			const errorMessage = error.error?.message || error.message;
+			const errorMessage = error.error || error.message || error.error?.message;
 
 			snackBar.open(Array.isArray(errorMessage) ? errorMessage.join(` `) : errorMessage, 'X', {
 				verticalPosition: 'top',

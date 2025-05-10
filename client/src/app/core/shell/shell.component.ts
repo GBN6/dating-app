@@ -41,7 +41,7 @@ export class ShellComponent {
 	public isRouteLoading = signal(false);
 	public users$: Observable<any[]> = this.httpClient.get<any[]>('https://localhost:5001/api/users'); // Expose the loading state to the template
 
-	ngOnInit(): void {
+	constructor() {
 		this.checkRoutChange();
 	}
 

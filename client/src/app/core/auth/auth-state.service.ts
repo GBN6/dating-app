@@ -36,6 +36,15 @@ export class AuthStateService {
 		);
 	}
 
+	public initializeAuth() {
+		if (this.jwtService.isTokenValid()) {
+			this.authApiService.getUserData().subscribe((user) => {
+				console.log(user);
+				this.setUserData(user);
+			});
+		}
+	}
+
 	private setLoggedData(token: string, userData: UserData) {
 		this.jwtService.saveToken(token);
 		this.setUserData(userData);
