@@ -7,13 +7,14 @@ import { FormSubmitDirective } from '../../../shared/controls/directives/form-su
 import { Router } from '@angular/router';
 import { AuthStateService } from '../auth-state.service';
 import { tap } from 'rxjs';
+import { LinkComponent } from '../../../shared/components/link/link.component';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss'],
-	imports: [ReactiveFormsModule, FieldTextComponent, ButtonComponent, FormSubmitDirective],
+	imports: [ReactiveFormsModule, FieldTextComponent, ButtonComponent, FormSubmitDirective, LinkComponent],
 })
 export class LoginComponent {
 	private readonly fb = inject(NonNullableFormBuilder);

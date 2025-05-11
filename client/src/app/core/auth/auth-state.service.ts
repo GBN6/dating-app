@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { USER_DATA } from './auth.tokens';
 import { BehaviorSubject, distinctUntilKeyChanged, map, Observable, tap } from 'rxjs';
-import { AuthState, LoginPayload, UserData } from './auth.model';
+import { AuthState, LoginPayload, RegisterPayload, UserData } from './auth.model';
 import { AuthApiService } from './auth-api.service';
 import { JwtService } from './jwt/jwt.service';
 
@@ -20,6 +20,12 @@ export class AuthStateService {
 
 	public getUserDataValue() {
 		return this._authState$.value.userData;
+	}
+
+	public register(registerPayload: RegisterPayload) {
+		return this.authApiService
+			.register(registerPayload)
+			.pipe(tap(({ token, userData }) => this.setLoggedData(token, userData)));
 	}
 
 	public login(loginPayload: LoginPayload) {

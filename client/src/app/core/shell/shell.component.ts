@@ -19,11 +19,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 			}
 			<main>
 				<router-outlet />
-				<ul class="margin-5">
-					@for (user of users$ | async; track user.id) {
-						<li class="secondary-color-600">{{ user.id }}. {{ user.userName }}</li>
-					}
-				</ul>
 			</main>
 		</div>
 	`,
@@ -32,28 +27,27 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShellComponent {
-	private loaderService = inject(LoaderService);
+	private readonly loaderService = inject(LoaderService);
 	private readonly httpClient = inject(HttpClient);
-	private router = inject(Router);
-	private destroyRef = inject(DestroyRef);
+	// private router = inject(Router);
+	// private destroyRef = inject(DestroyRef);
 
 	public isLoading = this.loaderService.isLoading;
 	public isRouteLoading = signal(false);
-	public users$: Observable<any[]> = this.httpClient.get<any[]>('https://localhost:5001/api/users'); // Expose the loading state to the template
 
-	constructor() {
-		this.checkRoutChange();
-	}
+	// constructor() {
+	// 	this.checkRoutChange();
+	// }
 
-	private checkRoutChange() {
-		this.router.events
-			.pipe(
-				tap((event) => {
-					if (event instanceof NavigationStart) this.isRouteLoading.set(true);
-					this.isRouteLoading.set(false);
-				}),
-				takeUntilDestroyed(this.destroyRef)
-			)
-			.subscribe();
-	}
+	// private checkRoutChange() {
+	// 	this.router.events
+	// 		.pipe(
+	// 			tap((event) => {
+	// 				if (event instanceof NavigationStart) this.isRouteLoading.set(true);
+	// 				this.isRouteLoading.set(false);
+	// 			}),
+	// 			takeUntilDestroyed(this.destroyRef)
+	// 		)
+	// 		.subscribe();
+	// }
 }

@@ -17,4 +17,8 @@
 		outline: none;
 		border: 2px solid var(--secondary-color-200);
 	}
+
+	&__input.ng-invalid.ng-touched {
+		border: 2px solid var(--error-color, red); // Use a red border for errors
+	}
 }

@@ -8,6 +8,7 @@ import { RegisterForm } from './register.model';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { emailValidator, passwordValidator } from '../../../shared/vaidators/common.validator';
+import { AuthStateService } from '../auth-state.service';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +19,7 @@ import { emailValidator, passwordValidator } from '../../../shared/vaidators/com
 })
 export class RegisterComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
-	private readonly authService = inject(AuthApiService);
+	private readonly authStateService = inject(AuthStateService);
 	private readonly router = inject(Router);
 
 	public form: FormGroup<RegisterForm> = this.buildForm();
@@ -38,7 +39,7 @@ export class RegisterComponent {
 
 		const registerPayload = this.form.getRawValue();
 
-		this.authService
+		this.authStateService
 			.register(registerPayload)
 			.pipe(tap(() => this.goBack()))
 			.subscribe();

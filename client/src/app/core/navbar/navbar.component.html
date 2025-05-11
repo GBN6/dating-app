@@ -1,13 +1,15 @@
-<header class="navbar margin-3">
+<header class="navbar margin-bottom-3 margin-top-3 margin-left-7 margin-right-7">
 	<div class="navbar__headline margin-right-7">
 		<app-icon [size]="3" class="navbar__icon margin-1" icon="bolt" />
 		<h1 routerLink="/">DatingApp</h1>
 	</div>
-	<nav class="navbar__nav">
-		@for (config of navbarConfig; track config) {
-			<app-link [route]="config.route" [label]="config.label" />
-		}
-	</nav>
+	@if (isAuthorized$ | async) {
+		<nav class="navbar__nav">
+			@for (config of navbarConfig; track config) {
+				<app-link [route]="config.route" [label]="config.label" />
+			}
+		</nav>
+	}
 
 	@if (isAuthorized$ | async) {
 		<div class="flex gap-1 navbar__buttons">
@@ -24,7 +26,6 @@
 				<app-icon icon="login" />
 				<p class="bold">LOGIN</p>
 			</app-button>
-			<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
 		</div>
 	}
 </header>

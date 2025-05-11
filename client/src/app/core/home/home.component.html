@@ -1,1 +1,21 @@
-<h1>HOME</h1>
+@if (isAuthorized$ | async) {
+	<div class="home grid">
+		<h3>How is your favorite user?</h3>
+		<ul class="margin-5">
+			@for (user of users$ | async; track user.id) {
+				<li class="secondary-color-600">{{ user.id }}. {{ user.userName | uppercase }}</li>
+			}
+		</ul>
+	</div>
+} @else {
+	<div class="home grid">
+		<div class="home__headline">
+			<h1>Find your match</h1>
+			<p>Come on in to view your matches... all you need to do is sign up!</p>
+		</div>
+		<div class="flex gap-2">
+			<app-button design="secondary" (buttonClick)="goToRegister()"><p class="bold">Learn more</p></app-button>
+			<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
+		</div>
+	</div>
+}
