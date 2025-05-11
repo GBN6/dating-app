@@ -1,10 +1,15 @@
 .link {
-  color: var(--secondary-color-100);
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
+	color: var(--secondary-color-100);
+	font-weight: 600;
+	cursor: pointer;
+	text-decoration: none;
 
-  &:hover {
-    text-decoration: underline;
-  }
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&__active {
+		color: var(--secondary-color-400);
+		text-decoration: underline;
+	}
 }

@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { Router, RouterLink } from '@angular/router';
 import { AuthStateService } from '../auth/auth-state.service';
 import { AsyncPipe } from '@angular/common';
+import { tap } from 'rxjs';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +18,7 @@ import { AsyncPipe } from '@angular/common';
 export class NavbarComponent {
 	private router = inject(Router);
 	private authService = inject(AuthStateService);
-	public isAuthorized$ = AuthStateService.useIsAuthorized$();
+	public isAuthorized$ = AuthStateService.useIsAuthorized$().pipe(tap(console.log));
 
 	public isDialogVisible = signal<boolean>(false);
 	public readonly navbarConfig = NAVBAR_CONFIG;

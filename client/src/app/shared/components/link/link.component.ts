@@ -1,14 +1,18 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
 	selector: 'app-link',
 	standalone: true,
 	styleUrls: ['link.component.scss'],
-	template: `<a [style.font-size.rem]="fontSize()" class="link" [routerLink]="route()">
+	template: `<a
+		[style.font-size.rem]="fontSize()"
+		class="link"
+		[routerLink]="route()"
+		routerLinkActive="link__active">
 		{{ label() }}
 	</a>`,
-	imports: [RouterLink],
+	imports: [RouterLink, RouterLinkActive],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkComponent {
