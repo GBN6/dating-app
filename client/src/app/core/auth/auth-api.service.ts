@@ -26,7 +26,7 @@ export class AuthApiService {
 		);
 	}
 
-	public logout() {
+	public logout(): Observable<AuthApi> {
 		return this.httpWithSnackbar.post<AuthApi>(
 			`${this.API_URL}/account/logout`,
 			'You successfully logged out.',
@@ -34,7 +34,7 @@ export class AuthApiService {
 		);
 	}
 
-	public getUserData() {
+	public getUserData(): Observable<UserData> {
 		return this.http.get<UserData>(`${this.API_URL}/users/profile`);
 	}
 }

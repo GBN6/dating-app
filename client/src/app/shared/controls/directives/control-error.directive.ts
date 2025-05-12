@@ -45,7 +45,6 @@ export class ControlErrorDirective implements OnInit {
 		]).pipe(
 			filter(() => Boolean(this.control.touched)),
 			distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
-			tap(console.log),
 			tap(([status]) => this.updateErrorMessage(status))
 		)
 	);
@@ -72,8 +71,6 @@ export class ControlErrorDirective implements OnInit {
 		if (errors === null) {
 			return '';
 		}
-
-		console.log(Object.keys(errors)[0]);
 		return Object.keys(errors)[0];
 	}
 }

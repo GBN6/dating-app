@@ -3,31 +3,21 @@ import { map, tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { AuthStateService } from './auth-state.service';
 
-export class AuthGuards {
-	public static authenticated(): CanActivateFn {
-		return () => {
-			const router = inject(Router);
+export const authenticated: CanActivateFn = (route, state) => {
+	const router = inject(Router);
 
-			return AuthStateService.useIsAuthorized$().pipe(
-				tap((isAuthorized) => (isAuthorized ? true : router.navigateByUrl('/')))
-			);
-		};
+	return AuthStateService.useIsAuthorized$().pipe(
+		tap((isAuthorized) => (isAuthorized ? true : router.navigateByUrl('/')))
+	);
+};
+
+export const notAuthenticated: CanActivateFn = (route, state) => {
+	const router = inject(Router);
+	const authStateService = inject(AuthStateService);
+
+	if (authStateService.isLoggedIn()) {
+		router.navigateByUrl('/');
+		return false;
 	}
-
-	public static notAuthenticated(): CanActivateFn {
-		return () => {
-			const router = inject(Router);
-
-			return AuthStateService.useIsAuthorized$().pipe(
-				map((isAuthorized) => {
-					console.log(isAuthorized);
-					if (isAuthorized) {
-						router.navigateByUrl('/');
-						return false;
-					}
-					return true;
-				})
-			);
-		};
-	}
-}
+	return true;
+};

@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { USER_DATA } from './auth.tokens';
 import { BehaviorSubject, distinctUntilKeyChanged, map, Observable, tap } from 'rxjs';
 import { AuthState, LoginPayload, RegisterPayload, UserData } from './auth.model';
@@ -7,18 +7,26 @@ import { JwtService } from './jwt/jwt.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
+	public static useIsAuthorized$() {
+		return inject(USER_DATA).pipe(map((userData) => Boolean(userData)));
+	}
+
 	private authApiService = inject(AuthApiService);
 	private jwtService = inject(JwtService);
+
+	private _isLoggedIn = signal(false);
 
 	private _authState$ = new BehaviorSubject<AuthState>({
 		userData: null,
 	});
 
-	public static useIsAuthorized$() {
-		return inject(USER_DATA).pipe(map((userData) => Boolean(userData)));
+	public isLoggedIn = this._isLoggedIn.asReadonly();
+
+	public getUserData$(): Observable<AuthState> {
+		return this._authState$.asObservable();
 	}
 
-	public getUserDataValue() {
+	public getUserDataValue(): UserData | null {
 		return this._authState$.value.userData;
 	}
 
@@ -39,16 +47,18 @@ export class AuthStateService {
 			tap(() => {
 				this.setUserData(null);
 				this.jwtService.removeToken();
+				this._isLoggedIn.set(false);
 			})
 		);
 	}
 
 	public initializeAuth() {
 		if (this.jwtService.isTokenValid()) {
-			this.authApiService.getUserData().subscribe((user) => {
-				console.log(user);
-				this.setUserData(user);
-			});
+			this._isLoggedIn.set(true);
+			this.authApiService
+				.getUserData()
+				.pipe(tap((user) => this.setUserData(user)))
+				.subscribe();
 		}
 	}
 

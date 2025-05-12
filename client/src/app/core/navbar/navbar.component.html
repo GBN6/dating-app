@@ -15,6 +15,7 @@
 		<div class="flex gap-1 navbar__buttons">
 			<app-button routerLink="user-profile" design="secondary">
 				<app-icon icon="person" />
+				<p>{{ userName$ | async }}</p>
 			</app-button>
 			<app-button (buttonClick)="logout()" [isDisabledOnRequest]="true">
 				<p>Logout</p>

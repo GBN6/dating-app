@@ -27,12 +27,14 @@ export const appConfig: ApplicationConfig = {
 			useFactory: () => {
 				return inject(AuthStateService).getStateSlice$('userData');
 			},
+			deps: [AuthStateService],
 		},
 		{
 			provide: USER_DATA_VALUE,
 			useFactory: () => {
 				return inject(AuthStateService).getUserDataValue();
 			},
+			deps: [AuthStateService],
 		},
 	],
 };
