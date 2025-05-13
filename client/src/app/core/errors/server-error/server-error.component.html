@@ -1,0 +1,19 @@
+@if (error) {
+	<div class="grid flex--ji-center">
+		<h2 class="secondary-color-600">Error: {{ error.message }}</h2>
+		<p class="bold">Note: If you are seeing this error then angular is not to blame!</p>
+		<p>What to do next?</p>
+		<ol>
+			<li>Open chrome dev tools and check the failing network request in the network tab</li>
+			<li>Examine the URL of the failing request</li>
+			<li>Reproduce the error in postman - if you can reproduce the error then angular is not to blame</li>
+		</ol>
+		<p class="bold">
+			Following is the stack trace - check the first 2 lines this tells you exactly which line of code caused the
+			problem!
+		</p>
+		<code>
+			{{ error.details }}
+		</code>
+	</div>
+}

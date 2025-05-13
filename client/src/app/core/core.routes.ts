@@ -50,6 +50,16 @@ export const routes: Routes = [
 				canActivate: [authenticated],
 			},
 			{
+				path: 'not-found',
+				loadComponent: () =>
+					import('../core/errors/not-found/not-found.component').then((m) => m.NotFoundComponent),
+			},
+			{
+				path: 'server-error',
+				loadComponent: () =>
+					import('../core/errors/server-error/server-error.component').then((m) => m.ServerErrorComponent),
+			},
+			{
 				path: '**',
 				pathMatch: 'full',
 				redirectTo: '',

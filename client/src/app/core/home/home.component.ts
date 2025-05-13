@@ -25,4 +25,11 @@ export class HomeComponent {
 	public goToRegister(): void {
 		this.router.navigate(['/register']);
 	}
+
+	get500Error() {
+		this.httpClient.get('https://localhost:5001/api/buggy/server-error').subscribe({
+			next: (response) => console.log(response),
+			error: (error) => console.log(error),
+		});
+	}
 }
