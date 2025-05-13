@@ -19,6 +19,7 @@ export class ErrorComponent {
 			...this.validationErrors(),
 			...this.defaultValidationErrors,
 		};
+		console.log(this.error());
 		return combinedValidationErrors[this.error()] ?? combinedValidationErrors['default'];
 	});
 }

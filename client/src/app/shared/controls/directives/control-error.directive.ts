@@ -9,8 +9,19 @@ import {
 	ViewContainerRef,
 } from '@angular/core';
 import { ErrorComponent } from '../../components/error/error.component';
-import { FormControlDirective, FormControlStatus } from '@angular/forms';
-import { combineLatest, defer, distinctUntilChanged, filter, merge, startWith, Subject, tap } from 'rxjs';
+import { FormControlDirective, FormControlStatus, ValidationErrors } from '@angular/forms';
+import {
+	combineLatest,
+	defer,
+	distinctUntilChanged,
+	filter,
+	merge,
+	of,
+	startWith,
+	Subject,
+	switchMap,
+	tap,
+} from 'rxjs';
 import { FormSubmitDirective } from './form-submit.directive';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -40,12 +51,13 @@ export class ControlErrorDirective implements OnInit {
 
 	private listenControlStatusChange$ = defer(() =>
 		combineLatest([
-			this.control.statusChanges!.pipe(startWith(this.control.status)),
+			this.control.valueChanges!.pipe(startWith(this.control.value)),
 			this.initializeErrorState$,
 		]).pipe(
 			filter(() => Boolean(this.control.touched)),
+			switchMap(() => of(this.control.errors)),
 			distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
-			tap(([status]) => this.updateErrorMessage(status))
+			tap((errors) => this.updateErrorMessage(errors))
 		)
 	);
 
@@ -61,8 +73,9 @@ export class ControlErrorDirective implements OnInit {
 		this.erorrComponent.setInput('validationErrors', this.validationErrors);
 	}
 
-	private updateErrorMessage(status: FormControlStatus) {
-		this.erorrComponent.setInput('error', status === 'INVALID' ? this.getFirstErrorMessage() : '');
+	private updateErrorMessage(error: ValidationErrors | null) {
+		console.log('errors', error);
+		this.erorrComponent.setInput('error', Boolean(error) ? this.getFirstErrorMessage() : '');
 	}
 
 	private getFirstErrorMessage(): string {
@@ -71,6 +84,7 @@ export class ControlErrorDirective implements OnInit {
 		if (errors === null) {
 			return '';
 		}
+		console.log('firstError message', Object.keys(errors)[0]);
 		return Object.keys(errors)[0];
 	}
 }
