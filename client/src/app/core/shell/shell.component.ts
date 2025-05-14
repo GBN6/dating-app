@@ -7,6 +7,7 @@ import { LoaderService } from '../loader/loader.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
 	selector: 'app-shell',
@@ -20,10 +21,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 			<main>
 				<router-outlet />
 			</main>
+			<app-footer class="footer" />
 		</div>
 	`,
 	styleUrls: ['shell.component.scss'],
-	imports: [CommonModule, RouterOutlet, NavbarComponent, MatProgressBar],
+	imports: [CommonModule, RouterOutlet, NavbarComponent, MatProgressBar, FooterComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShellComponent {
