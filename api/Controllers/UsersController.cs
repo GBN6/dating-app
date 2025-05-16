@@ -23,25 +23,21 @@ public class UsersController(IUserRepository userRepository, IMapper mapper) : B
         return Ok(users);
     }
 
-    // [HttpGet("profile")]
-    // public async Task<ActionResult<AppUser>> GetUser()
-    // {
-    //     var username = User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+    [HttpGet("profile")]
+    public async Task<ActionResult<MemberDto>> GetUser()
+    {
+        var username = User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
 
-    //     if (string.IsNullOrEmpty(username))
-    //         return Unauthorized("Invalid token or username not found");
+        if (string.IsNullOrEmpty(username))
+            return Unauthorized("Invalid token or username not found");
 
-    //     var user = await userRepository.GetUserByUsernameAsync(username);
+        var user = await userRepository.GetMemberAsync(username);
 
 
-    //     if (user == null) return NotFound("User not found");
+        if (user == null) return NotFound("User not found");
 
-    //     return new UserDataDto
-    //     {
-    //         Id = user.Id,
-    //         Username = user.UserName,
-    //     };
-    // }
+        return user;
+    }
 
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUser2(string username)

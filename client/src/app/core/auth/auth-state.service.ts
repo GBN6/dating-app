@@ -54,6 +54,7 @@ export class AuthStateService {
 
 	public initializeAuth() {
 		if (this.jwtService.isTokenValid()) {
+			console.log(this.jwtService.token);
 			this._isLoggedIn.set(true);
 			this.authApiService
 				.getUserData()

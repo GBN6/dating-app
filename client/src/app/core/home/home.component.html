@@ -3,7 +3,7 @@
 		<p class="dosis-2-400 bold">How is your favorite user?</p>
 		<ul class="margin-5">
 			@for (user of users$ | async; track user.id) {
-				<li class="secondary-color-300">{{ user.id }}. {{ user.userName | uppercase }}</li>
+				<li class="secondary-color-300">{{ user.id }}. {{ user.username | uppercase }}</li>
 			}
 		</ul>
 	</div>
