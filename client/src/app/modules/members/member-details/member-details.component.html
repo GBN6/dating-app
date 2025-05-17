@@ -1,1 +1,45 @@
-<p>member-details works!</p>
+@if (member$ | async; as member) {
+	<div class="grid member-details gap-2 dosis-1-400">
+		<mat-card class="member-details__card" appearance="outlined">
+			<img mat-card-xl-image [src]="member.intorudction || '/user.png'" [alt]="member.knownAs" />
+			<mat-card-content class="grid member-details__card__description">
+				<div>
+					<p class="bold">Location:</p>
+					<p>{{ member.city }}, {{ member.country }}</p>
+				</div>
+				<div>
+					<p class="bold">Age:</p>
+					<p>{{ member.age }}</p>
+				</div>
+				<div>
+					<p class="bold">LastActive</p>
+					<p>{{ member.lastActive }}</p>
+				</div>
+				<div>
+					<p class="bold">Member since:</p>
+					<p>{{ member.created }}</p>
+				</div>
+			</mat-card-content>
+			<mat-card-actions class="flex gap-1 flex--center">
+				<app-button design="primary"><p class="bold">LIKE</p></app-button>
+				<app-button design="primary"><p class="bold">Message</p></app-button>
+			</mat-card-actions>
+		</mat-card>
+		<div class="member-details__tabs padding-4">
+			<mat-tab-group>
+				<mat-tab label="About">
+					<ng-template matTabContent> Content 1 - Loaded </ng-template>
+				</mat-tab>
+				<mat-tab label="Intrests">
+					<ng-template matTabContent> Content 2 - Loaded </ng-template>
+				</mat-tab>
+				<mat-tab label="Photos">
+					<ng-template matTabContent> Content 3 - Loaded </ng-template>
+				</mat-tab>
+				<mat-tab label="Messages">
+					<ng-template matTabContent> Content 3 - Loaded </ng-template>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+	</div>
+}

@@ -11,7 +11,9 @@
 		<p>City: {{ member().city }}</p>
 	</mat-card-content>
 	<mat-card-actions class="flex gap-1 flex--center">
-		<app-button design="tertiary"><app-icon icon="person" /></app-button>
+		<app-button routerLink="/members/{{ member().username }}" design="tertiary"
+			><app-icon icon="person"
+		/></app-button>
 		<app-button design="tertiary"><app-icon icon="favorite" /></app-button>
 		<app-button design="tertiary"><app-icon icon="mail" /></app-button>
 	</mat-card-actions>

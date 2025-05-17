@@ -31,7 +31,7 @@ export const routes: Routes = [
 				canActivate: [authenticated],
 			},
 			{
-				path: 'members/:id',
+				path: 'members/:username',
 				loadComponent: () =>
 					import('../modules/members/member-details/member-details.component').then(
 						(m) => m.MemberDetailsComponent
