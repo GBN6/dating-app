@@ -54,7 +54,7 @@ export class AuthStateService {
 
 	public initializeAuth() {
 		if (this.jwtService.isTokenValid()) {
-			console.log(this.jwtService.token);
+			console.log()
 			this._isLoggedIn.set(true);
 			this.authApiService
 				.getUserData()
@@ -69,6 +69,7 @@ export class AuthStateService {
 	}
 
 	private setUserData(userData: UserData | null) {
+		console.log(userData);
 		this.patchState({ userData });
 	}
 

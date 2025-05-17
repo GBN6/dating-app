@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+.member-card {
+	width: 250px;
+	box-shadow:
+		0 2px 1px -1px var(--primary-color-400),
+		0 1px 1px var(--primary-color-400),
+		0 1px 3px var(--primary-color-400);
+	@include mat.card-overrides(
+		(
+			title-text-weight: 700,
+			subtitle-text-color: var(--primary-color-200),
+			outlined-container-shape: 16px,
+			outlined-container-color: var(--primary-color-500),
+			outlined-outline-width: 0px,
+		)
+	);
+
+	& mat-card-content {
+		margin-top: 16px;
+	}
+}

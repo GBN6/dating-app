@@ -21,6 +21,10 @@ h6 {
 	font-weight: bold;
 }
 
+.text-center {
+	text-align: center;
+}
+
 @mixin generate-typography($font, $size, $weight) {
 	.#{to-lower-case(nth($font, 1))}-#{$size}-#{$weight} {
 		font-family: $font, sans-serif;

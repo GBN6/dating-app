@@ -3,12 +3,13 @@ import { inject, Injectable } from '@angular/core';
 import { HttpWithSnackbarService } from '../../shared/services/http-with-snackbar.service';
 import { Observable } from 'rxjs';
 import { AuthApi, LoginPayload, RegisterPayload, UserData } from './auth.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
 	private http = inject(HttpClient);
 	private httpWithSnackbar = inject(HttpWithSnackbarService);
-	private readonly API_URL = 'https://localhost:5001/api';
+	private readonly API_URL = environment.API_URL;
 
 	public login(loginPayload: LoginPayload): Observable<AuthApi> {
 		return this.httpWithSnackbar.post<AuthApi>(

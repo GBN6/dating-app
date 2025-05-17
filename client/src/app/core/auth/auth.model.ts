@@ -3,8 +3,23 @@ export interface AuthState {
 }
 
 export interface UserData {
-	id: string;
+	id: number;
 	username: string;
+	age: number;
+	email: string;
+	firstName: string;
+	lastName: string;
+	photoUrl: string;
+	knownAs: string;
+	created: Date;
+	lastActive: Date;
+	gender: string;
+	intorudction: string;
+	interests: string;
+	lookingFor: string;
+	city: string;
+	country: string;
+	photos: [];
 }
 
 export interface AuthApi {

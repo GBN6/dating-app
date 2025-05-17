@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from '@angular/core';
 import { Design, Type } from './button.model';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,

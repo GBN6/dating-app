@@ -1,22 +1,13 @@
-@if (isAuthorized$ | async) {
-	<div class="home grid">
-		<p class="dosis-2-400 bold">How is your favorite user?</p>
-		<ul class="margin-5">
-			@for (user of users$ | async; track user.id) {
-				<li class="secondary-color-300">{{ user.id }}. {{ user.username | uppercase }}</li>
-			}
-		</ul>
+<div class="home grid">
+	<div class="home__headline">
+		<h1>Find your match</h1>
+		<p>Come on in to view your matches... all you need to do is sign up!</p>
 	</div>
-} @else {
-	<div class="home grid">
-		<div class="home__headline">
-			<h1>Find your match</h1>
-			<p>Come on in to view your matches... all you need to do is sign up!</p>
-		</div>
-		<div class="flex gap-2">
-			<app-button design="secondary" (buttonClick)="goToRegister()"><p class="bold">Learn more</p></app-button>
+	<div class="flex flex--center gap-2">
+		@if (isAuthorized$ | async) {
+			<app-button (buttonClick)="goToMemebers()"><p class="bold">Matches</p></app-button>
+		} @else {
 			<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
-			<app-button (buttonClick)="get500Error()"><p class="bold">SERVER ERROR</p></app-button>
-		</div>
+		}
 	</div>
-}
+</div>

@@ -29,6 +29,10 @@
 		flex-wrap: wrap;
 		gap: 0;
 		justify-content: center;
+		padding: 8px;
+		&__headline {
+			margin: 0px;
+		}
 
 		&__nav {
 			order: 2;
@@ -40,6 +44,7 @@
 			&--login p {
 				display: none;
 			}
+			gap: 0.5rem;
 		}
 	}
 }
