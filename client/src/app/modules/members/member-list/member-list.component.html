@@ -1,4 +1,4 @@
-<p class="dosis-2-400 bold">How is your favorite user?</p>
+<p class="dosis-2-400 bold text-center">How is your favorite user?</p>
 <div class="members grid padding-7">
 	@for (member of members$ | async; track member.id) {
 		<app-member-card class="flex--justify-center-self" [member]="member" />

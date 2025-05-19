@@ -1,7 +1,7 @@
 @if (member$ | async; as member) {
-	<div class="grid member-details gap-2 dosis-1-400">
+	<div class="flex flex--column flex--center member-details padding-4 gap-2 dosis-1-400">
 		<mat-card class="member-details__card" appearance="outlined">
-			<img mat-card-xl-image [src]="member.intorudction || '/user.png'" [alt]="member.knownAs" />
+			<img mat-card-xl-image [src]="member.photoUrl || '/user.png'" [alt]="member.knownAs" />
 			<mat-card-content class="grid member-details__card__description">
 				<div>
 					<p class="bold">Location:</p>
@@ -17,7 +17,7 @@
 				</div>
 				<div>
 					<p class="bold">Member since:</p>
-					<p>{{ member.created }}</p>
+					<p>{{ member.created | date: 'dd MMM yyyy' }}</p>
 				</div>
 			</mat-card-content>
 			<mat-card-actions class="flex gap-1 flex--center">
@@ -25,21 +25,35 @@
 				<app-button design="primary"><p class="bold">Message</p></app-button>
 			</mat-card-actions>
 		</mat-card>
-		<div class="member-details__tabs padding-4">
-			<mat-tab-group>
-				<mat-tab label="About">
-					<ng-template matTabContent> Content 1 - Loaded </ng-template>
-				</mat-tab>
-				<mat-tab label="Intrests">
-					<ng-template matTabContent> Content 2 - Loaded </ng-template>
-				</mat-tab>
-				<mat-tab label="Photos">
-					<ng-template matTabContent> Content 3 - Loaded </ng-template>
-				</mat-tab>
-				<mat-tab label="Messages">
-					<ng-template matTabContent> Content 3 - Loaded </ng-template>
-				</mat-tab>
-			</mat-tab-group>
+		<div class="member-details__tabs">
+			<div class="padding-2">
+				<mat-tab-group>
+					<mat-tab [label]="'About ' + member.firstName">
+						<ng-template matTabContent>
+							<div class="padding-4">
+								<h2>Description</h2>
+								<p>{{ member.intorudction || '---' }}</p>
+								<h2>Looking for</h2>
+								<p>{{ member.lookingFor }}</p>
+							</div>
+						</ng-template>
+					</mat-tab>
+					<mat-tab label="Intrests">
+						<ng-template matTabContent>
+							<div class="padding-4">
+								<h2>Interests</h2>
+								<p>{{ member.interests }}</p>
+							</div>
+						</ng-template>
+					</mat-tab>
+					<mat-tab label="Photos">
+						<ng-template matTabContent> Content 3 - Loaded </ng-template>
+					</mat-tab>
+					<mat-tab label="Messages">
+						<ng-template matTabContent> Content 3 - Loaded </ng-template>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
 		</div>
 	</div>
 }
