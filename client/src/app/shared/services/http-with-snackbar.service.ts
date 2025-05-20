@@ -22,6 +22,10 @@ export class HttpWithSnackbarService {
 		return this.http.patch<T>(url, payload).pipe(this.getSnackBarPipe<T>(message));
 	}
 
+	public put<T>(url: string, message: string, payload: object): Observable<T> {
+		return this.http.put<T>(url, payload).pipe(this.getSnackBarPipe<T>(message));
+	}
+
 	private getSnackBarPipe<T>(message: string): OperatorFunction<T, T> {
 		return pipe(
 			tap(() =>

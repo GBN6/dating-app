@@ -9,6 +9,8 @@ import { FormSubmitDirective } from '../../../shared/controls/directives/form-su
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { FieldTextAreaComponent } from '../../../shared/controls/field-textarea/field-textarea.component';
 import { tap } from 'rxjs';
+import { MembersService } from '../members.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
 	selector: 'app-member-edit',
@@ -22,6 +24,7 @@ import { tap } from 'rxjs';
 		FormSubmitDirective,
 		FieldTextComponent,
 		FieldTextAreaComponent,
+		MatProgressSpinnerModule,
 	],
 	templateUrl: './member-edit.component.html',
 	styleUrl: './member-edit.component.scss',
@@ -30,6 +33,7 @@ import { tap } from 'rxjs';
 export class MemberEditComponent {
 	public member$ = inject(USER_DATA).pipe(tap((user) => this.form.patchValue(user)));
 	private readonly fb = inject(NonNullableFormBuilder);
+	private readonly memberService = inject(MembersService);
 
 	public form: FormGroup<any> = this.buildForm();
 
@@ -40,6 +44,7 @@ export class MemberEditComponent {
 			interests: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(500)] }),
 			city: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(20)] }),
 			country: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(20)] }),
+			username: this.fb.control<string>(''),
 		});
 	}
 
@@ -47,7 +52,10 @@ export class MemberEditComponent {
 		if (this.form.invalid) return;
 
 		const updatePayLoad = this.form.getRawValue();
+		this.memberService
+			.updateMember$(updatePayLoad)
+			.pipe(tap(() => this.form.markAsPristine()))
+			.subscribe();
 		console.log(updatePayLoad);
-		this.form.markAsPristine();
 	}
 }

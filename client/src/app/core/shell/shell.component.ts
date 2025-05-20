@@ -5,8 +5,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { LoaderService } from '../loader/loader.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
@@ -15,7 +13,7 @@ import { FooterComponent } from '../footer/footer.component';
 	template: `
 		<div class="shell flex flex--column">
 			<app-navbar />
-			@if (isLoading() || isRouteLoading()) {
+			@if (isLoading()) {
 				<mat-progress-bar class="progress-bar" mode="indeterminate" value="40"></mat-progress-bar>
 			}
 			<main>

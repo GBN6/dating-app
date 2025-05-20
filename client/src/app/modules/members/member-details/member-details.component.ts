@@ -9,10 +9,20 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { GalleryModule } from 'ng-gallery';
 import { ToGalleryPipe } from './member-details.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
 	selector: 'app-member-details',
-	imports: [AsyncPipe, MatCardModule, ButtonComponent, MatTabsModule, DatePipe, GalleryModule, ToGalleryPipe],
+	imports: [
+		AsyncPipe,
+		MatCardModule,
+		ButtonComponent,
+		MatTabsModule,
+		DatePipe,
+		GalleryModule,
+		ToGalleryPipe,
+		MatProgressSpinnerModule,
+	],
 	templateUrl: './member-details.component.html',
 	styleUrl: './member-details.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +31,7 @@ export class MemberDetailsComponent {
 	private readonly membersService = inject(MembersService);
 	private readonly route = inject(ActivatedRoute);
 
-	public member$?: Observable<Member> = this.route.params.pipe(
+	public member$?: Observable<Member | null> = this.route.params.pipe(
 		switchMap((params) => this.membersService.getMember$(params['username']))
 	);
 

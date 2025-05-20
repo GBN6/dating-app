@@ -32,7 +32,7 @@
 						<ng-template matTabContent>
 							<div class="padding-4">
 								<h2>Description</h2>
-								<p>{{ member.intorudction || '---' }}</p>
+								<p class="margin-bottom-3">{{ member.introduction || '---' }}</p>
 								<h2>Looking for</h2>
 								<p>{{ member.lookingFor }}</p>
 							</div>
@@ -58,4 +58,6 @@
 			</div>
 		</div>
 	</div>
+} @else {
+	<mat-spinner class="flex--justify-center-self" diameter="50"></mat-spinner>
 }
