@@ -39,6 +39,12 @@ export const routes: Routes = [
 				canActivate: [authenticated],
 			},
 			{
+				path: 'member/edit',
+				loadComponent: () =>
+					import('../modules/members/member-edit/member-edit.component').then((m) => m.MemberEditComponent),
+				canActivate: [authenticated],
+			},
+			{
 				path: 'lists',
 				loadComponent: () => import('../modules/lists/lists.component').then((m) => m.ListsComponent),
 

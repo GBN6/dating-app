@@ -1,40 +1,35 @@
 .button {
+	cursor: pointer;
+	padding: var(--space-2) var(--space-3);
+
 	&--primary {
-		cursor: pointer;
-		padding: var(--space-2) var(--space-3);
 		border-radius: 5px;
 		color: var(--black-color);
 		background-color: var(--secondary-color-400);
 		border: 2px solid var(--secondary-color-400);
-
-		&:hover {
-			filter: brightness(0.8);
-		}
 	}
 
 	&--secondary {
-		cursor: pointer;
-		padding: var(--space-2) var(--space-3);
 		background-color: var(--black-color);
 		color: var(--secondary-color-400);
 		border: 2px solid var(--secondary-color-400);
 		border-radius: 5px;
-
-		&:hover {
-			filter: brightness(0.8);
-		}
 	}
 
 	&--tertiary {
-		cursor: pointer;
-		padding: var(--space-2) var(--space-3);
 		background-color: transparent;
 		color: var(--secondary-color-400);
 		border: 1px solid var(--primary-color-300);
 		border-radius: 5px;
+	}
 
-		&:hover {
-			filter: brightness(0.8);
-		}
+	&:hover {
+		filter: brightness(0.8);
+	}
+
+	&:disabled {
+		background-color: var(--tonal-color-200);
+		cursor: not-allowed;
+		filter: none;
 	}
 }

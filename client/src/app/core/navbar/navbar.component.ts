@@ -33,6 +33,10 @@ export class NavbarComponent {
 		this.router.navigate(['/register']);
 	}
 
+	public goToProfile(): void {
+		this.router.navigate(['/member/edit']);
+	}
+
 	public logout(): void {
 		this.authService.logout().subscribe();
 	}

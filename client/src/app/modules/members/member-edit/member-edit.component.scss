@@ -1,0 +1,71 @@
+@use '@angular/material' as mat;
+
+.alert {
+	width: fit-content;
+	border: 2px solid var(--secondary-color-400);
+	padding: 8px;
+	border-radius: 5px;
+}
+
+.member-details {
+	&__card {
+		width: 300px;
+
+		@include mat.card-overrides(
+			(
+				title-text-weight: 700,
+				subtitle-text-color: var(--primary-color-200),
+				outlined-outline-color: var(--primary-color-200),
+				outlined-outline-width: 0px,
+				outlined-container-shape: 10px,
+				outlined-container-color: var(--primary-color-500),
+			)
+		);
+
+		&__description {
+			font-size: 1.3rem;
+		}
+	}
+
+	&__tabs {
+		max-width: 100%;
+		@include mat.tabs-overrides(
+			(
+				active-indicator-color: var(--secondary-color-400),
+				active-hover-indicator-color: var(--secondary-color-400),
+				active-focus-indicator-color: var(--secondary-color-400),
+				inactive-ripple-color: var(--secondary-color-400),
+				active-indicator-height: 4px,
+				divider-color: var(--primary-color-500),
+				inactive-label-text-color: var(--primary-color-200),
+				label-text-weight: 600,
+			)
+		);
+		border-radius: 10px;
+	}
+
+	& mat-card-content {
+		display: grid;
+		gap: 1rem;
+		margin-top: 16px;
+	}
+
+	& img {
+		align-self: center;
+		margin-top: 20px;
+		border: 2px solid var(--primary-color-400);
+		padding: 5px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.member-details {
+		display: grid;
+		grid-template-columns: 300px 1fr;
+
+		&__tabs {
+			align-self: flex-start;
+			width: 800px;
+		}
+	}
+}

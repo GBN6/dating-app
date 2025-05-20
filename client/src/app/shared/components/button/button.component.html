@@ -1,4 +1,4 @@
-<button [class]="'button' + '--' + design()" (click)="buttonClick.emit()" [disabled]="disabled()" [type]="type()">
+<button class="button" [class]="'button' + '--' + design()" (click)="buttonClick.emit()" [disabled]="disabled()" [type]="type()">
 	<ng-container *ngTemplateOutlet="content"></ng-container>
 </button>
 

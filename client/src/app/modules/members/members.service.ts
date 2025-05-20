@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class MembersService {
 	private readonly httpClient = inject(HttpClient);
-
 	private API_URL = environment.API_URL;
 
 	public getMembers$(): Observable<Member[]> {
