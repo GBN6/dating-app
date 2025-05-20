@@ -49,4 +49,22 @@ public class UsersController(IUserRepository userRepository, IMapper mapper) : B
 
     }
 
+    [HttpPut]
+    public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+    {
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+        Console.WriteLine(username);
+
+        if (username == null) return BadRequest("No user found in token");
+
+        var user = await userRepository.GetUserByUsernameAsync(username);
+
+        if (user == null) return BadRequest("Could not found user");
+
+        mapper.Map(memberUpdateDto, user);
+        if (await userRepository.SaveAllasync()) return NoContent();
+
+        return BadRequest("Failed to update");
+    }
+
 }
