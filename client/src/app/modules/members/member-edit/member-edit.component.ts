@@ -8,7 +8,7 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { FieldTextAreaComponent } from '../../../shared/controls/field-textarea/field-textarea.component';
-import { tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { MembersService } from '../members.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -31,7 +31,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberEditComponent {
-	public member$ = inject(USER_DATA).pipe(tap((user) => this.form.patchValue(user)));
+	public member$ = inject(USER_DATA).pipe(
+		map(({ username }) => username),
+		switchMap((username) => this.memberService.getMember$(username)),
+		tap((user) => this.form.patchValue(user))
+	);
+
 	private readonly fb = inject(NonNullableFormBuilder);
 	private readonly memberService = inject(MembersService);
 
