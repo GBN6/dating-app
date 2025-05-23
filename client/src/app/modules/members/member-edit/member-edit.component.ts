@@ -11,21 +11,23 @@ import { FieldTextAreaComponent } from '../../../shared/controls/field-textarea/
 import { map, switchMap, tap } from 'rxjs';
 import { MembersService } from '../members.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PhotoEditorComponent } from "./components/photo-editor/photo-editor.component";
 
 @Component({
 	selector: 'app-member-edit',
 	imports: [
-		AsyncPipe,
-		MatCardModule,
-		ButtonComponent,
-		MatTabsModule,
-		DatePipe,
-		ReactiveFormsModule,
-		FormSubmitDirective,
-		FieldTextComponent,
-		FieldTextAreaComponent,
-		MatProgressSpinnerModule,
-	],
+    AsyncPipe,
+    MatCardModule,
+    ButtonComponent,
+    MatTabsModule,
+    DatePipe,
+    ReactiveFormsModule,
+    FormSubmitDirective,
+    FieldTextComponent,
+    FieldTextAreaComponent,
+    MatProgressSpinnerModule,
+    PhotoEditorComponent
+],
 	templateUrl: './member-edit.component.html',
 	styleUrl: './member-edit.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

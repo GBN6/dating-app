@@ -22,7 +22,7 @@
 			)
 		);
 
-		&__description {
+		&--description {
 			font-size: 1.3rem;
 		}
 	}
@@ -62,6 +62,10 @@
 	.member-details {
 		display: grid;
 		grid-template-columns: 300px 1fr;
+
+		&--wrapper {
+			align-self: flex-start;
+		}
 
 		&__tabs {
 			align-self: flex-start;

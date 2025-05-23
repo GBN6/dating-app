@@ -1,5 +1,5 @@
 @if (member$ | async; as member) {
-	<h1>Your profile</h1>
+	<h1 class="text-center">Your profile</h1>
 
 	@if (form.dirty) {
 		<div class="alert">
@@ -9,32 +9,35 @@
 
 	<form [formGroup]="form" (ngSubmit)="handleSubmit()">
 		<div class="flex flex--column flex--center member-details padding-4 gap-2 dosis-1-400">
-			<mat-card class="member-details__card" appearance="outlined">
-				<img mat-card-xl-image [src]="member.photoUrl || '/user.png'" [alt]="member.knownAs" />
-				<mat-card-content class="grid member-details__card__description">
-					<div>
-						<p class="bold">Location:</p>
-						<p>{{ member.city }}, {{ member.country }}</p>
-					</div>
-					<div>
-						<p class="bold">Age:</p>
-						<p>{{ member.age }}</p>
-					</div>
-					<div>
-						<p class="bold">LastActive:</p>
-						<p>{{ member.lastActive }}</p>
-					</div>
-					<div>
-						<p class="bold">Member since:</p>
-						<p>{{ member.created | date: 'dd MMM yyyy' }}</p>
-					</div>
-				</mat-card-content>
-				<mat-card-actions class="flex gap-1 flex--center">
-					<app-button type="submit" design="primary" [disabled]="form.invalid || form.pristine"
-						><p class="bold">SAVE CHANGES</p></app-button
-					>
-				</mat-card-actions>
-			</mat-card>
+			<div class="member-details--wrapper">
+				<mat-card class="member-details__card" appearance="outlined">
+					<img mat-card-xl-image [src]="member.photoUrl || '/user.png'" [alt]="member.knownAs" />
+					<mat-card-content class="grid member-details__card--description">
+						<div>
+							<p class="bold">Location:</p>
+							<p>{{ member.city }}, {{ member.country }}</p>
+						</div>
+						<div>
+							<p class="bold">Age:</p>
+							<p>{{ member.age }}</p>
+						</div>
+						<div>
+							<p class="bold">LastActive:</p>
+							<p>{{ member.lastActive }}</p>
+						</div>
+						<div>
+							<p class="bold">Member since:</p>
+							<p>{{ member.created | date: 'dd MMM yyyy' }}</p>
+						</div>
+					</mat-card-content>
+					<mat-card-actions class="flex gap-1 flex--center">
+						<app-button type="submit" design="primary" [disabled]="form.invalid || form.pristine"
+							><p class="bold">SAVE CHANGES</p></app-button
+						>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+
 			<div class="member-details__tabs">
 				<div class="padding-2">
 					<mat-tab-group>
@@ -75,10 +78,7 @@
 						</mat-tab>
 						<mat-tab label="Edit Photos">
 							<ng-template matTabContent>
-								<div class="padding-4">
-									<h2>Interests</h2>
-									<p>{{ member.interests }}</p>
-								</div>
+								<div class="padding-4"><app-photo-editor [member]="member" /></div>
 							</ng-template>
 						</mat-tab>
 					</mat-tab-group>

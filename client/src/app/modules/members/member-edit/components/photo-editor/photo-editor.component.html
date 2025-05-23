@@ -1,0 +1,87 @@
+<div class="grid editor">
+	@for (photo of member().photos; track photo.id) {
+		<div class="editor__photo">
+			<img class="editor__photo--img" [src]="photo.url" alt="photo of user" />
+			<div class="editor__photo--buttons flex flex--center gap-1">
+				<app-button [design]="photo.isMain ? 'primary' : 'tertiary'">Main</app-button>
+				<app-button design="tertiary"><app-icon icon="delete"></app-icon></app-button>
+			</div>
+		</div>
+	}
+</div>
+
+<div class="photo-upload">
+	<div class="photo-upload__drop margin-top-5 flex flex--column flex--center gap-2">
+		<h3>Add Photos</h3>
+		<div
+			ng2FileDrop
+			[ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+			(fileOver)="fileOverBase($event)"
+			[uploader]="uploader"
+			class="photo-upload__drop--card">
+			<app-icon icon="upload_file" [size]="3"></app-icon>
+			Drop photos here
+		</div>
+	</div>
+
+	@if (uploader?.queue?.length) {
+		<div class="col-md-9" style="margin-bottom: 40px">
+			<h3>Upload queue</h3>
+			<p>Queue length: {{ uploader?.queue?.length }}</p>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="50%">Name</th>
+						<th>Size</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for (item of uploader?.queue; track item) {
+						<tr>
+							<td>
+								<strong>{{ item?.file?.name }}</strong>
+							</td>
+							@if (uploader?.options?.isHTML5) {
+								<td nowrap>{{ item?.file?.size / 1024 / 1024 | number: '.2' }} MB</td>
+							}
+						</tr>
+					}
+				</tbody>
+			</table>
+
+			<div>
+				<div>
+					Queue progress:
+					<div class="progress">
+						<div
+							class="progress-bar"
+							role="progressbar"
+							[ngStyle]="{ width: uploader?.progress + '%' }"></div>
+					</div>
+				</div>
+				<button
+					type="button"
+					class="btn btn-success btn-s"
+					(click)="uploader?.uploadAll()"
+					[disabled]="!uploader?.getNotUploadedItems()?.length">
+					<span class="fa fa-upload"></span> Upload all
+				</button>
+				<button
+					type="button"
+					class="btn btn-warning btn-s"
+					(click)="uploader?.cancelAll()"
+					[disabled]="!uploader?.isUploading">
+					<span class="fa fa-ban"></span> Cancel all
+				</button>
+				<button
+					type="button"
+					class="btn btn-danger btn-s"
+					(click)="uploader?.clearQueue()"
+					[disabled]="!uploader?.queue?.length">
+					<span class="fa fa-trash"></span> Remove all
+				</button>
+			</div>
+		</div>
+	}
+</div>

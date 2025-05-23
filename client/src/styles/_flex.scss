@@ -34,15 +34,15 @@
 		align-items: center;
 	}
 
+	&--align-start {
+		align-items: flex-start;
+	}
+
 	&--align-end {
 		align-items: flex-end;
 	}
 
 	&--wrap {
 		flex-wrap: wrap;
-	}
-
-	&--ji-center {
-		justify-items: center;
 	}
 }

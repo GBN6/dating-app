@@ -1,0 +1,39 @@
+.editor {
+	grid-template-columns: repeat(auto-fit, minmax(120px, auto));
+	justify-content: center; // Align grid items to the left
+
+	&__photo {
+		width: 150px;
+
+		&--img {
+			border: 1px solid var(--primary-color-200);
+			padding: 8px;
+			width: 100%;
+			background-color: var(--primary-color-500);
+			height: auto;
+		}
+	}
+}
+
+.photo-upload {
+	&__drop {
+		&--card {
+			color: var(--secondary-color-200);
+			padding: 32px;
+			background-color: var(--primary-color-400);
+			border: 1px solid var(--primary-color-500);
+			border-radius: 10px;
+		}
+	}
+}
+
+.nv-file-over {
+	border: dotted 3px var(--secondary-color-500);
+}
+
+@media (min-width: 1400px) {
+	.editor {
+		justify-content: flex-start;
+		column-gap: 2.5rem;
+	}
+}
