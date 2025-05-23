@@ -29,6 +29,7 @@
 
 	&__tabs {
 		max-width: 100%;
+
 		@include mat.tabs-overrides(
 			(
 				active-indicator-color: var(--secondary-color-400),

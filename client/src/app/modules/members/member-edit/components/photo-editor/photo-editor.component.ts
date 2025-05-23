@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, input, signal } from '@angular/core';
 import { Member } from '../../../members.model';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { IconComponent } from '../../../../../shared/components/icons/icon.component';
@@ -6,21 +6,27 @@ import { FileUploadModule, FileUploader } from 'ng2-file-upload';
 import { DecimalPipe, NgClass, NgStyle } from '@angular/common';
 import { environment } from '../../../../../../environments/environment';
 import { JwtService } from '../../../../../core/auth/jwt/jwt.service';
+import { MatTableModule } from '@angular/material/table';
+import { COLUMNS } from './photo-editor.const';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { LoaderService } from '../../../../../core/loader/loader.service';
 
 @Component({
 	selector: 'app-photo-editor',
-	imports: [ButtonComponent, IconComponent, FileUploadModule, NgClass, DecimalPipe, NgStyle],
+	imports: [ButtonComponent, IconComponent, FileUploadModule, NgClass, DecimalPipe, MatProgressBar, MatTableModule],
 	templateUrl: './photo-editor.component.html',
 	styleUrl: './photo-editor.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhotoEditorComponent {
 	private readonly jwtService = inject(JwtService);
+	private readonly cdr = inject(ChangeDetectorRef);
 
 	public member = input.required<Member>();
 
 	public uploader?: FileUploader;
-	public hasBaseDropZoneOver = false;
+	public hasBaseDropZoneOver = signal<boolean>(false);
+	public readonly columns = COLUMNS;
 	private API_URL = environment.API_URL;
 
 	ngOnInit() {
@@ -28,7 +34,7 @@ export class PhotoEditorComponent {
 	}
 
 	public fileOverBase(e: any): void {
-		this.hasBaseDropZoneOver = e;
+		this.hasBaseDropZoneOver.set(e);
 	}
 
 	private initializeUploader() {
@@ -44,6 +50,7 @@ export class PhotoEditorComponent {
 
 		this.uploader.onAfterAddingFile = (file) => {
 			file.withCredentials = false;
+			this.cdr.markForCheck();
 		};
 
 		// this.uploader.onSuccessItem = (item, response, status, headers) => {
@@ -65,5 +72,16 @@ export class PhotoEditorComponent {
 		// 		this.memberChange.emit(updatedMember);
 		// 	}
 		// };
+	}
+
+	public test() {
+		if (this.uploader) {
+			this.uploader.progress += 10;
+			console.log(this.uploader?.progress);
+		}
+	}
+
+	public get uploaderQueue() {
+		return this.uploader?.queue ? [...this.uploader.queue] : [];
 	}
 }

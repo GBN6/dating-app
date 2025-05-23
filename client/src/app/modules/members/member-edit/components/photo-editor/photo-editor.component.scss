@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .editor {
 	grid-template-columns: repeat(auto-fit, minmax(120px, auto));
 	justify-content: center; // Align grid items to the left
@@ -18,22 +20,50 @@
 .photo-upload {
 	&__drop {
 		&--card {
-			color: var(--secondary-color-200);
 			padding: 32px;
-			background-color: var(--primary-color-400);
-			border: 1px solid var(--primary-color-500);
+			background-color: var(--primary-color-500);
+			border: 3px solid var(--primary-color-400);
 			border-radius: 10px;
 		}
 	}
-}
 
-.nv-file-over {
-	border: dotted 3px var(--secondary-color-500);
+	.nv-file-over {
+		border: dotted 3px var(--secondary-color-500);
+	}
+
+	[mat-table] {
+		background-color: var(--primary-color-500);
+		border: 3px solid var(--primary-color-400);
+		border-radius: 10px;
+
+		@include mat.table-overrides(
+			(
+				background-color: var(--primary-color-500),
+				header-headline-color: var(--white-color),
+				row-item-outline-color: var(--secondary-color-300),
+				row-item-label-text-color: var(--white-color),
+				header-headline-weight: 700,
+				header-headline-size: 1.2rem,
+			)
+		);
+	}
 }
 
 @media (min-width: 1400px) {
 	.editor {
 		justify-content: flex-start;
 		column-gap: 2.5rem;
+	}
+
+	.photo-upload {
+		flex-direction: row;
+
+		&__drop {
+			align-self: flex-start;
+		}
+
+		&__table {
+			flex: 1 1 auto;
+		}
 	}
 }
