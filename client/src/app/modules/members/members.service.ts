@@ -27,12 +27,31 @@ export class MembersService {
 	}
 
 	public updateMember$(member: Partial<Member>): Observable<Member> {
-		return this.httpWithSnackbar.put<Member>(`${this.API_URL}/users`, 'Update successful', member).pipe(
-			tap(() => {
-				this._members.update((members) =>
-					members.map((m) => (m.username === member.username ? { ...m, ...member } : m))
-				);
-			})
+		return this.httpWithSnackbar
+			.put<Member>(`${this.API_URL}/users`, 'Update successful', member)
+			.pipe(tap(() => this.updateCachedMembers(member)));
+	}
+
+	public setMainPhoto(photoId: number) {
+		return this.httpWithSnackbar.put(
+			`${this.API_URL}/users/set-main-photo/${photoId}`,
+			'Setting main photo successful',
+			{}
+		);
+	}
+
+	public deletePhoto(photoId: number) {
+		return this.httpWithSnackbar.delete(
+			`${this.API_URL}/users/set-main-photo/${photoId}`,
+			'Deleting photo successful'
+		);
+	}
+
+	public updateCachedMembers(member: Partial<Member>): void {
+		this._members.update((cachedMembers) =>
+			cachedMembers.map((cachedMember) =>
+				cachedMember.username === member.username ? { ...cachedMember, ...member } : cachedMember
+			)
 		);
 	}
 }

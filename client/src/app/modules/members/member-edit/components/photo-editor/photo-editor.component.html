@@ -3,7 +3,12 @@
 		<div class="editor__photo">
 			<img class="editor__photo--img" [src]="photo.url" alt="photo of user" />
 			<div class="editor__photo--buttons flex flex--center gap-1">
-				<app-button [design]="photo.isMain ? 'primary' : 'tertiary'">Main</app-button>
+				<app-button
+					[design]="photo.isMain ? 'primary' : 'tertiary'"
+					[disabled]="photo.isMain"
+					(buttonClick)="setMainPhoto(photo)"
+					>Main</app-button
+				>
 				<app-button design="tertiary"><app-icon icon="delete"></app-icon></app-button>
 			</div>
 		</div>

@@ -11,6 +11,8 @@ import { COLUMNS } from './photo-editor.const';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { LoaderService } from '../../../../../core/loader/loader.service';
 import { AuthStateService } from '../../../../../core/auth/auth-state.service';
+import { MembersService } from '../../../members.service';
+import { tap } from 'rxjs';
 
 @Component({
 	selector: 'app-photo-editor',
@@ -23,6 +25,7 @@ export class PhotoEditorComponent {
 	private readonly jwtService = inject(JwtService);
 	private readonly cdr = inject(ChangeDetectorRef);
 	private readonly authStatService = inject(AuthStateService);
+	private readonly memberService = inject(MembersService);
 
 	public member = input.required<Member>();
 
@@ -37,6 +40,24 @@ export class PhotoEditorComponent {
 
 	public fileOverBase(e: any): void {
 		this.hasBaseDropZoneOver.set(e);
+	}
+
+	public setMainPhoto(photo: Photo) {
+		this.memberService
+			.setMainPhoto(photo.id)
+			.pipe(
+				tap(() => {
+					const updatedMember = { ...this.member() };
+					updatedMember.photoUrl = photo.url;
+					updatedMember.photos.forEach((currentPhoto) => {
+						currentPhoto.isMain = false;
+						if (currentPhoto.id === photo.id) currentPhoto.isMain = true;
+					});
+					this.authStatService.setUserData(updatedMember);
+					this.memberService.updateCachedMembers(updatedMember);
+				})
+			)
+			.subscribe();
 	}
 
 	private initializeUploader() {

@@ -84,9 +84,28 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
 
         user.Photos.Add(photo);
 
-        if (await userRepository.SaveAllasync()) return CreatedAtAction(nameof(GetUser), new {username = user.UserName}, mapper.Map<PhotoDto>(photo));
+        if (await userRepository.SaveAllasync()) return CreatedAtAction(nameof(GetUser), new { username = user.UserName }, mapper.Map<PhotoDto>(photo));
 
         return BadRequest("Problem adding photo");
+    }
+
+    [HttpPut("set-main-photo/{photoId:int}")]
+    public async Task<ActionResult> SetMainPhoto(int photoId)
+    {
+        var user = await userRepository.GetUserByUsernameAsync(User.GetUserName());
+
+        if (user == null) return BadRequest("Could not found user");
+
+        var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
+
+        if (photo == null || photo.isMain) return BadRequest("Cannot use this as main photo");
+
+        var currentMainPhoto = user.Photos.FirstOrDefault(photo => photo.isMain);
+        if (currentMainPhoto != null) currentMainPhoto.isMain = false;
+        photo.isMain = true;
+
+        if (await userRepository.SaveAllasync()) return NoContent();
+        return BadRequest("Problem setting main photo");
     }
 
 }
