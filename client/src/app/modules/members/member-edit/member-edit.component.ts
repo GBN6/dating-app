@@ -12,6 +12,9 @@ import { map, switchMap, tap } from 'rxjs';
 import { MembersService } from '../members.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
+import { AuthStateService } from '../../../core/auth/auth-state.service';
+import { MemberEditControls } from './member-edit.model';
+import { UserData } from '../../../core/auth/auth.model';
 
 @Component({
 	selector: 'app-member-edit',
@@ -33,19 +36,23 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberEditComponent {
-	public member$ = inject(USER_DATA).pipe(
-		map(({ username }) => username),
-		switchMap((username) => this.memberService.getMember$(username)),
-		tap((user) => this.form.patchValue(user))
-	);
-
 	private readonly fb = inject(NonNullableFormBuilder);
 	private readonly memberService = inject(MembersService);
+	private readonly authStatService = inject(AuthStateService);
 
-	public form: FormGroup<any> = this.buildForm();
+	public member$ = this.authStatService.userData$.pipe(
+		map(({ userData }) => userData),
+		tap((user) => {
+			if (user) {
+				this.form.patchValue(user);
+			}
+		})
+	);
 
-	private buildForm(): FormGroup<any> {
-		return this.fb.group<any>({
+	public form: FormGroup<MemberEditControls> = this.buildForm();
+
+	private buildForm(): FormGroup<MemberEditControls> {
+		return this.fb.group<MemberEditControls>({
 			introduction: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(500)] }),
 			lookingFor: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(500)] }),
 			interests: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(500)] }),
@@ -63,10 +70,11 @@ export class MemberEditComponent {
 			.updateMember$(updatePayLoad)
 			.pipe(
 				tap(() => {
+					const newUserData = { ...this.authStatService.getUserDataValue(), ...updatePayLoad } as UserData;
+					this.authStatService.setUserData(newUserData);
 					this.form.markAsPristine();
 				})
 			)
 			.subscribe();
-		console.log(updatePayLoad);
 	}
 }

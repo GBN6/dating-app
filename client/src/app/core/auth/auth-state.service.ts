@@ -21,10 +21,11 @@ export class AuthStateService {
 	});
 
 	public isLoggedIn = this._isLoggedIn.asReadonly();
+	public userData$ = this._authState$.asObservable();
 
-	public getUserData$(): Observable<AuthState> {
-		return this._authState$.asObservable();
-	}
+	// public getUserData$(): Observable<AuthState> {
+	// 	return this._authState$.asObservable();
+	// }
 
 	public getUserDataValue(): UserData | null {
 		return this._authState$.value.userData;
@@ -54,7 +55,7 @@ export class AuthStateService {
 
 	public initializeAuth() {
 		if (this.jwtService.isTokenValid()) {
-			console.log()
+			console.log();
 			this._isLoggedIn.set(true);
 			this.authApiService
 				.getUserData()
@@ -63,14 +64,14 @@ export class AuthStateService {
 		}
 	}
 
+	public setUserData(userData: UserData | null) {
+		console.log(userData);
+		this.patchState({ userData });
+	}
+
 	private setLoggedData(token: string, userData: UserData) {
 		this.jwtService.saveToken(token);
 		this.setUserData(userData);
-	}
-
-	private setUserData(userData: UserData | null) {
-		console.log(userData);
-		this.patchState({ userData });
 	}
 
 	private patchState(stateSlice: Partial<AuthState>) {

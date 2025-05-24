@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, input, signal } from '@angular/core';
-import { Member } from '../../../members.model';
+import { Member, Photo } from '../../../members.model';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { IconComponent } from '../../../../../shared/components/icons/icon.component';
 import { FileUploadModule, FileUploader } from 'ng2-file-upload';
@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { COLUMNS } from './photo-editor.const';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { LoaderService } from '../../../../../core/loader/loader.service';
+import { AuthStateService } from '../../../../../core/auth/auth-state.service';
 
 @Component({
 	selector: 'app-photo-editor',
@@ -21,6 +22,7 @@ import { LoaderService } from '../../../../../core/loader/loader.service';
 export class PhotoEditorComponent {
 	private readonly jwtService = inject(JwtService);
 	private readonly cdr = inject(ChangeDetectorRef);
+	private readonly authStatService = inject(AuthStateService);
 
 	public member = input.required<Member>();
 
@@ -39,7 +41,7 @@ export class PhotoEditorComponent {
 
 	private initializeUploader() {
 		this.uploader = new FileUploader({
-			url: this.API_URL + 'users/add-photo',
+			url: this.API_URL + '/users/add-photo',
 			authToken: 'Bearer ' + this.jwtService.token,
 			isHTML5: true,
 			allowedFileType: ['image'],
@@ -53,25 +55,25 @@ export class PhotoEditorComponent {
 			this.cdr.markForCheck();
 		};
 
-		// this.uploader.onSuccessItem = (item, response, status, headers) => {
-		// 	const photo = JSON.parse(response);
-		// 	const updatedMember = { ...this.member() };
-		// 	updatedMember.photos.push(photo);
-		// 	this.memberChange.emit(updatedMember);
-		// 	if (photo.isMain) {
-		// 		const user = this.accountService.currentUser();
-		// 		if (user) {
-		// 			user.photoUrl = photo.url;
-		// 			this.accountService.setCurrentUser(user);
-		// 		}
-		// 		updatedMember.photoUrl = photo.url;
-		// 		updatedMember.photos.forEach((p) => {
-		// 			if (p.isMain) p.isMain = false;
-		// 			if (p.id === photo.id) p.isMain = true;
-		// 		});
-		// 		this.memberChange.emit(updatedMember);
-		// 	}
-		// };
+		this.uploader.onSuccessItem = (item, response, status, headers) => {
+			const photo: Photo = JSON.parse(response);
+			const updatedMember = { ...this.member() };
+			updatedMember.photos.push(photo);
+			this.authStatService.setUserData(updatedMember);
+			// if (photo.isMain) {
+			// 	const user = this.accountService.currentUser();
+			// 	if (user) {
+			// 		user.photoUrl = photo.url;
+			// 		this.accountService.setCurrentUser(user);
+			// 	}
+			// 	updatedMember.photoUrl = photo.url;
+			// 	updatedMember.photos.forEach((p) => {
+			// 		if (p.isMain) p.isMain = false;
+			// 		if (p.id === photo.id) p.isMain = true;
+			// 	});
+			// 	this.memberChange.emit(updatedMember);
+			// }
+		};
 	}
 
 	public test() {

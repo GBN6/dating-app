@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { NavigationStart, Router, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+	NavigationStart,
+	Router,
+	RouterOutlet,
+	Event,
+	NavigationEnd,
+	NavigationCancel,
+	NavigationError,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { LoaderService } from '../loader/loader.service';
-import { HttpClient } from '@angular/common/http';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
@@ -13,7 +20,7 @@ import { FooterComponent } from '../footer/footer.component';
 	template: `
 		<div class="shell flex flex--column">
 			<app-navbar />
-			@if (isLoading()) {
+			@if (isRouteLoading() || isLoading()) {
 				<mat-progress-bar class="progress-bar" mode="indeterminate" value="40"></mat-progress-bar>
 			}
 			<main>
@@ -28,26 +35,22 @@ import { FooterComponent } from '../footer/footer.component';
 })
 export class ShellComponent {
 	private readonly loaderService = inject(LoaderService);
-	private readonly httpClient = inject(HttpClient);
-	// private router = inject(Router);
-	// private destroyRef = inject(DestroyRef);
+	private readonly router = inject(Router);
 
 	public isLoading = this.loaderService.isLoading;
 	public isRouteLoading = signal(false);
 
-	// constructor() {
-	// 	this.checkRoutChange();
-	// }
-
-	// private checkRoutChange() {
-	// 	this.router.events
-	// 		.pipe(
-	// 			tap((event) => {
-	// 				if (event instanceof NavigationStart) this.isRouteLoading.set(true);
-	// 				this.isRouteLoading.set(false);
-	// 			}),
-	// 			takeUntilDestroyed(this.destroyRef)
-	// 		)
-	// 		.subscribe();
-	// }
+	constructor() {
+		this.router.events.subscribe((event: Event) => {
+			if (event instanceof NavigationStart) {
+				this.isRouteLoading.set(true);
+			} else if (
+				event instanceof NavigationEnd ||
+				event instanceof NavigationCancel ||
+				event instanceof NavigationError
+			) {
+				this.isRouteLoading.set(false);
+			}
+		});
+	}
 }

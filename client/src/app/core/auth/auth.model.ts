@@ -1,3 +1,5 @@
+import { Photo } from '../../modules/members/members.model';
+
 export interface AuthState {
 	userData: UserData | null;
 }
@@ -14,12 +16,12 @@ export interface UserData {
 	created: Date;
 	lastActive: Date;
 	gender: string;
-	intorudction: string;
+	introduction: string;
 	interests: string;
 	lookingFor: string;
 	city: string;
 	country: string;
-	photos: [];
+	photos: Photo[];
 }
 
 export interface AuthApi {

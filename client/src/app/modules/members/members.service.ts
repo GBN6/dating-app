@@ -26,7 +26,7 @@ export class MembersService {
 		return this.httpClient.get<Member>(`${this.API_URL}/users/${username}`);
 	}
 
-	public updateMember$(member: Member): Observable<Member> {
+	public updateMember$(member: Partial<Member>): Observable<Member> {
 		return this.httpWithSnackbar.put<Member>(`${this.API_URL}/users`, 'Update successful', member).pipe(
 			tap(() => {
 				this._members.update((members) =>
