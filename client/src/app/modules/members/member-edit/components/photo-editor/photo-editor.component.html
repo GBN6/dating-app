@@ -9,7 +9,9 @@
 					(buttonClick)="setMainPhoto(photo)"
 					>Main</app-button
 				>
-				<app-button design="tertiary"><app-icon icon="delete"></app-icon></app-button>
+				<app-button design="tertiary" [disabled]="photo.isMain" (buttonClick)="deletePhoto(photo.id)"
+					><app-icon icon="delete"></app-icon
+				></app-button>
 			</div>
 		</div>
 	}
@@ -53,27 +55,6 @@
 				<tr mat-row *matRowDef="let row; columns: columns"></tr>
 			</table>
 
-			<!-- <table class="table">
-				<thead>
-					<tr>
-						<th width="50%">Name</th>
-						<th>Size</th>
-					</tr>
-				</thead>
-				<tbody>
-					@for (item of uploader?.queue; track item) {
-						<tr>
-							<td>
-								<strong>{{ item?.file?.name }}</strong>
-							</td>
-							@if (uploader?.options?.isHTML5) {
-								<td nowrap>{{ item?.file?.size / 1024 / 1024 | number: '.2' }} MB</td>
-							}
-						</tr>
-					}
-				</tbody>
-			</table> -->
-
 			<div class="flex gap-1">
 				<app-button
 					type="button"
@@ -87,24 +68,12 @@
 				<app-button type="button" (buttonClick)="uploader?.clearQueue()" [disabled]="!uploader?.queue?.length">
 					<p class="bold">Remove all</p>
 				</app-button>
-				<app-button type="button" (buttonClick)="test()">
-					<p class="bold">TEST</p>
-				</app-button>
-
-				<!-- @if (uploader?.progress) {
-					<div>
-						Queue progress:
-						<div>
-							<mat-progress-bar mode="determinate" [value]="uploader?.progress"></mat-progress-bar>
-						</div>
-					</div>
-				} -->
 			</div>
 			@if (uploader?.isUploading) {
 				<div>
-					<p class="margin-bottom-3">Queue progress: {{ uploader?.progress }} %</p>
+					<p class="margin-bottom-3">Queue progress: {{ uploadProgress() }} %</p>
 					<div>
-						<mat-progress-bar mode="determinate" [value]="uploader?.progress"></mat-progress-bar>
+						<mat-progress-bar mode="determinate" [value]="uploadProgress()"></mat-progress-bar>
 					</div>
 				</div>
 			}

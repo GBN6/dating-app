@@ -42,7 +42,7 @@ export class MembersService {
 
 	public deletePhoto(photoId: number) {
 		return this.httpWithSnackbar.delete(
-			`${this.API_URL}/users/set-main-photo/${photoId}`,
+			`${this.API_URL}/users/delete-photo/${photoId}`,
 			'Deleting photo successful'
 		);
 	}

@@ -31,6 +31,7 @@ export class PhotoEditorComponent {
 
 	public uploader?: FileUploader;
 	public hasBaseDropZoneOver = signal<boolean>(false);
+	public uploadProgress = signal<number>(0);
 	public readonly columns = COLUMNS;
 	private API_URL = environment.API_URL;
 
@@ -40,6 +41,19 @@ export class PhotoEditorComponent {
 
 	public fileOverBase(e: any): void {
 		this.hasBaseDropZoneOver.set(e);
+	}
+
+	public deletePhoto(photoId: number) {
+		this.memberService
+			.deletePhoto(photoId)
+			.pipe(
+				tap(() => {
+					const updatedMember = { ...this.member() };
+					updatedMember.photos = updatedMember.photos.filter((photo) => photo.id !== photoId);
+					this.authStatService.setUserData(updatedMember);
+				})
+			)
+			.subscribe();
 	}
 
 	public setMainPhoto(photo: Photo) {
@@ -76,6 +90,8 @@ export class PhotoEditorComponent {
 			this.cdr.markForCheck();
 		};
 
+		this.uploader.onProgressItem = (_, progress: number) => this.uploadProgress.set(progress);
+
 		this.uploader.onSuccessItem = (item, response, status, headers) => {
 			const photo: Photo = JSON.parse(response);
 			const updatedMember = { ...this.member() };
@@ -95,13 +111,6 @@ export class PhotoEditorComponent {
 			// 	this.memberChange.emit(updatedMember);
 			// }
 		};
-	}
-
-	public test() {
-		if (this.uploader) {
-			this.uploader.progress += 10;
-			console.log(this.uploader?.progress);
-		}
 	}
 
 	public get uploaderQueue() {
