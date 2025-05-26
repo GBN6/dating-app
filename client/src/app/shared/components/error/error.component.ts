@@ -10,6 +10,8 @@ import { VALIDATION_ERRORS } from './error.token';
 })
 export class ErrorComponent {
 	public error = input<string>('');
+	public errorParams = input<Record<string, string> | null>(null);
+
 	public validationErrors = input<Record<string, string>>({});
 
 	private readonly defaultValidationErrors = inject(VALIDATION_ERRORS);
@@ -19,7 +21,10 @@ export class ErrorComponent {
 			...this.validationErrors(),
 			...this.defaultValidationErrors,
 		};
-		console.log(this.error());
-		return combinedValidationErrors[this.error()] ?? combinedValidationErrors['default'];
+		combinedValidationErrors[this.error()];
+		const errorMessage = this.errorParams()
+			? combinedValidationErrors[this.error()].replace(/{{(\w+)}}/g, (_, key) => this.errorParams()?.[key] ?? '')
+			: combinedValidationErrors[this.error()];
+		return errorMessage ?? combinedValidationErrors['default'];
 	});
 }

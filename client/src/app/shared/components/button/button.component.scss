@@ -28,7 +28,8 @@
 	}
 
 	&:disabled {
-		background-color: var(--tonal-color-200);
+		background-color: var(--primary-color-200);
+		border: 2px solid var(--primary-color-200);
 		cursor: not-allowed;
 		filter: none;
 	}

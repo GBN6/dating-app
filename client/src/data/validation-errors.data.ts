@@ -5,4 +5,5 @@ export const validationErrors = {
 	maxlength: 'Too many characters',
 	emailPattern: 'E-mail is in wrong format.',
 	password: 'Password must have letter, number and 8 chars. long.',
+	controlsMatch: 'This field must match with {{otherControlName}}',
 } satisfies Record<string, string>;

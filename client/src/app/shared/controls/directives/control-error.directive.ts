@@ -76,6 +76,8 @@ export class ControlErrorDirective implements OnInit {
 	private updateErrorMessage(error: ValidationErrors | null) {
 		console.log('errors', error);
 		this.erorrComponent.setInput('error', Boolean(error) ? this.getFirstErrorMessage() : '');
+		this.erorrComponent.setInput('errorParams', Boolean(error) ? this.getFirstErrorMessageParams() : null);
+
 	}
 
 	private getFirstErrorMessage(): string {
@@ -84,7 +86,20 @@ export class ControlErrorDirective implements OnInit {
 		if (errors === null) {
 			return '';
 		}
-		console.log('firstError message', Object.keys(errors)[0]);
+		console.log('firstError message', Object.values(errors)[0]);
 		return Object.keys(errors)[0];
+	}
+
+	private getFirstErrorMessageParams(): Record<string, string> | null {
+		const errors = this.control.errors;
+
+		if (errors === null) {
+			return null;
+		}
+		console.log('firstError message', Object.values(errors)[0]);
+		const firstErrorValue = Object.values(errors)[0];
+		const firstErrorKey = Object.keys(firstErrorValue)[0];
+		if (typeof firstErrorValue[firstErrorKey] === 'boolean') return null;
+		return firstErrorValue;
 	}
 }

@@ -38,6 +38,9 @@ export class NavbarComponent {
 	}
 
 	public logout(): void {
-		this.authService.logout().subscribe();
+		this.authService
+			.logout()
+			.pipe(tap(() => this.router.navigate(['../'])))
+			.subscribe();
 	}
 }

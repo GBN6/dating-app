@@ -7,7 +7,7 @@ import { FormSubmitDirective } from '../../../shared/controls/directives/form-su
 import { RegisterForm } from './register.model';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { emailValidator, passwordValidator } from '../../../shared/vaidators/common.validator';
+import { emailValidator, passwordValidator, twoControlsMatch } from '../../../shared/vaidators/common.validator';
 import { AuthStateService } from '../auth-state.service';
 
 @Component({
@@ -31,16 +31,18 @@ export class RegisterComponent {
 			firstName: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(20)] }),
 			lastName: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(20)] }),
 			password: this.fb.control<string>('', { validators: [Validators.required, passwordValidator] }),
+			confirmPassword: this.fb.control<string>('', {
+				validators: [Validators.required, twoControlsMatch('password')],
+			}),
 		});
 	}
 
 	public handleSubmit(): void {
 		if (this.form.invalid) return;
-
-		const registerPayload = this.form.getRawValue();
+		const { confirmPassword, ...registerData } = this.form.getRawValue();
 
 		this.authStateService
-			.register(registerPayload)
+			.register(registerData)
 			.pipe(tap(() => this.goBack()))
 			.subscribe();
 	}
