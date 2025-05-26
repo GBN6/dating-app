@@ -7,7 +7,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthStateService } from '../auth/auth-state.service';
 import { AsyncPipe } from '@angular/common';
 import { map, tap } from 'rxjs';
-import { USER_DATA } from '../auth/auth.tokens';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,7 +18,7 @@ import { USER_DATA } from '../auth/auth.tokens';
 export class NavbarComponent {
 	private router = inject(Router);
 	private authService = inject(AuthStateService);
-	public userName$ = inject(USER_DATA).pipe(map((userData) => userData?.username ?? ''));
+	public userName$ = this.authService.userData$.pipe(map(({ userData }) => userData));
 	public isAuthorized$ = AuthStateService.useIsAuthorized$();
 
 	public isDialogVisible = signal<boolean>(false);

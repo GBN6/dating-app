@@ -6,10 +6,12 @@ using System.Text;
 using API.DTOs;
 using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
+using AutoMapper;
+using API.Extensions;
 
 namespace API.Controllers;
 
-public class AccountController(DataContext context, ITokenService tokenService) : BaseApiController
+public class AccountController(IUserRepository userRepository, IMapper mapper, DataContext context, ITokenService tokenService) : BaseApiController
 {
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -47,7 +49,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await context.Users.FirstOrDefaultAsync(user => user.UserName == loginDto.Username.ToLower());
+        var user = await userRepository.GetUserByUsernameAsync(loginDto.Username);
 
         if (user == null) return Unauthorized("Invalid username");
 
@@ -60,13 +62,11 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
         }
 
+        var memberDto = mapper.Map<MemberDto>(user);
+
         return new UserDto
         {
-            UserData = new UserDataDto
-            {
-                Id = user.Id,
-                Username = user.UserName,
-            },
+            UserData = memberDto,
             Token = tokenService.CreateToken(user)
         };
 

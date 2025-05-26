@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FieldTextComponent } from '../../../shared/controls/field-text/field-text.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { AuthApiService } from '../auth-api.service';
 import { FormSubmitDirective } from '../../../shared/controls/directives/form-submit.directive';
 import { RegisterForm } from './register.model';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { defer, startWith, tap } from 'rxjs';
 import { emailValidator, passwordValidator, twoControlsMatch } from '../../../shared/vaidators/common.validator';
 import { AuthStateService } from '../auth-state.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,12 +17,25 @@ import { AuthStateService } from '../auth-state.service';
 	styleUrls: ['./register.component.scss'],
 	imports: [ReactiveFormsModule, FieldTextComponent, ButtonComponent, FormSubmitDirective],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 	private readonly fb = inject(NonNullableFormBuilder);
 	private readonly authStateService = inject(AuthStateService);
 	private readonly router = inject(Router);
+	private readonly destroyRef = inject(DestroyRef);
 
 	public form: FormGroup<RegisterForm> = this.buildForm();
+
+	public listenPasswordChange$ = defer(() =>
+		this.form.controls.password!.valueChanges.pipe(
+			startWith(this.form.controls.password!.value),
+			tap(() => this.form.controls.confirmPassword!.updateValueAndValidity()),
+			takeUntilDestroyed(this.destroyRef)
+		)
+	);
+
+	ngOnInit(): void {
+		this.listenPasswordChange$.subscribe();
+	}
 
 	private buildForm(): FormGroup<RegisterForm> {
 		return this.fb.group<RegisterForm>({

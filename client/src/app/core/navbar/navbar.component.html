@@ -13,9 +13,13 @@
 
 	@if (isAuthorized$ | async) {
 		<div class="flex gap-1 navbar__buttons">
+			<img
+				class="navbar__buttons--img"
+				[src]="(userName$ | async)?.photoUrl || '/user.png'"
+				alt="User profile image" />
 			<app-button (buttonClick)="goToProfile()" design="secondary">
 				<app-icon icon="person" />
-				<p>{{ userName$ | async }}</p>
+				<p>{{ (userName$ | async)?.username }}</p>
 			</app-button>
 			<app-button (buttonClick)="logout()" [isDisabledOnRequest]="true">
 				<p class="bold">Logout</p>

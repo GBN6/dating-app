@@ -20,10 +20,16 @@
 
 	&__buttons {
 		margin-left: auto;
+
+		&--img {
+			border-radius: 50%;
+			width: 40px;
+			border: 2px solid var(--secondary-color-400);
+		}
 	}
 }
 
-@media (max-width: 620px) {
+@media (max-width: 760px) {
 	.navbar {
 		display: flex;
 		flex-wrap: wrap;
@@ -44,6 +50,11 @@
 			&--login p {
 				display: none;
 			}
+
+			&--img {
+				display: none;
+			}
+
 			gap: 0.5rem;
 		}
 	}
