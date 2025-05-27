@@ -17,34 +17,27 @@ public class AccountController(IUserRepository userRepository, IMapper mapper, D
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
         if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-        return Ok();
 
-        //     using var hmac = new HMACSHA512();
+        using var hmac = new HMACSHA512();
 
-        //     var user = new AppUser
-        //     {
-        //         UserName = registerDto.Username.ToLower(),
-        //         Email = registerDto.Email.ToLower(),
-        //         FirstName = registerDto.FirstName,
-        //         LastName = registerDto.LastName,
-        //         PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-        //         PasswordSalt = hmac.Key
-        //     };
+        var user = mapper.Map<AppUser>(registerDto);
 
-        //     context.Users.Add(user);
-        //     await context.SaveChangesAsync();
+        user.UserName = registerDto.Username.ToLower();
+        user.KnownAs = registerDto.FirstName;
+        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+        user.PasswordSalt = hmac.Key;
+        var memberDto = mapper.Map<MemberDto>(user);
 
-        //     return new UserDto
-        //     {
-        //         UserData = new UserDataDto
-        //         {
-        //             Id = user.Id,
-        //             Username = user.UserName,
-        //         },
-        //         Token = tokenService.CreateToken(user)
-        //     };
-        // }
+        context.Users.Add(user);
+        await context.SaveChangesAsync();
+
+        return new UserDto
+        {
+            UserData = memberDto,
+            Token = tokenService.CreateToken(user)
+        };
     }
+
 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)

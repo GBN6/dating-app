@@ -3,7 +3,21 @@
 	<app-field-text formControlName="username" type="text" label="User Name" placeholder="Enter user name" />
 	<app-field-text formControlName="email" type="email" label="Email" placeholder="Enter email" />
 	<app-field-text formControlName="firstName" type="text" label="First name" placeholder="Enter first name" />
-	<app-field-text formControlName="lastName" type="text" label="Last name" placeholder="Last first name" />
+	<app-field-text formControlName="lastName" type="text" label="Last name" placeholder="Enter last name" />
+	<app-field-select
+		formControlName="gender"
+		type="select"
+		label="Gender"
+		placeholder="Choose gender"
+		[options]="genderOptions" />
+	<app-field-date
+		formControlName="dateOfBirth"
+		type="date"
+		label="Date of birth"
+		placeholder="Enter date of birth"
+		[maxDate]="maxDate" />
+	<app-field-text formControlName="city" type="text" label="City" placeholder="Enter city" />
+	<app-field-text formControlName="country" type="text" label="Country" placeholder="Enter country" />
 	<app-field-text formControlName="password" type="password" label="Password" placeholder="Enter password" />
 	<app-field-text
 		formControlName="confirmPassword"

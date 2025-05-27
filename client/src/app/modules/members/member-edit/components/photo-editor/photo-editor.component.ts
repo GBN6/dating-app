@@ -96,13 +96,10 @@ export class PhotoEditorComponent {
 			const photo: Photo = JSON.parse(response);
 			const updatedMember = { ...this.member() };
 			updatedMember.photos.push(photo);
+			if (photo.isMain) {
+				updatedMember.photoUrl = photo.url;
+			}
 			this.authStatService.setUserData(updatedMember);
-			// if (photo.isMain) {
-			// 	const user = this.accountService.currentUser();
-			// 	if (user) {
-			// 		user.photoUrl = photo.url;
-			// 		this.accountService.setCurrentUser(user);
-			// 	}
 			// 	updatedMember.photoUrl = photo.url;
 			// 	updatedMember.photos.forEach((p) => {
 			// 		if (p.isMain) p.isMain = false;

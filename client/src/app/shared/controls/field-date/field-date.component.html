@@ -1,0 +1,10 @@
+<div class="field">
+	<label class="field__label" [for]="id">{{ label() }}</label>
+	<input
+		class="field__input"
+		[id]="id"
+		type="date"
+		[placeholder]="placeholder()"
+		[formControl]="formControl"
+		[max]="maxDate()" />
+</div>

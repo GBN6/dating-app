@@ -6,7 +6,7 @@
 		<mat-card-title>{{ member().firstName }} {{ member().lastName }}, {{ member().age }}</mat-card-title>
 		<mat-card-subtitle>Known as {{ member().knownAs }}</mat-card-subtitle>
 	</mat-card-header>
-	<img mat-card-image [src]="member().photoUrl" alt="main photo of member" />
+	<img mat-card-image [src]="member().photoUrl || '/user.png'" alt="main photo of member" />
 	<mat-card-content class="text-center">
 		<p>City: {{ member().city }}</p>
 	</mat-card-content>

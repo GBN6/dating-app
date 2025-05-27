@@ -1,0 +1,9 @@
+<div class="field">
+	<label class="field__label" [for]="id">{{ label() }}</label>
+	<select class="field__input" [id]="id" [name]="id" [formControl]="formControl">
+		<option [value]="null" disabled selected hidden>{{ placeholder() }}</option>
+		@for (option of options(); track option) {
+			<option [value]="option.value">{{ option.label }}</option>
+		}
+	</select>
+</div>
