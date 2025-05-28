@@ -1,10 +1,15 @@
 <p class="dosis-2-400 bold text-center">How is your favorite user?</p>
 <div class="members grid padding-7">
-	@if (members$ | async; as members) {
+	<app-paginator [request]="membersRequest" [itemTemplate]="memberItem" emptyText="No members">
+		<ng-template #memberItem let-member="item">
+			<app-member-card class="flex--justify-center-self" [member]="member" />
+		</ng-template>
+	</app-paginator>
+	<!-- @if (members$ | async; as members) {
 		@for (member of members; track member.id) {
 			<app-member-card class="flex--justify-center-self" [member]="member" />
 		}
 	} @else {
 		<mat-spinner class="flex--justify-center-self" diameter="50"></mat-spinner>
-	}
+	} -->
 </div>

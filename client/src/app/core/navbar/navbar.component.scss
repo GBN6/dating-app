@@ -1,6 +1,7 @@
 .navbar {
 	display: flex;
 	align-items: center;
+	box-shadow: 0 5px 9px -7px var(--primary-color-300);
 
 	&__headline {
 		display: flex;

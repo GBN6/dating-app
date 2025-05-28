@@ -1,0 +1,28 @@
+<div class="paginator__items grid grid--center padding-4 gap-1">
+	@if (isLoading$ | async) {
+		<mat-spinner diameter="40"></mat-spinner>
+	} @else {
+		@if (data$ | async; as data) {
+			@if (data.length > 0) {
+				@for (item of data$ | async; track item) {
+					<ng-container
+						[ngTemplateOutlet]="itemTemplate"
+						[ngTemplateOutletContext]="{ item: item }"></ng-container>
+				}
+			} @else {
+				<p>{{ emptyText }}</p>
+			}
+		}
+	}
+</div>
+
+@if (pageState$ | async; as pageState) {
+	<mat-paginator
+    class="paginator"
+		[hidePageSize]="true"
+		[length]="pageState.totalCount"
+		[pageSize]="5"
+		[pageIndex]="pageState.currentPage - 1"
+		(page)="handlePageChange($event)">
+	</mat-paginator>
+}

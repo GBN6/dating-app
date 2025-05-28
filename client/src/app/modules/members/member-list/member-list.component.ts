@@ -1,23 +1,23 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MembersService } from '../members.service';
-import { Observable } from 'rxjs';
-import { Member } from '../members.model';
-import { AsyncPipe } from '@angular/common';
 import { MemberCardComponent } from '../member-card/member-card.component';
-import { LoaderService } from '../../../core/loader/loader.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
+import { PaginatorService } from '../../../shared/paginator/paginator.service';
 
 @Component({
 	selector: 'app-members-list',
-	imports: [AsyncPipe, MemberCardComponent, MatProgressSpinnerModule],
+	imports: [PaginatorComponent, MatProgressSpinnerModule, MemberCardComponent],
 	templateUrl: './member-list.component.html',
 	styleUrl: './member-list.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [PaginatorService],
 })
 export class MembersListComponent {
-	private readonly loaderService = inject(LoaderService);
 	private readonly membersService = inject(MembersService);
-	public members$: Observable<Member[]> = this.membersService.getMembers$();
+	// public members$: Observable<Member[]> = this.membersService.getMembers$(this.pageNumber, this.pageSize);
 
-	public isLoading = this.loaderService.isLoading;
+	get membersRequest() {
+		return this.membersService.getMembers$.bind(this.membersService);
+	}
 }

@@ -68,7 +68,7 @@ export class PhotoEditorComponent {
 						if (currentPhoto.id === photo.id) currentPhoto.isMain = true;
 					});
 					this.authStatService.setUserData(updatedMember);
-					this.memberService.updateCachedMembers(updatedMember);
+					// this.memberService.updateCachedMembers(updatedMember);
 				})
 			)
 			.subscribe();

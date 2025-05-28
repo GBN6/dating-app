@@ -1,9 +1,9 @@
-.members {
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-	justify-content: center;
-}
-@media (min-width: 1400px) {
+// .members {
+// 	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+// 	justify-content: center;
+// }
+@media (min-width: 1420px) {
 	.members {
-		min-width: 1320px;
+		min-width: 1420px;
 	}
 }

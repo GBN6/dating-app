@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+.paginator {
+	@include mat.paginator-overrides(
+		(
+			enabled-icon-color: var(--secondary-color-400),
+			disabled-icon-color: var(--primary-color-200),
+			container-text-weight: 600,
+			container-text-size: 1.2rem,
+		)
+	);
+
+	&__items {
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	}
+}

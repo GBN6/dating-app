@@ -4,6 +4,7 @@ using API.Data.Migrations;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using AutoMapper;
@@ -18,11 +19,19 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
 {
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+    public async Task<ActionResult<PagedResponse<IEnumerable<MemberDto>>>> GetUsers([FromQuery] UserParams userParams)
     {
-        var users = await userRepository.GetMembersAsync();
+        var users = await userRepository.GetMembersAsync(userParams);
 
-        return Ok(users);
+        var pagination = PaginationHelper.GetPaginationMeta(users);
+
+        var response = new PagedResponse<IEnumerable<MemberDto>>
+        {
+            Data = users,
+            Meta = pagination
+        };
+
+        return Ok(response);
     }
 
     [HttpGet("profile")]

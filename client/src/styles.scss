@@ -68,14 +68,9 @@ html {
 	white-space: pre-wrap;
 }
 
-// html,
-// body {
-// 	height: 100%;
-// }
-// body {
-// 	margin: 0;
-// 	font-family: Roboto, 'Helvetica Neue', sans-serif;
-// }
+div.mat-mdc-paginator-container {
+	justify-content: center;
+}
 
 .mat-mdc-snack-bar-container {
 	&.snack-bar--error {

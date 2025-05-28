@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Member } from './members.model';
-import { Observable, of, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { HttpWithSnackbarService } from '../../shared/services/http-with-snackbar.service';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { Page } from '../../shared/paginator/paginator.model';
 
 @Injectable({ providedIn: 'root' })
 export class MembersService {
@@ -14,9 +15,8 @@ export class MembersService {
 
 	private API_URL = environment.API_URL;
 
-	public getMembers$(): Observable<Member[]> {
-		if (this._members().length) return toObservable(this._members);
-		return this.httpClient.get<Member[]>(`${this.API_URL}/users`).pipe(tap((value) => this._members.set(value)));
+	public getMembers$(params: HttpParams): Observable<Page<Member>> {
+		return this.httpClient.get<Page<Member>>(`${this.API_URL}/users`, { params });
 	}
 
 	public getMember$(username: string): Observable<Member> {
