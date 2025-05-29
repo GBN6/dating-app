@@ -16,7 +16,7 @@ export class MembersService {
 	private API_URL = environment.API_URL;
 
 	public getMembers$(params: HttpParams): Observable<Page<Member>> {
-		return this.httpClient.get<Page<Member>>(`${this.API_URL}/users`, { params });
+		return this.httpClient.get<Page<Member>>(`${this.API_URL}/users`, { params })
 	}
 
 	public getMember$(username: string): Observable<Member> {

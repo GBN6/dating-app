@@ -7,6 +7,7 @@ import {
 	filter,
 	map,
 	Observable,
+	of,
 	switchMap,
 	tap,
 } from 'rxjs';
@@ -21,8 +22,6 @@ export class PaginatorService<T, F> {
 	private location = inject(Location);
 	private router = inject(Router);
 	private activatedRoute = inject(ActivatedRoute);
-
-	private pageCache = new Map<number, T[]>()
 
 	private _paginatorState$ = new BehaviorSubject<PaginatorState<T, F>>({
 		isLoading: false,
@@ -59,11 +58,15 @@ export class PaginatorService<T, F> {
 	);
 
 	private updateUrl(page: number, filters: Partial<F> | null): void {
-		const urlTree = this.router.createUrlTree([''], {
+		const segments = this.activatedRoute.snapshot.pathFromRoot
+			.flatMap((r) => r.url)
+			.map((segment) => segment.path)
+			.filter(Boolean);
+
+		const urlTree = this.router.createUrlTree(['/', ...segments], {
 			relativeTo: this.activatedRoute,
 			queryParams: { ...filters, page },
 		});
-
 		this.location.replaceState(urlTree.toString());
 	}
 

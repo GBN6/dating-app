@@ -23,19 +23,18 @@ export class PaginatorComponent<T, F> implements OnInit {
 	private paginatorService = inject(PaginatorService<T, F>);
 
 	public pageState$ = this.paginatorService.getStateSlice$('pageState');
-	public data$ = this.paginatorService.getStateSlice$('data')
+	public data$ = this.paginatorService.getStateSlice$('data');
 	public isLoading$ = this.paginatorService.getStateSlice$('isLoading');
 
 	ngOnInit() {
 		this.paginatorService.initializePaginator(this.request);
 	}
 
-	public handlePageChange({ pageIndex, pageSize, length }: PageEvent) {
+	public handlePageChange({ pageIndex, pageSize }: PageEvent) {
 		this.paginatorService.patchState({
 			pageState: {
 				...this.paginatorService.getStateSliceValue('pageState'),
 				currentPage: pageIndex + 1,
-				totalPages: length,
 				pageSize: pageSize,
 			},
 		});
