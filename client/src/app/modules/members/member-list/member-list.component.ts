@@ -4,10 +4,11 @@ import { MemberCardComponent } from '../member-card/member-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
 import { PaginatorService } from '../../../shared/paginator/paginator.service';
+import { MembersListFiltersComponent } from "./components/members-list-filters.component";
 
 @Component({
 	selector: 'app-members-list',
-	imports: [PaginatorComponent, MatProgressSpinnerModule, MemberCardComponent],
+	imports: [PaginatorComponent, MatProgressSpinnerModule, MemberCardComponent, MembersListFiltersComponent],
 	templateUrl: './member-list.component.html',
 	styleUrl: './member-list.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

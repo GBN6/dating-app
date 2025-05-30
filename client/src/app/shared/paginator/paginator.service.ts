@@ -23,7 +23,7 @@ export class PaginatorService<T, F> {
 	private router = inject(Router);
 	private activatedRoute = inject(ActivatedRoute);
 
-	private _paginatorState$ = new BehaviorSubject<PaginatorState<T, F>>({
+	private _initialState = {
 		isLoading: false,
 		pageState: {
 			currentPage: 1,
@@ -33,7 +33,9 @@ export class PaginatorService<T, F> {
 		},
 		filters: null,
 		data: null,
-	});
+	};
+
+	private _paginatorState$ = new BehaviorSubject<PaginatorState<T, F>>(this._initialState);
 
 	private request!: (params: HttpParams) => Observable<Page<T>>;
 
@@ -88,5 +90,12 @@ export class PaginatorService<T, F> {
 
 	public getStateSliceValue<K extends keyof PaginatorState<T, F>>(key: K): PaginatorState<T, F>[K] {
 		return this._paginatorState$.value[key];
+	}
+
+	public resetStateSlice<K extends keyof PaginatorState<T, F>>(key: K): void {
+		this._paginatorState$.next({
+			...this._paginatorState$.value,
+			[key]: this._initialState[key],
+		});
 	}
 }
