@@ -3,7 +3,16 @@ form {
 }
 
 @media (min-width: 1420px) {
+	form {
+		flex-direction: row;
+		padding: 16px;
+	}
+
 	.memebrs-filters {
 		flex-direction: row;
+	}
+
+	.memebrs-filters-buttons {
+		margin: 0;
 	}
 }
