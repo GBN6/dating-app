@@ -15,6 +15,7 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
 import { AuthStateService } from '../../../core/auth/auth-state.service';
 import { MemberEditControls } from './member-edit.model';
 import { UserData } from '../../../core/auth/auth.model';
+import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
 	selector: 'app-member-edit',
@@ -30,6 +31,7 @@ import { UserData } from '../../../core/auth/auth.model';
 		FieldTextAreaComponent,
 		MatProgressSpinnerModule,
 		PhotoEditorComponent,
+		TimeagoModule,
 	],
 	templateUrl: './member-edit.component.html',
 	styleUrl: './member-edit.component.scss',

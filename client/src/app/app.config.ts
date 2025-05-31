@@ -1,4 +1,10 @@
-import { ApplicationConfig, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
+import {
+	ApplicationConfig,
+	importProvidersFrom,
+	inject,
+	provideAppInitializer,
+	provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -9,6 +15,7 @@ import { USER_DATA, USER_DATA_VALUE } from './core/auth/auth.tokens';
 import { AuthStateService } from './core/auth/auth-state.service';
 import { jwtInterceptor } from './core/auth/jwt/jwt.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { TimeagoModule } from 'ngx-timeago';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -32,5 +39,6 @@ export const appConfig: ApplicationConfig = {
 			},
 			deps: [AuthStateService],
 		},
+		importProvidersFrom(TimeagoModule.forRoot()),
 	],
 };

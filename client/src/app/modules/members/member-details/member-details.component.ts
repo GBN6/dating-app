@@ -10,6 +10,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { GalleryModule } from 'ng-gallery';
 import { ToGalleryPipe } from './member-details.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
 	selector: 'app-member-details',
@@ -22,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 		GalleryModule,
 		ToGalleryPipe,
 		MatProgressSpinnerModule,
+		TimeagoModule
 	],
 	templateUrl: './member-details.component.html',
 	styleUrl: './member-details.component.scss',

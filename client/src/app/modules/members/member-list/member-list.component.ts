@@ -19,6 +19,6 @@ export class MembersListComponent {
 	// public members$: Observable<Member[]> = this.membersService.getMembers$(this.pageNumber, this.pageSize);
 
 	get membersRequest() {
-		return this.membersService.getMembers$.bind(this.membersService);
+		return this.membersService.getMembers$.bind(this.membersService)
 	}
 }
