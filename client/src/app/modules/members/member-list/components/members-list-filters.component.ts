@@ -25,6 +25,11 @@ export class MembersListFiltersComponent extends PaginatorFilterComponent<Member
 		{ value: 'female', label: 'female' },
 	];
 
+	public readonly sortOpitons = [
+		{ value: 'created', label: 'Nweset Members' },
+		{ value: 'lastActive', label: 'Last Active' },
+	];
+
 	override ngOnInit(): void {
 		super.ngOnInit();
 		this.filter();
@@ -32,10 +37,15 @@ export class MembersListFiltersComponent extends PaginatorFilterComponent<Member
 
 	protected override buildForm(): void {
 		this.form = this.fb.group<MembersFiltersForm>({
-			gender: this.fb.control<string>(this.setGenderFilter()),
+			gender: this.fb.control(this.setGenderFilter()),
 			minAge: this.fb.control(null),
 			maxAge: this.fb.control(null),
+			orderBy: this.fb.control(null),
 		});
+	}
+
+	public onSortChange(value: string) {
+		this.filter();
 	}
 
 	private setGenderFilter(): string {

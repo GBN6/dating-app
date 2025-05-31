@@ -1,16 +1,40 @@
-<form [formGroup]="form" (ngSubmit)="filter()" class="login-form flex flex--column flex--center gap-1 text-center">
-	<div class="memebrs-filters flex gap-1 flex--center flex--column">
-		<app-field-select
-			formControlName="gender"
-			type="select"
-			label="Gender"
-			placeholder="Choose gender"
-			[options]="genderOptions" />
-		<app-field-text formControlName="minAge" type="number" label="Minimal Age" placeholder="Enter minimal age" />
-		<app-field-text formControlName="maxAge" type="number" label="Maximum Age" placeholder="Enter maximum age" />
+<form
+	[formGroup]="form"
+	(ngSubmit)="filter()"
+	class="login-form flex flex--column flex--justify-around gap-1 text-center">
+	<div class="flex flex--column flex--center gap-1">
+		<div class="memebrs-filters flex gap-1 flex--center flex--column">
+			<app-field-select
+				formControlName="gender"
+				type="select"
+				label="Gender"
+				placeholder="Choose gender"
+				[options]="genderOptions" />
+			<app-field-text
+				formControlName="minAge"
+				type="number"
+				label="Minimal Age"
+				placeholder="Enter minimal age" />
+			<app-field-text
+				formControlName="maxAge"
+				type="number"
+				label="Maximum Age"
+				placeholder="Enter maximum age" />
+		</div>
+		<div class="memebrs-filters-buttons flex gap-2 flex--justify-center margin-bottom-3">
+			<app-button design="secondary" type="button" (buttonClick)="clearFilters()"
+				><p>Clear filters</p></app-button
+			>
+			<app-button type="submit"><p class="bold">APPLY FILTERS</p></app-button>
+		</div>
 	</div>
-	<div class="memebrs-filters-buttons flex gap-2 flex--justify-center margin-bottom-3">
-		<app-button design="secondary" type="button" (buttonClick)="clearFilters()"><p>Clear filters</p></app-button>
-		<app-button type="submit"><p class="bold">APPLY FILTERS</p></app-button>
-	</div>
+
+	<app-field-select
+		class="margin-bottom-3"
+		formControlName="orderBy"
+		type="select"
+		label="Sort By"
+		placeholder="Choose sorting option"
+		[options]="sortOpitons"
+		(valueChange)="onSortChange($event)" />
 </form>
