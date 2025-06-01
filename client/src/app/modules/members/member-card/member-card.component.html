@@ -1,7 +1,11 @@
 <mat-card class="member-card" appearance="outlined">
 	<mat-card-header>
 		<div mat-card-avatar class="example-header-image secondary-color-300">
-			<app-icon icon="person" [size]="2" />
+			@if (hasLiked()) {
+				<app-icon icon="favorite" [filled]="true" [size]="2" />
+			} @else {
+				<app-icon icon="person" [size]="2" />
+			}
 		</div>
 		<mat-card-title>{{ member().firstName }} {{ member().lastName }}, {{ member().age }}</mat-card-title>
 		<mat-card-subtitle>Known as {{ member().knownAs }}</mat-card-subtitle>
@@ -14,7 +18,9 @@
 		<app-button routerLink="/members/{{ member().username }}" design="tertiary"
 			><app-icon icon="person"
 		/></app-button>
-		<app-button design="tertiary"><app-icon icon="favorite" /></app-button>
+		<app-button design="tertiary" (buttonClick)="toggleLike()"
+			><app-icon [filled]="hasLiked()" icon="favorite"
+		/></app-button>
 		<app-button design="tertiary"><app-icon icon="mail" /></app-button>
 	</mat-card-actions>
 </mat-card>

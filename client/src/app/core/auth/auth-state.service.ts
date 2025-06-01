@@ -4,6 +4,7 @@ import { BehaviorSubject, distinctUntilKeyChanged, map, Observable, tap } from '
 import { AuthState, LoginPayload, RegisterPayload, UserData } from './auth.model';
 import { AuthApiService } from './auth-api.service';
 import { JwtService } from './jwt/jwt.service';
+import { LikesService } from '../../shared/services/likes.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
@@ -13,6 +14,7 @@ export class AuthStateService {
 
 	private authApiService = inject(AuthApiService);
 	private jwtService = inject(JwtService);
+	private likeService = inject(LikesService);
 
 	private _isLoggedIn = signal(false);
 
@@ -65,6 +67,7 @@ export class AuthStateService {
 
 	public setUserData(userData: UserData | null) {
 		this.patchState({ userData });
+		this.likeService.getLikeIds$().subscribe();
 	}
 
 	private setLoggedData(token: string, userData: UserData) {
