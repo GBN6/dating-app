@@ -1,1 +1,17 @@
-<p>lists works!</p>
+<div class="list">
+	<app-lists-filters />
+	<div class="grid padding-7">
+		<app-paginator [request]="membersRequest" [itemTemplate]="memberItem" emptyText="No members">
+			<ng-template #memberItem let-member="item">
+				<app-member-card class="flex--justify-center-self" [member]="member" />
+			</ng-template>
+		</app-paginator>
+		<!-- @if (members$ | async; as members) {
+		@for (member of members; track member.id) {
+			<app-member-card class="flex--justify-center-self" [member]="member" />
+		}
+	} @else {
+		<mat-spinner class="flex--justify-center-self" diameter="50"></mat-spinner>
+	} -->
+	</div>
+</div>
