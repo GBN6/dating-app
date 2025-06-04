@@ -1,1 +1,24 @@
-<p>messages works!</p>
+<div class="messages">
+	@if ({ outbox: outbox$ | async }; as is) {
+		<app-messages-filters />
+		<app-paginator [request]="messagesRequest" [isTable]="true" [tableColumns]="columns" emptyText="No messages">
+			<ng-template appTableCell column="senderUsername" let-element="element">
+				<div class="flex gap-1 text-center">
+					<img
+						mat-card-xl-image
+						[src]="is.outbox ? element.recipientPhotoUrl : element.senderPhotoUrl || '/user.png'" />
+					<strong class="flex--align-self-center">
+						{{ (is.outbox ? element.recipientUsername : element.senderUsername) | titlecase }}
+					</strong>
+				</div>
+			</ng-template>
+
+			<ng-template appTableCell column="dateRead" let-element="element">
+				{{ element.messageSent | timeago }}
+			</ng-template>
+			<ng-template appTableCell column="actions" let-element="element">
+				<app-button (click)="deleteMessage(element.id)"><p>DELETE</p></app-button>
+			</ng-template>
+		</app-paginator>
+	}
+</div>
