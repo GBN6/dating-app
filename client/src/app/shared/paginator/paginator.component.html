@@ -1,78 +1,82 @@
-<div class="paginator__items grid grid--center padding-4 gap-1">
+<div>
 	@if (isLoading$ | async) {
 		<mat-spinner diameter="40"></mat-spinner>
 	} @else {
 		@if (data$ | async; as data) {
 			@if (isTable) {
-				<table mat-table [dataSource]="data">
-					@for (column of contentColumns; track column) {
-						<ng-container [matColumnDef]="column.name.toString()">
-							<th mat-header-cell *matHeaderCellDef>{{ column.content }}</th>
-							<td mat-cell *matCellDef="let element; let index = dataIndex">
-								<div class="cell--property-value">
-									<ng-container
-										[ngTemplateOutlet]="cellTemplates[column.name] ? customCell : defaultCell">
-									</ng-container>
-									<ng-template #customCell>
+				<div class="table-container mat-elevation-z8">
+					<table mat-table [dataSource]="data">
+						@for (column of contentColumns; track column) {
+							<ng-container [matColumnDef]="column.name.toString()">
+								<th mat-header-cell *matHeaderCellDef>{{ column.content }}</th>
+								<td mat-cell *matCellDef="let element; let index = dataIndex">
+									<div class="cell--property-value">
 										<ng-container
-											[ngTemplateOutlet]="cellTemplates[column.name] ?? null"
+											[ngTemplateOutlet]="cellTemplates[column.name] ? customCell : defaultCell">
+										</ng-container>
+										<ng-template #customCell>
+											<ng-container
+												[ngTemplateOutlet]="cellTemplates[column.name] ?? null"
+												[ngTemplateOutletContext]="{
+													element: element,
+													index: index,
+													no: paginator
+														? 1 + index + paginator.pageIndex * paginator.pageSize
+														: index,
+												}"></ng-container>
+										</ng-template>
+
+										<ng-template #defaultCell>
+											<span>{{ element[column.name] || '-' }}</span>
+										</ng-template>
+									</div>
+								</td>
+							</ng-container>
+						}
+						@if (colActions) {
+							<ng-container matColumnDef="actions">
+								<th mat-header-cell *matHeaderCellDef>Actions</th>
+								<td mat-cell *matCellDef="let element; let index = dataIndex" class="row-actions">
+									<ng-container
+										[ngTemplateOutlet]="cellTemplates['actions'] ? customActions : defaultActions">
+									</ng-container>
+
+									<ng-template #customActions>
+										<ng-container
+											[ngTemplateOutlet]="cellTemplates['actions'] ?? null"
 											[ngTemplateOutletContext]="{
 												element: element,
-												index: index,
-												no: paginator
-													? 1 + index + paginator.pageIndex * paginator.pageSize
-													: index,
-											}"></ng-container>
+											}">
+										</ng-container>
 									</ng-template>
 
-									<ng-template #defaultCell>
-										<span>{{ element[column.name] || '-' }}</span>
+									<ng-template #defaultActions>
+										<app-button><p class="bold">Delete</p></app-button>
 									</ng-template>
-								</div>
+								</td></ng-container
+							>
+						}
+						<tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+						<tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+						<tr class="mat-row" *matNoDataRow class="padding-5 text-center">
+							<td class="mat-cell padding-5" colspan="4">
+								<span class="bold">{{ emptyText }} :C</span>
 							</td>
-						</ng-container>
-					}
-					@if (colActions) {
-						<ng-container matColumnDef="actions">
-							<th mat-header-cell *matHeaderCellDef>Actions</th>
-							<td mat-cell *matCellDef="let element; let index = dataIndex" class="row-actions">
-								<ng-container
-									[ngTemplateOutlet]="cellTemplates['actions'] ? customActions : defaultActions">
-								</ng-container>
-
-								<ng-template #customActions>
-									<ng-container
-										[ngTemplateOutlet]="cellTemplates['actions'] ?? null"
-										[ngTemplateOutletContext]="{
-											element: element,
-										}">
-									</ng-container>
-								</ng-template>
-
-								<ng-template #defaultActions>
-									<app-button><p class="bold">Delete</p></app-button>
-								</ng-template>
-							</td></ng-container
-						>
-					}
-					<tr mat-header-row *matHeaderRowDef="columnNames"></tr>
-					<tr mat-row *matRowDef="let row; columns: columnNames"></tr>
-					<tr class="mat-row" *matNoDataRow class="padding-5 text-center">
-						<td class="mat-cell padding-5" colspan="4">
-							<span class="bold">{{ emptyText }} :C</span>
-						</td>
-					</tr>
-				</table>
+						</tr>
+					</table>
+				</div>
 			} @else {
-				@if (data.length > 0) {
-					@for (item of data$ | async; track item) {
-						<ng-container
-							[ngTemplateOutlet]="itemTemplate"
-							[ngTemplateOutletContext]="{ item: item }"></ng-container>
+				<div class="paginator__items grid grid--center padding-4 gap-1">
+					@if (data.length > 0) {
+						@for (item of data$ | async; track item) {
+							<ng-container
+								[ngTemplateOutlet]="itemTemplate"
+								[ngTemplateOutletContext]="{ item: item }"></ng-container>
+						}
+					} @else {
+						<p>{{ emptyText }}</p>
 					}
-				} @else {
-					<p>{{ emptyText }}</p>
-				}
+				</div>
 			}
 		}
 	}

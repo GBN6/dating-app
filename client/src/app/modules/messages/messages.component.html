@@ -1,4 +1,4 @@
-<div class="messages">
+<div class="messages padding-3">
 	@if ({ outbox: outbox$ | async }; as is) {
 		<app-messages-filters />
 		<app-paginator [request]="messagesRequest" [isTable]="true" [tableColumns]="columns" emptyText="No messages">
@@ -6,7 +6,7 @@
 				<div class="flex gap-1 text-center">
 					<img
 						mat-card-xl-image
-						[src]="is.outbox ? element.recipientPhotoUrl : element.senderPhotoUrl || '/user.png'" />
+						[src]="(is.outbox ? element.recipientPhotoUrl : element.senderPhotoUrl) || '/user.png'" />
 					<strong class="flex--align-self-center">
 						{{ (is.outbox ? element.recipientUsername : element.senderUsername) | titlecase }}
 					</strong>

@@ -1,8 +1,12 @@
 .messages {
-	width: 1000px;
-
 	img {
 		border-radius: 50%;
 		width: 45px;
+	}
+}
+
+@media (min-width: 1420px) {
+	.messages {
+		min-width: 1000px;
 	}
 }
