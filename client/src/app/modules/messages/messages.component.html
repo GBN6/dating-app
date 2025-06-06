@@ -17,7 +17,12 @@
 				{{ element.messageSent | timeago }}
 			</ng-template>
 			<ng-template appTableCell column="actions" let-element="element">
-				<app-button (click)="deleteMessage(element.id)"><p>DELETE</p></app-button>
+				<div class="flex gap-1 flex--center">
+					<app-button design="tertiary" (click)="deleteMessage(element.id)"
+						><app-icon icon="delete"
+					/></app-button>
+					<app-button (click)="goToMessage(is.outbox, element)"><p>Check Message</p></app-button>
+				</div>
 			</ng-template>
 		</app-paginator>
 	}
