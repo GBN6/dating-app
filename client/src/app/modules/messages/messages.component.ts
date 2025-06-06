@@ -55,7 +55,7 @@ export class MessagesComponent {
 
 	public deleteMessage(id: number) {
 		this.messageService
-			.deleteMessage(id)
+			.deleteMessage$(id)
 			.pipe(
 				switchMap(() => {
 					return this.paginatorService.getStateSlice$('data');

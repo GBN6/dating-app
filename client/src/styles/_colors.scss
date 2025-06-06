@@ -1,28 +1,28 @@
 $palettes: (
-  primary: (
-    600: #121212,
-    500: #282828,
-    400: #3f3f3f,
-    300: #575757,
-    200: #717171,
-    100: #8b8b8b,
-  ),
-  secondary: (
-    600: #f5480d,
-    500: #fb612d,
-    400: #ff7847,
-    300: #ff8c60,
-    200: #ffa07a,
-    100: #ffb393,
-  ),
-  tonal: (
-    600: #271914,
-    500: #3c2e29,
-    400: #524540,
-    300: #685c58,
-    200: #807572,
-    100: #988f8c,
-  ),
+	primary: (
+		600: #121212,
+		500: #282828,
+		400: #3f3f3f,
+		300: #575757,
+		200: #717171,
+		100: #8b8b8b,
+	),
+	secondary: (
+		600: #f5480d,
+		500: #fb612d,
+		400: #ff7847,
+		300: #ff8c60,
+		200: #ffa07a,
+		100: #ffb393,
+	),
+	tonal: (
+		600: #271914,
+		500: #3c2e29,
+		400: #524540,
+		300: #685c58,
+		200: #807572,
+		100: #988f8c,
+	),
 );
 
 $error: #ff1e0a;
@@ -31,18 +31,22 @@ $black: #000000;
 $white: #ffffff;
 
 @mixin initialize-palettes() {
-  --error-color: #{$error};
-  --green-color: #{$green};
-  --black-color: #{$black};
-  --white-color: #{$white};
+	--error-color: #{$error};
+	--green-color: #{$green};
+	--black-color: #{$black};
+	--white-color: #{$white};
 
-  @each $name, $palette in $palettes {
-    @each $key, $value in $palette {
-      #{"--" + $name + "-color-" + $key}: #{$value};
+	.color-green {
+		color: $green;
+	}
 
-      .#{$name}-color-#{$key} {
-        color: $value;
-      }
-    }
-  }
+	@each $name, $palette in $palettes {
+		@each $key, $value in $palette {
+			#{"--" + $name + "-color-" + $key}: #{$value};
+
+			.#{$name}-color-#{$key} {
+				color: $value;
+			}
+		}
+	}
 }

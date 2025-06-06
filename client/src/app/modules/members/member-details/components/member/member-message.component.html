@@ -1,0 +1,45 @@
+<div class="card">
+	@if (getMessageThread$ | async; as messageThread) {
+		<div class="card__body">
+			@if (messageThread.length) {
+				@for (message of messageThread; track message.id) {
+					<div class="card__body--chat flex flex--justify-between">
+						<div class="flex flex--column">
+							<div class="flex">
+								<app-icon class="margin-right-1" icon="timer"></app-icon>
+								<p class="card__body--chat__time">
+									<span> {{ message.messageSent | timeago }}</span>
+									@if (!message.dateRead && message.senderUsername !== username()) {
+										<span class="secondary-color-600"> Unread</span>
+									}
+									@if (message.dateRead && message.senderUsername !== username()) {
+										<span class="color-green"> (read {{ message.dateRead | timeago }})</span>
+									}
+								</p>
+							</div>
+							<p>{{ message.content }}</p>
+						</div>
+						<img
+							class="card__body--chat__image"
+							[src]="message.senderPhotoUrl || '/user.png'"
+							alt="Image of message sender" />
+					</div>
+				}
+			} @else {
+				<p>No messages yet</p>
+			}
+		</div>
+	}
+
+	<form class="card__input flex flex--justify-between gap-1" [formGroup]="form" (ngSubmit)="handleSubmit()">
+		<app-field-text
+			class="card__input--control"
+			type="text"
+			formControlName="message"
+			[placeholder]="'Send a message to ' + username()" />
+		<app-button type="submit" [disabled]="form.invalid || !form.value.message">
+			<app-icon icon="send"></app-icon>
+			<p>SEND</p>
+		</app-button>
+	</form>
+</div>

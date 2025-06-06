@@ -1,0 +1,35 @@
+.card {
+	&__body {
+		overflow: scroll;
+		max-height: 400px;
+		scroll-behavior: smooth;
+
+		&--chat {
+			padding: 16px;
+			border-bottom: 1px solid var(--primary-color-300);
+
+			&__time {
+				margin-bottom: 10px;
+				font-size: 0.8rem;
+				color: var(--primary-color-100);
+			}
+
+			&__image {
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+
+	&__input {
+		padding: 8px;
+
+		&--control {
+			flex: 1 1 0;
+			min-width: 0;
+		}
+
+		border-top: 2px solid var(--secondary-color-300);
+	}
+}

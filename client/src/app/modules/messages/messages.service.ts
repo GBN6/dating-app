@@ -19,7 +19,11 @@ export class MessagesService {
 		return this.httpClient.get<Page<Message>>(`${this.API_URL}/messages`, { params });
 	}
 
-	public deleteMessage(id: number) {
+	public deleteMessage$(id: number) {
 		return this.httpWithSnackbar.delete(`${this.API_URL}/messages/${id}`, 'Message deleted successfully');
+	}
+
+	public getMessageThread$(username: string) {
+		return this.httpClient.get<Message[]>(`${this.API_URL}/messages/thread/${username}`);
 	}
 }

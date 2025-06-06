@@ -11,20 +11,22 @@ import { GalleryModule } from 'ng-gallery';
 import { ToGalleryPipe } from './member-details.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TimeagoModule } from 'ngx-timeago';
+import { MemberMessageComponent } from "./components/member/member-message.component";
 
 @Component({
 	selector: 'app-member-details',
 	imports: [
-		AsyncPipe,
-		MatCardModule,
-		ButtonComponent,
-		MatTabsModule,
-		DatePipe,
-		GalleryModule,
-		ToGalleryPipe,
-		MatProgressSpinnerModule,
-		TimeagoModule
-	],
+    AsyncPipe,
+    MatCardModule,
+    ButtonComponent,
+    MatTabsModule,
+    DatePipe,
+    GalleryModule,
+    ToGalleryPipe,
+    MatProgressSpinnerModule,
+    TimeagoModule,
+    MemberMessageComponent
+],
 	templateUrl: './member-details.component.html',
 	styleUrl: './member-details.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
