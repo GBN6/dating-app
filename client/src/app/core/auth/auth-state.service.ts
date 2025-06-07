@@ -57,6 +57,7 @@ export class AuthStateService {
 
 	public initializeAuth() {
 		if (this.jwtService.isTokenValid()) {
+			console.log('xd	');
 			this._isLoggedIn.set(true);
 			this.authApiService
 				.getUserData()

@@ -23,16 +23,18 @@ export class JwtService {
 	}
 
 	private isTokenExpired(): boolean | void {
+		this.decodeToken();
 		const expirationTime = this._decodedToken?.exp;
 		if (expirationTime) {
 			const expirationDate = new Date(expirationTime * this.secondInMs);
 			return expirationDate.getTime() - Date.now() < 0;
 		}
-		return;
+		return true;
 	}
 
 	public isTokenValid(): boolean {
 		if (this._token) return !this.isTokenExpired();
+		console.log;
 
 		return false;
 	}

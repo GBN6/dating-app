@@ -21,6 +21,8 @@
 		<app-button design="tertiary" (buttonClick)="toggleLike()"
 			><app-icon [filled]="hasLiked()" icon="favorite"
 		/></app-button>
-		<app-button design="tertiary"><app-icon icon="mail" /></app-button>
+		<app-button routerLink="/members/{{ member().username }}" [queryParams]="{ tab: 3 }" design="tertiary"
+			><app-icon icon="mail"
+		/></app-button>
 	</mat-card-actions>
 </mat-card>

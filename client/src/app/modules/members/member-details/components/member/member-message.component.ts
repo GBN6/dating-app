@@ -7,7 +7,7 @@ import { TimeagoModule } from 'ngx-timeago';
 import { FieldTextComponent } from '../../../../../shared/controls/field-text/field-text.component';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormSubmitDirective } from '../../../../../shared/controls/directives/form-submit.directive';
-import { ButtonComponent } from "../../../../../shared/components/button/button.component";
+import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 
 @Component({
 	selector: 'app-member-message',
@@ -15,7 +15,15 @@ import { ButtonComponent } from "../../../../../shared/components/button/button.
 	styleUrl: 'member-message.component.scss',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AsyncPipe, IconComponent, TimeagoModule, FieldTextComponent, ReactiveFormsModule, FormSubmitDirective, ButtonComponent],
+	imports: [
+		AsyncPipe,
+		IconComponent,
+		TimeagoModule,
+		FieldTextComponent,
+		ReactiveFormsModule,
+		FormSubmitDirective,
+		ButtonComponent,
+	],
 })
 export class MemberMessageComponent {
 	public username = input.required<string>();
@@ -36,15 +44,6 @@ export class MemberMessageComponent {
 		if (this.form.invalid) return;
 
 		const updatePayLoad = this.form.getRawValue();
-		// this.memberService
-		// 	.updateMember$(updatePayLoad)
-		// 	.pipe(
-		// 		tap(() => {
-		// 			const newUserData = { ...this.authStatService.getUserDataValue(), ...updatePayLoad } as UserData;
-		// 			this.authStatService.setUserData(newUserData);
-		// 			this.form.markAsPristine();
-		// 		})
-		// 	)
-		// 	.subscribe();
+		this.messageService.sendMessage$(this.username(), updatePayLoad.message).subscribe();
 	}
 }

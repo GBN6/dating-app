@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { authenticated, notAuthenticated } from './auth/auth.guards';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { MemberDetailsResolver } from '../modules/members/member-details/member-details.resolver';
 
 export const routes: Routes = [
 	{
@@ -37,6 +38,9 @@ export const routes: Routes = [
 						(m) => m.MemberDetailsComponent
 					),
 				canActivate: [authenticated],
+				resolve: {
+					member: MemberDetailsResolver,
+				},
 			},
 			{
 				path: 'member/edit',

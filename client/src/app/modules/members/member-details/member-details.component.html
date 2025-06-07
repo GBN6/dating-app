@@ -21,8 +21,9 @@
 				</div>
 			</mat-card-content>
 			<mat-card-actions class="flex gap-1 flex--center">
-				<app-button design="primary"><p class="bold">LIKE</p></app-button>
-				<app-button design="primary"><p class="bold">Message</p></app-button>
+				<app-button design="primary" (buttonClick)="toggleLike(member.id)"
+					><p class="bold">{{ (hasLiked$ | async)?.() ? 'Remove like' : 'Like' }}</p></app-button
+				>
 			</mat-card-actions>
 		</mat-card>
 		<div class="member-details__tabs">
