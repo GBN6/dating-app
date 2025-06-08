@@ -17,12 +17,14 @@ export class AuthStateService {
 	private likeService = inject(LikesService);
 
 	private _isLoggedIn = signal(false);
+	private _roles = signal<string[] | null>(null);
 
 	private _authState$ = new BehaviorSubject<AuthState>({
 		userData: null,
 	});
 
 	public isLoggedIn = this._isLoggedIn.asReadonly();
+	public roles = this._roles.asReadonly();
 	public userData$ = this._authState$.asObservable();
 
 	// public getUserData$(): Observable<AuthState> {
@@ -57,7 +59,6 @@ export class AuthStateService {
 
 	public initializeAuth() {
 		if (this.jwtService.isTokenValid()) {
-			console.log('xd	');
 			this._isLoggedIn.set(true);
 			this.authApiService
 				.getUserData()
@@ -69,6 +70,7 @@ export class AuthStateService {
 	public setUserData(userData: UserData | null) {
 		this.patchState({ userData });
 		this.likeService.getLikeIds$().subscribe();
+		this._roles.set(this.jwtService.getRolesFromToken());
 	}
 
 	private setLoggedData(token: string, userData: UserData) {

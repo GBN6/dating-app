@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ShellComponent } from './shell/shell.component';
 import { HomeComponent } from './home/home.component';
-import { authenticated, notAuthenticated } from './auth/auth.guards';
+import { authenticated, isAdmin, notAuthenticated } from './auth/auth.guards';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MemberDetailsResolver } from '../modules/members/member-details/member-details.resolver';
@@ -62,7 +62,7 @@ export const routes: Routes = [
 			{
 				path: 'admin',
 				loadComponent: () => import('../modules/admin/admin.component').then((m) => m.AdminComponent),
-				canActivate: [authenticated],
+				canActivate: [isAdmin],
 			},
 			{
 				path: 'not-found',

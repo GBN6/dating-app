@@ -41,7 +41,7 @@ public class AccountController(IUserRepository userRepository, IMapper mapper, U
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         // var user = await userRepository.GetUserByUsernameAsync(loginDto.Username);
-        var user = await userManager.Users.FirstOrDefaultAsync(x => x.NormalizedUserName == loginDto.Username.ToUpper());
+        var user = await userManager.Users.Include(u => u.Photos).FirstOrDefaultAsync(x => x.NormalizedUserName == loginDto.Username.ToUpper());
 
         if (user == null || user.UserName == null) return Unauthorized("Invalid username");
 

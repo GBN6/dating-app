@@ -6,7 +6,7 @@
 	@if (isAuthorized$ | async) {
 		<nav class="navbar__nav">
 			@for (config of navbarConfig; track config) {
-				<app-link [route]="config.route" [label]="config.label" />
+				<app-link [route]="config.route" [label]="config.label" *appHasRole="config.role" />
 			}
 		</nav>
 	}

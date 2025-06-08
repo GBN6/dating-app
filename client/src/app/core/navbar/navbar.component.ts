@@ -7,13 +7,14 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthStateService } from '../auth/auth-state.service';
 import { AsyncPipe } from '@angular/common';
 import { map, tap } from 'rxjs';
+import { HasRoleDirective } from '../../shared/directives/has-role.directive';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-navbar',
 	templateUrl: 'navbar.component.html',
 	styleUrls: ['navbar.component.scss'],
-	imports: [IconComponent, LinkComponent, ButtonComponent, AsyncPipe, RouterLink],
+	imports: [IconComponent, LinkComponent, ButtonComponent, AsyncPipe, RouterLink, HasRoleDirective],
 })
 export class NavbarComponent {
 	private router = inject(Router);

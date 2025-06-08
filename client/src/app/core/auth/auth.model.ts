@@ -42,3 +42,10 @@ export interface RegisterPayload {
 	gender: string | null;
 	password: string;
 }
+
+
+export const enum Role {
+	ADMIN = 'Admin',
+	MEMBER = 'Member',
+	MODERATOR = 'Moderator',
+}
