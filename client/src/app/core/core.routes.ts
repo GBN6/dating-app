@@ -60,6 +60,11 @@ export const routes: Routes = [
 				canActivate: [authenticated],
 			},
 			{
+				path: 'admin',
+				loadComponent: () => import('../modules/admin/admin.component').then((m) => m.AdminComponent),
+				canActivate: [authenticated],
+			},
+			{
 				path: 'not-found',
 				loadComponent: () =>
 					import('../core/errors/not-found/not-found.component').then((m) => m.NotFoundComponent),
