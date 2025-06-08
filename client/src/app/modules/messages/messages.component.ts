@@ -61,9 +61,7 @@ export class MessagesComponent {
 		this.messageService
 			.deleteMessage$(id)
 			.pipe(
-				switchMap(() => {
-					return this.paginatorService.getStateSlice$('data');
-				}),
+				switchMap(() => this.paginatorService.getStateSlice$('data')),
 				tap((data) => {
 					const filteredMessages = data?.filter((message) => message.id !== id);
 					this.paginatorService.patchState({ data: filteredMessages });

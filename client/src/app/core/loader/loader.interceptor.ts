@@ -22,6 +22,9 @@ export function loaderInterceptor(request: HttpRequest<unknown>, next: HttpHandl
 		401: {
 			message: (error: HttpErrorResponse) => 'Unauthorized',
 		},
+		403: {
+			message: (error: HttpErrorResponse) => 'Acces denied. Admin role required.',
+		},
 		404: {
 			message: (error: HttpErrorResponse) => {
 				router.navigateByUrl('/not-found');

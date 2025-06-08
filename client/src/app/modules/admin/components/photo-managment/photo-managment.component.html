@@ -1,0 +1,12 @@
+<div class="photo-managment grid">
+	@for (photo of photos; track photo.id) {
+		<div class="photo-managment__item flex flex--center flex--column gap-1 padding-5">
+			<h4>{{ photo.username }}</h4>
+			<img [src]="photo.url" class="photo-managment__item--img" [alt]="photo.username" />
+			<div class="flex gap-1">
+				<app-button design="secondary" (click)="rejectPhoto(photo.id)">Reject</app-button>
+				<app-button (click)="approvePhoto(photo.id)">Approve</app-button>
+			</div>
+		</div>
+	}
+</div>

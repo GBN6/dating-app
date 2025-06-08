@@ -9,6 +9,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 {
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<Photo> Photos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -31,5 +32,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 
         builder.Entity<Message>().HasOne(source => source.Recipient).WithMany(message => message.MessagesReceived).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Message>().HasOne(source => source.Sender).WithMany(message => message.MessagesSent).OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Photo>().HasQueryFilter(p => p.IsApproved);
     }
 }

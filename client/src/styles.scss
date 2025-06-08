@@ -29,6 +29,26 @@
 			active-indicator-color: var(--secondary-color-600),
 		)
 	);
+
+	@include mat.dialog-overrides(
+		(
+			subhead-size: 1.2rem,
+			subhead-weight: 600,
+			container-color: var(--primary-color-600),
+			subhead-color: var(--secondary-color-300),
+			supporting-text-color: var(--white-color),
+			container-elevation-shadow: 0px 2px 10px var(--secondary-color-600),
+			content-padding: 16px,
+			actions-alignment: center,
+		)
+	);
+
+	@include mat.select-overrides(
+		(
+			panel-background-color: var(--primary-color-400),
+			enabled-trigger-text-color: var(--secondary-color-300),
+		)
+	);
 }
 
 * {

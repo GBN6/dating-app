@@ -1,0 +1,27 @@
+@use '@angular/material' as mat;
+
+.admin-panel {
+	&__tabs {
+		max-width: 100%;
+
+		@include mat.tabs-overrides(
+			(
+				active-indicator-color: var(--secondary-color-400),
+				active-hover-indicator-color: var(--secondary-color-400),
+				active-focus-indicator-color: var(--secondary-color-400),
+				inactive-ripple-color: var(--secondary-color-400),
+				active-indicator-height: 4px,
+				divider-color: var(--primary-color-500),
+				inactive-label-text-color: var(--primary-color-200),
+				label-text-weight: 600,
+			)
+		);
+		border-radius: 10px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.admin-panel {
+		width: 1000px;
+	}
+}

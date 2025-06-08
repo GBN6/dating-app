@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+	<h2 mat-dialog-title>EDIT ROLES</h2>
+	<mat-dialog-content>
+		<p>Select Roles for Member</p>
+		<mat-form-field>
+			<mat-select formControlName="roles" multiple>
+				@for (role of roles; track role) {
+					<mat-option [disabled]="role === 'Admin' && data.username === 'admin'" [value]="role">{{
+						role
+					}}</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+	</mat-dialog-content>
+	<mat-dialog-actions>
+		<div class="flex gap-1">
+			<app-button design="secondary" (buttonClick)="onNoClick()"><p>Close</p></app-button>
+			<app-button type="submit"><p>Accept</p></app-button>
+		</div>
+	</mat-dialog-actions>
+</form>

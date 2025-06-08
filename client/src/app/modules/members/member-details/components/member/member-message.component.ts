@@ -5,7 +5,7 @@ import { defer } from 'rxjs';
 import { IconComponent } from '../../../../../shared/components/icons/icon.component';
 import { TimeagoModule } from 'ngx-timeago';
 import { FieldTextComponent } from '../../../../../shared/controls/field-text/field-text.component';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormSubmitDirective } from '../../../../../shared/controls/directives/form-submit.directive';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 
@@ -32,10 +32,10 @@ export class MemberMessageComponent {
 
 	public getMessageThread$ = defer(() => this.messageService.getMessageThread$(this.username()));
 
-	public form: FormGroup<any> = this.buildForm();
+	public form: FormGroup<{ message: FormControl<string> }> = this.buildForm();
 
-	private buildForm(): FormGroup<any> {
-		return this.fb.group<any>({
+	private buildForm(): FormGroup<{ message: FormControl<string> }> {
+		return this.fb.group<{ message: FormControl<string> }>({
 			message: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(500)] }),
 		});
 	}

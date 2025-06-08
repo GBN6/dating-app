@@ -1,0 +1,18 @@
+.photo-managment {
+	padding: 16px;
+	&__item {
+		background-color: var(--primary-color-500);
+		border-radius: 10px;
+
+		&--img {
+			padding: 5px;
+			border: 1px solid var(--primary-color-400);
+		}
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.photo-managment {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
+}

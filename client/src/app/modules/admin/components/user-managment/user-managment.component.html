@@ -1,0 +1,7 @@
+<div class="messages padding-3">
+	<app-paginator [request]="usersRolesRequest" [isTable]="true" [tableColumns]="columns" emptyText="No messages">
+		<ng-template appTableCell column="actions" let-element="element">
+			<app-button (click)="openDialog(element.username, element.roles)"><p>Edit roles</p></app-button>
+		</ng-template>
+	</app-paginator>
+</div>

@@ -41,18 +41,31 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
     {
         return await context.Users.FindAsync(id);
     }
+
+    public async Task<AppUser?> GetUserByPhotoId(int photoId)
+    {
+        return await context.Users
+            .Include(p => p.Photos)
+            .IgnoreQueryFilters()
+            .Where(p => p.Photos.Any(p => p.Id == photoId))
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<AppUser?> GetUserByUsernameAsync(string username)
     {
         return await context.Users.Include(x => x.Photos).SingleOrDefaultAsync(x => x.UserName == username);
     }
+
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
         return await context.Users.Include(x => x.Photos).ToListAsync();
     }
+
     public async Task<bool> SaveAllasync()
     {
         return await context.SaveChangesAsync() > 0;
     }
+    
     public void Update(AppUser user)
     {
         context.Entry(user).State = EntityState.Modified;
