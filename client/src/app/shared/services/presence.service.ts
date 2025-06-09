@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { AuthApi } from '../../core/auth/auth.model';
@@ -12,6 +12,10 @@ export class PresenceService {
 
 	private readonly HUBS_URL = environment.HUBS_URL;
 	private readonly MESSAGE_DURATION = 1000;
+
+	private readonly _onlineUsers = signal<string[]>([]);
+
+	public onlineUsers = this._onlineUsers.asReadonly()
 
 	private hubConnection?: HubConnection;
 
@@ -32,6 +36,8 @@ export class PresenceService {
 		this.hubConnection.on('UserIsOffline', (username) =>
 			this.snackBarMeesage(`${username} is offline`, 'snack-bar--error')
 		);
+
+        this.hubConnection.on('GetOnlineUsers', usernames => this._onlineUsers.set(usernames));
 	}
 
 	public stopHubConnection() {

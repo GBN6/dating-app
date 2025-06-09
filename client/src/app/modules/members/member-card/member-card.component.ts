@@ -5,6 +5,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { IconComponent } from '../../../shared/components/icons/icon.component';
 import { RouterLink } from '@angular/router';
 import { LikesService } from '../../../shared/services/likes.service';
+import { PresenceService } from '../../../shared/services/presence.service';
 
 @Component({
 	selector: 'app-member-card',
@@ -16,6 +17,9 @@ import { LikesService } from '../../../shared/services/likes.service';
 export class MemberCardComponent {
 	public member = input.required<Member>();
 	private readonly likesService = inject(LikesService);
+	private readonly presenceService = inject(PresenceService);
+
+	public isOnline = computed(() => this.presenceService.onlineUsers().includes(this.member().username));
 
 	public hasLiked = computed(() => this.likesService.likeIds().includes(this.member().id));
 

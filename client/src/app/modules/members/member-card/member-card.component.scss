@@ -33,4 +33,23 @@
 	& mat-card-content {
 		margin-top: 16px;
 	}
+
+	& mat-card-actions {
+		& .online-icon {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background-color: var(--green-color);
+			animation: fa-blink 1.5s linear infinite;
+		}
+	}
+}
+
+@keyframes fa-blink {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.4;
+	}
 }

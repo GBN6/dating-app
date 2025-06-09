@@ -3,6 +3,11 @@
 		<mat-card class="member-details__card" appearance="outlined">
 			<img mat-card-xl-image [src]="member.photoUrl || '/user.png'" [alt]="member.knownAs" />
 			<mat-card-content class="grid member-details__card__description">
+				@if (isOnline(member.username)) {
+					<div>
+						<p class="bold secondary-color-400">Online now</p>
+					</div>
+				}
 				<div>
 					<p class="bold">Location:</p>
 					<p>{{ member.city }}, {{ member.country }}</p>

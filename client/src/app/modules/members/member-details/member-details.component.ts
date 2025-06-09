@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TimeagoModule } from 'ngx-timeago';
 import { MemberMessageComponent } from './components/member/member-message.component';
 import { LikesService } from '../../../shared/services/likes.service';
+import { PresenceService } from '../../../shared/services/presence.service';
 
 @Component({
 	selector: 'app-member-details',
@@ -35,6 +36,7 @@ import { LikesService } from '../../../shared/services/likes.service';
 export class MemberDetailsComponent {
 	private readonly route = inject(ActivatedRoute);
 	private readonly likesService = inject(LikesService);
+	private readonly presenceService = inject(PresenceService);
 
 	public hasLiked$ = this.route.data.pipe(
 		map(({ member }) => computed(() => this.likesService.likeIds().includes(member.id)))
@@ -46,5 +48,9 @@ export class MemberDetailsComponent {
 
 	public toggleLike(memberId: number) {
 		this.likesService.toggleLike$(memberId).subscribe();
+	}
+
+	public isOnline(username: string) {
+		return computed(() => this.presenceService.onlineUsers().includes(username))()
 	}
 }

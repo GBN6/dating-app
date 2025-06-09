@@ -7,8 +7,8 @@
 				<app-icon icon="person" [size]="2" />
 			}
 		</div>
-		<mat-card-title>{{ member().firstName }} {{ member().lastName }}, {{ member().age }}</mat-card-title>
-		<mat-card-subtitle>Known as {{ member().knownAs }}</mat-card-subtitle>
+		<mat-card-title>{{ member().firstName }} {{ member().lastName }}, {{ member().age }} </mat-card-title>
+		<mat-card-subtitle>Known as {{ member().knownAs }} </mat-card-subtitle>
 	</mat-card-header>
 	<img mat-card-image [src]="member().photoUrl || '/user.png'" alt="main photo of member" />
 	<mat-card-content class="text-center">
@@ -24,5 +24,8 @@
 		<app-button routerLink="/members/{{ member().username }}" [queryParams]="{ tab: 3 }" design="tertiary"
 			><app-icon icon="mail"
 		/></app-button>
+		@if (isOnline()) {
+			<div class="online-icon"></div>
+		}
 	</mat-card-actions>
 </mat-card>
