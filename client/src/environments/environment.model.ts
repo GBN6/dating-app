@@ -1,4 +1,5 @@
 export interface Environment {
 	API_URL: string;
-    production: boolean
+	HUBS_URL: string;
+	production: boolean;
 }

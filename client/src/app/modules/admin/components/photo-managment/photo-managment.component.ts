@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Photo } from '../../../members/members.model';
 import { AdminService } from '../../admin.service';
 import { tap } from 'rxjs';
@@ -13,8 +13,9 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 })
 export class PhotoManagementComponent implements OnInit {
 	private readonly adminService = inject(AdminService);
+	
 
-	public photos: Photo[] = [];
+	public photos = signal<Photo[]>([]);
 
 	ngOnInit(): void {
 		this.getPhotosForApproval$();
@@ -23,35 +24,21 @@ export class PhotoManagementComponent implements OnInit {
 	private getPhotosForApproval$() {
 		this.adminService
 			.getPhotosForApproval$()
-			.pipe(tap((result) => (this.photos = result)))
+			.pipe(tap((result) => this.photos.set(result)))
 			.subscribe();
 	}
 
 	public approvePhoto(photoId: number) {
 		this.adminService
 			.approvePhoto$(photoId)
-			.pipe(
-				tap(() =>
-					this.photos.splice(
-						this.photos.findIndex((p) => p.id === photoId),
-						1
-					)
-				)
-			)
+			.pipe(tap(() => this.photos.update((photos) => photos.filter((photo) => photo.id !== photoId))))
 			.subscribe();
 	}
 
 	public rejectPhoto(photoId: number) {
 		this.adminService
 			.rejectPhoto$(photoId)
-			.pipe(
-				tap(() =>
-					this.photos.splice(
-						this.photos.findIndex((p) => p.id === photoId),
-						1
-					)
-				)
-			)
+			.pipe(tap(() => this.photos.update((photos) => photos.filter((photo) => photo.id !== photoId))))
 			.subscribe();
 	}
 }

@@ -33,7 +33,4 @@ export class LikesService {
 	public getLikeIds$(): Observable<number[]> {
 		return this.http.get<number[]>(`${this.API_URL}/likes/list`).pipe(tap((likes) => this._likeIds.set(likes)));
 	}
-	// public hasLiked(id: number): Signal<boolean> {
-	// 	return computed(() => this._likeIds().includes(id));
-	// }
 }

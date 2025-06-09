@@ -23,7 +23,7 @@ export function loaderInterceptor(request: HttpRequest<unknown>, next: HttpHandl
 			message: (error: HttpErrorResponse) => 'Unauthorized',
 		},
 		403: {
-			message: (error: HttpErrorResponse) => 'Acces denied. Admin role required.',
+			message: (error: HttpErrorResponse) => 'Access denied. Admin role required.',
 		},
 		404: {
 			message: (error: HttpErrorResponse) => {

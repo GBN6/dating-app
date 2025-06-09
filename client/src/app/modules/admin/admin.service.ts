@@ -6,6 +6,7 @@ import { Photo } from '../members/members.model';
 import { Page } from '../../shared/paginator/paginator.model';
 import { Observable } from 'rxjs';
 import { Role } from '../../core/auth/auth.model';
+import { HttpWithSnackbarService } from '../../shared/services/http-with-snackbar.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -13,13 +14,18 @@ import { Role } from '../../core/auth/auth.model';
 export class AdminService {
 	private readonly API_URL = environment.API_URL;
 	private http = inject(HttpClient);
+	private httpWithSnackbar = inject(HttpWithSnackbarService);
 
 	public getUserWithRoles$(params: HttpParams): Observable<Page<UserRoles>> {
 		return this.http.get<Page<UserRoles>>(`${this.API_URL}/admin/users-with-roles`, { params });
 	}
 
 	public updateUserRoles$(username: string, roles: string[]): Observable<Role[]> {
-		return this.http.post<Role[]>(`${this.API_URL}/admin/edit-roles/${username}?roles=${roles}`, {});
+		return this.httpWithSnackbar.post<Role[]>(
+			`${this.API_URL}/admin/edit-roles/${username}?roles=${roles}`,
+			'Roles updated',
+			{}
+		);
 	}
 
 	public getPhotosForApproval$() {
@@ -27,10 +33,10 @@ export class AdminService {
 	}
 
 	public approvePhoto$(photoId: number) {
-		return this.http.post(`${this.API_URL}/admin/approve-photo/${photoId}`, {});
+		return this.httpWithSnackbar.post(`${this.API_URL}/admin/approve-photo/${photoId}`, 'Photo aproved', {});
 	}
 
 	public rejectPhoto$(photoId: number) {
-		return this.http.post(`${this.API_URL}/admin/approve-photo/${photoId}`, {});
+		return this.httpWithSnackbar.post(`${this.API_URL}/admin/approve-photo/${photoId}`, 'Photo rejected', {});
 	}
 }

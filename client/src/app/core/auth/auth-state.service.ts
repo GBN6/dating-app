@@ -5,6 +5,7 @@ import { AuthState, LoginPayload, RegisterPayload, UserData } from './auth.model
 import { AuthApiService } from './auth-api.service';
 import { JwtService } from './jwt/jwt.service';
 import { LikesService } from '../../shared/services/likes.service';
+import { PresenceService } from '../../shared/services/presence.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStateService {
@@ -12,9 +13,10 @@ export class AuthStateService {
 		return inject(USER_DATA).pipe(map((userData) => Boolean(userData)));
 	}
 
-	private authApiService = inject(AuthApiService);
-	private jwtService = inject(JwtService);
-	private likeService = inject(LikesService);
+	private readonly authApiService = inject(AuthApiService);
+	private readonly jwtService = inject(JwtService);
+	private readonly likeService = inject(LikesService);
+	private readonly presenceService = inject(PresenceService);
 
 	private _isLoggedIn = signal(false);
 	private _roles = signal<string[] | null>(null);
@@ -26,10 +28,6 @@ export class AuthStateService {
 	public isLoggedIn = this._isLoggedIn.asReadonly();
 	public roles = this._roles.asReadonly();
 	public userData$ = this._authState$.asObservable();
-
-	// public getUserData$(): Observable<AuthState> {
-	// 	return this._authState$.asObservable();
-	// }
 
 	public getUserDataValue(): UserData | null {
 		return this._authState$.value.userData;
@@ -52,6 +50,7 @@ export class AuthStateService {
 			tap(() => {
 				this.setUserData(null);
 				this.jwtService.removeToken();
+				this.presenceService.stopHubConnection();
 				this._isLoggedIn.set(false);
 			})
 		);
@@ -64,6 +63,7 @@ export class AuthStateService {
 				.getUserData()
 				.pipe(tap((user) => this.setUserData(user)))
 				.subscribe();
+			this.presenceService.createHubConnection(this.jwtService.token!);
 		}
 	}
 
@@ -76,6 +76,7 @@ export class AuthStateService {
 	private setLoggedData(token: string, userData: UserData) {
 		this.jwtService.saveToken(token);
 		this.setUserData(userData);
+		this.presenceService.createHubConnection(token);
 	}
 
 	private patchState(stateSlice: Partial<AuthState>) {
