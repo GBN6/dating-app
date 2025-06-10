@@ -2,9 +2,19 @@
 	<div class="card__body">
 		@if (messages().length) {
 			@for (message of messages(); track message.id) {
-				<div class="card__body--chat flex flex--justify-between">
+				<div
+					[style.flex-direction]="message.senderUsername == username() ? 'row' : 'row-reverse'"
+					class="card__body--chat flex gap-1">
+					@if (message.senderUsername == username()) {
+						<img
+							class="card__body--chat__image"
+							[src]="message.senderPhotoUrl || '/user.png'"
+							alt="Image of message sender" />
+					}
 					<div class="flex flex--column">
-						<div class="flex">
+						<div
+							class="flex"
+							[style.justify-content]="message.senderUsername == username() ? 'flex-start' : 'flex-end'">
 							<app-icon class="margin-right-1" icon="timer"></app-icon>
 							<p class="card__body--chat__time">
 								<span> {{ message.messageSent | timeago }}</span>
@@ -18,10 +28,6 @@
 						</div>
 						<p>{{ message.content }}</p>
 					</div>
-					<img
-						class="card__body--chat__image"
-						[src]="message.senderPhotoUrl || '/user.png'"
-						alt="Image of message sender" />
 				</div>
 			}
 		} @else {
