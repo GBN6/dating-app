@@ -1,7 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
-import { AuthApi } from '../../core/auth/auth.model';
+import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
@@ -24,6 +23,7 @@ export class PresenceService {
 			.withUrl(`${this.HUBS_URL}/presence`, {
 				accessTokenFactory: () => token,
 			})
+			.configureLogging(LogLevel.None)
 			.withAutomaticReconnect()
 			.build();
 

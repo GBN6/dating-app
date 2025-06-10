@@ -5,7 +5,7 @@ import { HttpWithSnackbarService } from '../../shared/services/http-with-snackba
 import { Observable } from 'rxjs';
 import { Page } from '../../shared/paginator/paginator.model';
 import { Message } from './messages.model';
-import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
 import { UserData } from '../../core/auth/auth.model';
 
 @Injectable({
@@ -29,6 +29,7 @@ export class MessagesService {
 			.withUrl(`${this.HUBS_URL}/message?user=${otherUserName}`, {
 				accessTokenFactory: () => token,
 			})
+			.configureLogging(LogLevel.None)
 			.withAutomaticReconnect()
 			.build();
 
