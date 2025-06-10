@@ -46,7 +46,7 @@ export class MemberMessageComponent implements OnInit, OnDestroy {
 
 	private buildForm(): FormGroup<{ message: FormControl<string> }> {
 		return this.fb.group<{ message: FormControl<string> }>({
-			message: this.fb.control<string>('', { validators: [Validators.required, Validators.maxLength(500)] }),
+			message: this.fb.control<string>('', { validators: [Validators.maxLength(500)] }),
 		});
 	}
 
@@ -54,7 +54,7 @@ export class MemberMessageComponent implements OnInit, OnDestroy {
 		if (this.form.invalid) return;
 
 		const updatePayLoad = this.form.getRawValue();
-		this.messageService.sendMessage$(this.username(), updatePayLoad.message).subscribe();
+		this.messageService.sendMessage(this.username(), updatePayLoad.message).then(() => this.form.reset());
 	}
 
 	ngOnDestroy(): void {

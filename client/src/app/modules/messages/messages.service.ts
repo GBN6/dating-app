@@ -39,6 +39,8 @@ export class MessagesService {
 		this.hubConnection.on('ReceiveMessageThread', (messages) => {
 			this._messages.set(messages);
 		});
+
+		this.hubConnection.on('NewMessage', (message) => this._messages.update((messages) => [...messages, message]));
 	}
 
 	public stopHubConnection() {
@@ -59,7 +61,7 @@ export class MessagesService {
 		return this.httpClient.get<Message[]>(`${this.API_URL}/messages/thread/${username}`);
 	}
 
-	public sendMessage$(username: string, content: string): Observable<Message> {
-		return this.httpClient.post<Message>(`${this.API_URL}/messages`, { recipientUsername: username, content });
+	public async sendMessage(username: string, content: string): Promise<any> {
+		return this.hubConnection?.invoke('SendMessage', { recipientUsername: username, content });
 	}
 }
