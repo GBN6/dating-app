@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { MessagesService } from '../../../../messages/messages.service';
-import { AsyncPipe } from '@angular/common';
-import { defer } from 'rxjs';
 import { IconComponent } from '../../../../../shared/components/icons/icon.component';
 import { TimeagoModule } from 'ngx-timeago';
 import { FieldTextComponent } from '../../../../../shared/controls/field-text/field-text.component';
@@ -17,7 +15,6 @@ import { JwtService } from '../../../../../core/auth/jwt/jwt.service';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
-		AsyncPipe,
 		IconComponent,
 		TimeagoModule,
 		FieldTextComponent,

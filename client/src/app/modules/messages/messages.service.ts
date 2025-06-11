@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpWithSnackbarService } from '../../shared/services/http-with-snackbar.service';
 import { Observable } from 'rxjs';
 import { Page } from '../../shared/paginator/paginator.model';
-import { Message } from './messages.model';
+import { Group, Message } from './messages.model';
 import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
 import { UserData } from '../../core/auth/auth.model';
 
@@ -42,6 +42,19 @@ export class MessagesService {
 		});
 
 		this.hubConnection.on('NewMessage', (message) => this._messages.update((messages) => [...messages, message]));
+
+		this.hubConnection.on('UpdatedGroup', (group: Group) => {
+			if (group.connections.some((connection) => connection.username === otherUserName)) {
+				this._messages.update((messages) => {
+					messages.forEach((message) => {
+						if (message.dateRead) {
+							message.dateRead = new Date(Date.now());
+						}
+					});
+					return messages;
+				});
+			}
+		});
 	}
 
 	public stopHubConnection() {
