@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace API.Controllers;
 
-public class AccountController(IUserRepository userRepository, IMapper mapper, UserManager<AppUser> userManager, ITokenService tokenService) : BaseApiController
+public class AccountController(IMapper mapper, UserManager<AppUser> userManager, ITokenService tokenService) : BaseApiController
 {
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)

@@ -60,11 +60,6 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
     {
         return await context.Users.Include(x => x.Photos).ToListAsync();
     }
-
-    public async Task<bool> SaveAllasync()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
     
     public void Update(AppUser user)
     {

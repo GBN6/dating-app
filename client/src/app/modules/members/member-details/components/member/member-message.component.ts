@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnDestroy, OnInit } from '@angular/core';
+import {
+	AfterViewChecked,
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	input,
+	OnDestroy,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
 import { MessagesService } from '../../../../messages/messages.service';
 import { IconComponent } from '../../../../../shared/components/icons/icon.component';
 import { TimeagoModule } from 'ngx-timeago';
@@ -23,8 +32,11 @@ import { JwtService } from '../../../../../core/auth/jwt/jwt.service';
 		ButtonComponent,
 	],
 })
-export class MemberMessageComponent implements OnInit, OnDestroy {
+export class MemberMessageComponent implements OnInit, AfterViewChecked, OnDestroy {
 	public username = input.required<string>();
+
+	@ViewChild('scrollMe') scrollContainer?: any;
+
 	private readonly messageService = inject(MessagesService);
 	private readonly fb = inject(NonNullableFormBuilder);
 	private readonly jwtService = inject(JwtService);
@@ -52,6 +64,16 @@ export class MemberMessageComponent implements OnInit, OnDestroy {
 
 		const updatePayLoad = this.form.getRawValue();
 		this.messageService.sendMessage(this.username(), updatePayLoad.message).then(() => this.form.reset());
+	}
+
+	ngAfterViewChecked(): void {
+		this.scrollToBottom();
+	}
+
+	private scrollToBottom() {
+		if (this.scrollContainer) {
+			this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+		}
 	}
 
 	ngOnDestroy(): void {

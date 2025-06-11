@@ -15,13 +15,13 @@ using Microsoft.CodeAnalysis;
 namespace API.Controllers;
 
 [Authorize]
-public class UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService, IUnitOfWork unitOfWork) : BaseApiController
+public class UsersController(IMapper mapper, IPhotoService photoService, IUnitOfWork unitOfWork) : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<PagedResponse<IEnumerable<MemberDto>>>> GetUsers([FromQuery] UserParams userParams)
     {
         userParams.CurrentUserName = User.GetUserName();
-        var users = await userRepository.GetMembersAsync(userParams);
+        var users = await unitOfWork.UserRepository.GetMembersAsync(userParams);
 
         var pagination = PaginationHelper.GetPaginationMeta(users);
 
@@ -42,7 +42,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
         if (string.IsNullOrEmpty(username))
             return Unauthorized("Invalid token or username not found");
 
-        var user = await userRepository.GetMemberAsync(username);
+        var user = await unitOfWork.UserRepository.GetMemberAsync(username);
 
 
         if (user == null) return NotFound("User not found");
@@ -53,7 +53,7 @@ public class UsersController(IUserRepository userRepository, IMapper mapper, IPh
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUser2(string username)
     {
-        var user = await userRepository.GetMemberAsync(username);
+        var user = await unitOfWork.UserRepository.GetMemberAsync(username);
         if (user == null) return NotFound();
 
         return user;
