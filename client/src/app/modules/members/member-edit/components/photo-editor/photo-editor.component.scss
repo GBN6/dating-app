@@ -6,6 +6,24 @@
 
 	&__photo {
 		width: 150px;
+		position: relative;
+
+		&--aprove {
+			color: var(--secondary-color-400);
+			font-weight: 700;
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin-left: auto;
+			margin-right: auto;
+			bottom: 30%;
+			text-align: center;
+			word-wrap: break-word;
+			white-space: normal;
+			width: 100%;
+			padding: 0 10px;
+			box-sizing: border-box;
+		}
 
 		&--img {
 			border: 1px solid var(--primary-color-200);
@@ -47,6 +65,10 @@
 			)
 		);
 	}
+}
+
+.not-approved {
+	opacity: 0.2;
 }
 
 @media (min-width: 1400px) {

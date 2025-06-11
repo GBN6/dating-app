@@ -1,11 +1,20 @@
 <div class="grid editor">
 	@for (photo of member().photos; track photo.id) {
 		<div class="editor__photo">
-			<img class="editor__photo--img" [src]="photo.url" alt="photo of user" />
+			<img
+				class="editor__photo--img"
+				[class.not-approved]="!photo.isApproved"
+				[src]="photo.url"
+				alt="photo of user" />
+			@if (!photo.isApproved) {
+				<div class="text-center editor__photo--aprove">
+					<span class="text-danger">Awaiting approval</span>
+				</div>
+			}
 			<div class="editor__photo--buttons flex flex--center gap-1">
 				<app-button
 					[design]="photo.isMain ? 'primary' : 'tertiary'"
-					[disabled]="photo.isMain"
+					[disabled]="photo.isMain || !photo.isApproved"
 					(buttonClick)="setMainPhoto(photo)"
 					>Main</app-button
 				>

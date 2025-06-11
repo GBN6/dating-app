@@ -23,4 +23,5 @@ export interface Photo {
 	url: string;
 	isMain: boolean;
 	username: string;
+	isApproved: boolean
 }

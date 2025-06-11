@@ -42,7 +42,7 @@ public class UsersController(IMapper mapper, IPhotoService photoService, IUnitOf
         if (string.IsNullOrEmpty(username))
             return Unauthorized("Invalid token or username not found");
 
-        var user = await unitOfWork.UserRepository.GetMemberAsync(username);
+        var user = await unitOfWork.UserRepository.GetMemberAsync(username, true);
 
 
         if (user == null) return NotFound("User not found");
@@ -53,7 +53,8 @@ public class UsersController(IMapper mapper, IPhotoService photoService, IUnitOf
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUser2(string username)
     {
-        var user = await unitOfWork.UserRepository.GetMemberAsync(username);
+        var currentUsername = User.GetUserName();
+        var user = await unitOfWork.UserRepository.GetMemberAsync(username, isCurrentUser: currentUsername == username);
         if (user == null) return NotFound();
 
         return user;

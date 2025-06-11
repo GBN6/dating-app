@@ -37,6 +37,6 @@ export class AdminService {
 	}
 
 	public rejectPhoto$(photoId: number) {
-		return this.httpWithSnackbar.post(`${this.API_URL}/admin/approve-photo/${photoId}`, 'Photo rejected', {});
+		return this.httpWithSnackbar.post(`${this.API_URL}/admin/reject-photo/${photoId}`, 'Photo rejected', {});
 	}
 }

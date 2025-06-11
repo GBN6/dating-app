@@ -68,7 +68,6 @@ export class PhotoEditorComponent {
 						if (currentPhoto.id === photo.id) currentPhoto.isMain = true;
 					});
 					this.authStatService.setUserData(updatedMember);
-					// this.memberService.updateCachedMembers(updatedMember);
 				})
 			)
 			.subscribe();
@@ -100,13 +99,6 @@ export class PhotoEditorComponent {
 				updatedMember.photoUrl = photo.url;
 			}
 			this.authStatService.setUserData(updatedMember);
-			// 	updatedMember.photoUrl = photo.url;
-			// 	updatedMember.photos.forEach((p) => {
-			// 		if (p.isMain) p.isMain = false;
-			// 		if (p.id === photo.id) p.isMain = true;
-			// 	});
-			// 	this.memberChange.emit(updatedMember);
-			// }
 		};
 	}
 
