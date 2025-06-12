@@ -6,10 +6,9 @@ import { Role } from './auth.model';
 
 export const authenticated: CanActivateFn = (route, state) => {
 	const router = inject(Router);
+	const authStateService = inject(AuthStateService);
 
-	return AuthStateService.useIsAuthorized$().pipe(
-		tap((isAuthorized) => (isAuthorized ? true : router.navigateByUrl('/')))
-	);
+	return authStateService.isLoggedIn() ? true : router.navigateByUrl('/');
 };
 
 export const notAuthenticated: CanActivateFn = (route, state) => {
