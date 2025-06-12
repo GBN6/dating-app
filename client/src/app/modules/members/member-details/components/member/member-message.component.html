@@ -43,9 +43,13 @@
 			type="text"
 			formControlName="message"
 			[placeholder]="'Send a message to ' + username()" />
-		<app-button type="submit" [disabled]="form.invalid || !form.value.message">
-			<app-icon icon="send"></app-icon>
-			<p>SEND</p>
-		</app-button>
+		@if (isLoading()) {
+			<mat-spinner diameter="40" />
+		} @else {
+			<app-button type="submit" [disabled]="form.invalid || !form.value.message">
+				<app-icon icon="send"></app-icon>
+				<p>SEND</p>
+			</app-button>
+		}
 	</form>
 </div>

@@ -16,7 +16,6 @@ import { MembersListFiltersComponent } from './components/members-list-filters.c
 })
 export class MembersListComponent {
 	private readonly membersService = inject(MembersService);
-	// public members$: Observable<Member[]> = this.membersService.getMembers$(this.pageNumber, this.pageSize);
 
 	get membersRequest() {
 		return this.membersService.getMembers$.bind(this.membersService);

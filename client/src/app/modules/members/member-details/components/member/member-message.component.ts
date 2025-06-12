@@ -6,6 +6,7 @@ import {
 	input,
 	OnDestroy,
 	OnInit,
+	signal,
 	ViewChild,
 } from '@angular/core';
 import { MessagesService } from '../../../../messages/messages.service';
@@ -16,6 +17,7 @@ import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Va
 import { FormSubmitDirective } from '../../../../../shared/controls/directives/form-submit.directive';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { JwtService } from '../../../../../core/auth/jwt/jwt.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
 	selector: 'app-member-message',
@@ -30,6 +32,7 @@ import { JwtService } from '../../../../../core/auth/jwt/jwt.service';
 		ReactiveFormsModule,
 		FormSubmitDirective,
 		ButtonComponent,
+		MatProgressSpinnerModule,
 	],
 })
 export class MemberMessageComponent implements OnInit, AfterViewChecked, OnDestroy {
@@ -42,6 +45,7 @@ export class MemberMessageComponent implements OnInit, AfterViewChecked, OnDestr
 	private readonly jwtService = inject(JwtService);
 
 	public messages = this.messageService.messages;
+	public isLoading = signal<boolean>(false);
 
 	public form: FormGroup<{ message: FormControl<string> }> = this.buildForm();
 
@@ -63,7 +67,11 @@ export class MemberMessageComponent implements OnInit, AfterViewChecked, OnDestr
 		if (this.form.invalid) return;
 
 		const updatePayLoad = this.form.getRawValue();
-		this.messageService.sendMessage(this.username(), updatePayLoad.message).then(() => this.form.reset());
+		this.isLoading.set(true);
+		this.messageService
+			.sendMessage(this.username(), updatePayLoad.message)
+			.then(() => this.form.reset())
+			.finally(() => this.isLoading.set(false));
 	}
 
 	ngAfterViewChecked(): void {
