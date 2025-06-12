@@ -1,14 +1,14 @@
-<div class="home grid">
+<div class="home grid gap-2">
 	<div class="home__headline">
-		<h1>Find your match</h1>
-		<p>Come on in to view your matches... all you need to do is sign up!</p>
-		<img src="/lading_photo.svg" alt="ladning photo" />
+		<h1 class="home__headline--header">Find your match</h1>
+		<p class="home__headline--subheader">Come on in to view your matches... all you need to do is sign up!</p>
+		<div class="home__headline--buttons flex flex--center gap-2 margin-top-5">
+			@if (isAuthorized$ | async) {
+				<app-button (buttonClick)="goToMemebers()"><p class="bold">MACTHES</p></app-button>
+			} @else {
+				<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
+			}
+		</div>
 	</div>
-	<div class="flex flex--center gap-2">
-		@if (isAuthorized$ | async) {
-			<app-button (buttonClick)="goToMemebers()"><p class="bold">Matches</p></app-button>
-		} @else {
-			<app-button (buttonClick)="goToRegister()"><p class="bold">REGISTER</p></app-button>
-		}
-	</div>
+	<img class="flex" src="/lading_photo.svg" alt="ladning photo" />
 </div>

@@ -36,7 +36,6 @@ export class JwtService {
 
 	public isTokenValid(): boolean {
 		if (this._token) return !this.isTokenExpired();
-		console.log;
 
 		return false;
 	}
@@ -44,7 +43,6 @@ export class JwtService {
 	public getRolesFromToken(): string[] | null {
 		if (this.isTokenValid()) {
 			const role = this._decodedToken!.role;
-			console.log('role', role);
 			return Array.isArray(role) ? role : [role];
 		}
 		return null;

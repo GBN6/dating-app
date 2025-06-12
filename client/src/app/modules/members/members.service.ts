@@ -21,7 +21,6 @@ export class MembersService {
 
 	public getMember$(username: string): Observable<Member> {
 		const user = this._members().find((member) => member.username === username);
-		console.log(user);
 		if (user) return of(user);
 		return this.httpClient.get<Member>(`${this.API_URL}/users/${username}`);
 	}

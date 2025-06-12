@@ -52,13 +52,10 @@ export class PaginatorComponent<T, F> implements OnInit {
 	ngOnInit() {
 		this.paginatorService.initializePaginator(this.request);
 		this.updateColumns();
-		console.log(this.contentColumns);
-		console.log(this.tableColumns);
 	}
 
 	ngAfterContentInit() {
 		this.initCellTemplates();
-		console.log(this.cellTemplates.actions);
 	}
 
 	public handlePageChange({ pageIndex, pageSize }: PageEvent): void {
@@ -74,7 +71,6 @@ export class PaginatorComponent<T, F> implements OnInit {
 	private updateColumns(): void {
 		this.columnNames = this.tableColumns.map((column) => column.name);
 		this.colActions = this.tableColumns.find((column) => column.name === FunctionlColumn.actions);
-		console.log('xd ?');
 		this.contentColumns = this.tableColumns.filter((column) => column.name !== FunctionlColumn.actions);
 	}
 

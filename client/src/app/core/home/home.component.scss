@@ -1,5 +1,37 @@
 .home {
 	&__headline {
 		text-align: center;
+
+		&--header {
+			font-size: 5rem;
+		}
+
+		&--subheader {
+			font-size: 2rem;
+		}
+	}
+
+	& img {
+		width: 100%;
+		height: auto;
+		display: block;
+		margin: 16px auto;
+		padding: 16px;
+	}
+}
+
+@media screen and (min-width: 1320px) {
+	.home {
+		grid-template-columns: 600px 1fr;
+
+		&__headline {
+			align-content: center;
+
+			&--buttons {
+				& p {
+					font-size: 2rem;
+				}
+			}
+		}
 	}
 }

@@ -77,7 +77,6 @@ export class RegisterComponent implements OnInit {
 	public handleSubmit(): void {
 		if (this.form.invalid) return;
 		const { confirmPassword, ...registerData } = this.form.getRawValue();
-		console.log(registerData);
 
 		this.authStateService
 			.register(registerData)

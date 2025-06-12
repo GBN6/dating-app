@@ -52,11 +52,6 @@ export class MessagesComponent {
 		return this.messageService.getMessages$.bind(this.messageService);
 	}
 
-	doSomething(element: any) {
-		// Implement your action here
-		console.log('Action performed on:', element);
-	}
-
 	public deleteMessage(id: number) {
 		this.messageService
 			.deleteMessage$(id)
@@ -71,8 +66,6 @@ export class MessagesComponent {
 	}
 
 	public goToMessage(outbox: boolean | null, message: Message) {
-		// if (this.container === 'Outbox') return `/members/${message.recipientUsername}`;
-		// else return `/members/${message.senderUsername}`;
 		const route = outbox ? `/members/${message.recipientUsername}` : `/members/${message.senderUsername}`;
 		this.router.navigate([route], { queryParams: { tab: 3 } });
 	}

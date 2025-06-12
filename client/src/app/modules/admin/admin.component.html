@@ -2,9 +2,12 @@
 	<h1>Admin Panel</h1>
 	<div class="admin-panel__tabs">
 		<mat-tab-group>
-			<mat-tab label="User managment">
-				<ng-template matTabContent> <app-user-managment /> </ng-template>
-			</mat-tab>
+			@if (isAdmin()) {
+				<mat-tab label="User managment">
+					<ng-template matTabContent> <app-user-managment /> </ng-template>
+				</mat-tab>
+			}
+
 			<mat-tab label="Photo Managment">
 				<ng-template matTabContent> <app-photo-management /> </ng-template>
 			</mat-tab>
