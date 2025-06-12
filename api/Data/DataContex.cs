@@ -30,7 +30,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
         builder.Entity<UserLike>().HasKey(key => new { key.SourceUserId, key.TargetUserId });
 
         builder.Entity<UserLike>().HasOne(source => source.SourceUser).WithMany(like => like.LikedUsers).HasForeignKey(source => source.SourceUserId).OnDelete(DeleteBehavior.Cascade);
-        builder.Entity<UserLike>().HasOne(source => source.TargetUser).WithMany(like => like.LikedByUsers).HasForeignKey(source => source.TargetUserId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<UserLike>().HasOne(source => source.TargetUser).WithMany(like => like.LikedByUsers).HasForeignKey(source => source.TargetUserId).OnDelete(DeleteBehavior.NoAction);
 
         builder.Entity<Message>().HasOne(source => source.Recipient).WithMany(message => message.MessagesReceived).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<Message>().HasOne(source => source.Sender).WithMany(message => message.MessagesSent).OnDelete(DeleteBehavior.Restrict);

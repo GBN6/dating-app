@@ -1,0 +1,1 @@
+import{X as t,ua as i}from"./chunk-U7UGUVDU.js";var e=class a{state={isLoading:i(!1)};isLoading=this.state.isLoading.asReadonly();setIsLoading(o){this.state.isLoading.set(o)}static \u0275fac=function(n){return new(n||a)};static \u0275prov=t({token:a,factory:a.\u0275fac,providedIn:"root"})};export{e as a};

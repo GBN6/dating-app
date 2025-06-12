@@ -74,6 +74,7 @@ export class AuthStateService {
 	}
 
 	private setLoggedData(token: string, userData: UserData) {
+		this._isLoggedIn.set(true);
 		this.jwtService.saveToken(token);
 		this.setUserData(userData);
 		this.presenceService.createHubConnection(token);
